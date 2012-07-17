@@ -63,7 +63,7 @@ public class TouchPluginTest extends AbstractShellTest
    }
 
    @Test
-   public void shouldCreateNewFileWithContents() throws Exception
+   public void shouldCreateaNewFileWithContents() throws Exception
    {
       String filename = "test2.txt";
       String contents = "foo bar baz";

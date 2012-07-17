@@ -32,7 +32,11 @@ import javax.inject.Inject;
 import org.eclipse.jgit.api.CherryPickResult;
 import org.eclipse.jgit.api.CherryPickResult.CherryPickStatus;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.CheckoutConflictException;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.InvalidRefNameException;
+import org.eclipse.jgit.api.errors.RefAlreadyExistsException;
+import org.eclipse.jgit.api.errors.RefNotFoundException;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.jboss.forge.env.Configuration;
@@ -42,18 +46,23 @@ import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.facets.BaseFacet;
 import org.jboss.forge.resources.FileResource;
 import org.jboss.forge.shell.events.CommandExecuted;
+import org.jboss.forge.shell.plugins.Alias;
+import org.jboss.forge.shell.plugins.Help;
 import org.jboss.forge.shell.plugins.RequiresFacet;
 
 /**
  * @author <a href="mailto:jevgeni.zelenkov@gmail.com">Jevgeni Zelenkov</a>
  * 
  */
-@RequiresFacet(value = GitFacet.class)
+@Alias("forge.plugin.undo")
+@Help("Undo plugin facet")
+@RequiresFacet(GitFacet.class)
 public class UndoFacet extends BaseFacet
 {
    public static final String DEFAULT_HISTORY_BRANCH_NAME = "forge-history";
    public static final String HISTORY_BRANCH_CONFIG_KEY = "forge-undo-branch";
-   public static final String INSTALL_COMMIT_MSG = "added forge undo-plugin support";
+   public static final String INITIAL_COMMIT_MSG = "initial commit";
+   public static final String UNDO_INSTALL_COMMIT_MSG = "added forge undo-plugin support";
 
    @Inject
    Configuration config;
@@ -73,11 +82,21 @@ public class UndoFacet extends BaseFacet
             FileResource<?> file = project.getProjectRoot().getChild(".gitignore").reify(FileResource.class);
             file.createNewFile();
             GitUtils.add(git, ".gitignore");
-            GitUtils.commit(git, INSTALL_COMMIT_MSG);
+            GitUtils.commit(git, INITIAL_COMMIT_MSG);
          }
 
+         String master = GitUtils.getCurrentBranchName(git);
+
          String branchName = getUndoBranchName();
-         git.branchCreate().setName(branchName).call();
+         GitUtils.createBranch(git, branchName);
+         GitUtils.switchBranch(git, branchName);
+
+         FileResource<?> dotUndoPlugin = project.getProjectRoot().getChild(".undo-plugin").reify(FileResource.class);
+         dotUndoPlugin.createNewFile();
+         GitUtils.add(git, ".undo-plugin");
+         GitUtils.commit(git, UNDO_INSTALL_COMMIT_MSG);
+
+         GitUtils.switchBranch(git, master);
 
          return true;
       }
@@ -120,6 +139,12 @@ public class UndoFacet extends BaseFacet
       if (project == null)
          return;
 
+      if (Strings.areEqual(command.getCommand().getName(), "new-project"))
+         return;
+
+      if (Strings.areEqual(command.getCommand().getName(), "setup"))
+         return;
+
       try
       {
          Git repo = GitUtils.git(project.getProjectRoot());
@@ -128,7 +153,10 @@ public class UndoFacet extends BaseFacet
          GitUtils.addAll(repo);
          GitUtils.stashCreate(repo);
 
+         // Ref historyBranch =
          GitUtils.switchBranch(repo, getUndoBranchName());
+         // assert historyBranch.getName().endsWith(getUndoBranchName()) :
+         // "Couldn't switch to the history branch while adding new changes";
          GitUtils.stashApply(repo);
 
          GitUtils.commitAll(repo,
@@ -209,7 +237,8 @@ public class UndoFacet extends BaseFacet
       return config.getString(HISTORY_BRANCH_CONFIG_KEY, DEFAULT_HISTORY_BRANCH_NAME);
    }
 
-   public Ref getUndoBranchRef() throws IOException
+   public Ref getUndoBranchRef() throws IOException, RefAlreadyExistsException, RefNotFoundException,
+            InvalidRefNameException, CheckoutConflictException, GitAPIException
    {
       Git repo = GitUtils.git(project.getProjectRoot());
 
@@ -217,6 +246,9 @@ public class UndoFacet extends BaseFacet
       String oldBranch = GitUtils.getCurrentBranchName(repo);
       result = GitUtils.switchBranch(repo, getUndoBranchName());
       GitUtils.switchBranch(repo, oldBranch);
+
+      if (result == null)
+         throw new RuntimeException("Could not get the Ref of the history branch");
 
       return result;
    }

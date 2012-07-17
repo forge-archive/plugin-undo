@@ -63,8 +63,6 @@ public class UndoFacetTest extends AbstractShellTest
    @Test
    public void shouldInstallPlugin() throws Exception
    {
-
-      queueInputLines("y");
       Project project = initializeJavaProject();
 
       Assert.assertNotNull(project);
@@ -92,7 +90,6 @@ public class UndoFacetTest extends AbstractShellTest
    @Test
    public void shouldInstallPluginWithCustomName() throws Exception
    {
-      queueInputLines("y");
       Project project = initializeJavaProject();
 
       getShell().execute("undo setup --branchName custom");
@@ -118,14 +115,13 @@ public class UndoFacetTest extends AbstractShellTest
    @Test
    public void shouldAddChangesIntoUndoBranch() throws Exception
    {
-      queueInputLines("y");
       UndoFacetTest.project = initializeJavaProject();
 
       getShell().execute("undo setup");
 
       Git repo = GitUtils.git(project.getProjectRoot());
       GitUtils.addAll(repo);
-      GitUtils.commitAll(repo, "initial commit");
+      GitUtils.commitAll(repo, "add all commit");
 
       String filename = "test1.txt";
       String contents = "foo bar baz";
@@ -134,7 +130,6 @@ public class UndoFacetTest extends AbstractShellTest
       String commandName = "touch";
       String command = commandName + " --filename " + filename + " --contents " + Strings.enquote(contents);
 
-      resetInputQueue();
       getShell().execute(command);
 
       DirectoryResource dir = project.getProjectRoot();
@@ -146,7 +141,7 @@ public class UndoFacetTest extends AbstractShellTest
       Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
       List<String> commitMsgs = extractCommitMsgs(commits);
 
-      Assert.assertEquals("wrong number of commits in the history branch", 2, commitMsgs.size());
+      Assert.assertEquals("wrong number of commits in the history branch", 3, commitMsgs.size());
       Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName),
                commitMsgs.get(0));
    }
@@ -162,14 +157,13 @@ public class UndoFacetTest extends AbstractShellTest
       // verify file1 doesn't exist
       // verify commit in history branch doesn't exist
 
-      queueInputLines("y");
       UndoFacetTest.project = initializeJavaProject();
 
       getShell().execute("undo setup");
 
       Git repo = GitUtils.git(project.getProjectRoot());
       GitUtils.addAll(repo);
-      GitUtils.commitAll(repo, "initial commit");
+      GitUtils.commitAll(repo, "add all commit");
 
       String filename = "test1.txt";
       String contents = "foo bar baz";
@@ -178,7 +172,6 @@ public class UndoFacetTest extends AbstractShellTest
       String commandName = "touch";
       String command = commandName + " --filename " + filename + " --contents " + Strings.enquote(contents);
 
-      resetInputQueue();
       getShell().execute(command);
 
       DirectoryResource dir = project.getProjectRoot();
@@ -188,7 +181,7 @@ public class UndoFacetTest extends AbstractShellTest
       Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
       List<String> commitMsgs = extractCommitMsgs(commits);
 
-      Assert.assertEquals("wrong number of commits in the history branch", 2, commitMsgs.size());
+      Assert.assertEquals("wrong number of commits in the history branch", 3, commitMsgs.size());
       Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName),
                commitMsgs.get(0));
 
@@ -202,8 +195,8 @@ public class UndoFacetTest extends AbstractShellTest
       commits = project.getFacet(UndoFacet.class).getStoredCommits();
       commitMsgs = extractCommitMsgs(commits);
 
-      Assert.assertEquals("wrong number of commits in the history branch", 1, commitMsgs.size());
-      Assert.assertEquals(UndoFacet.INSTALL_COMMIT_MSG, commitMsgs.get(0));
+      Assert.assertEquals("wrong number of commits in the history branch", 2, commitMsgs.size());
+      Assert.assertEquals(UndoFacet.UNDO_INSTALL_COMMIT_MSG, commitMsgs.get(0));
    }
 
    // helper methods
@@ -237,7 +230,7 @@ public class UndoFacetTest extends AbstractShellTest
       if (Strings.areEqual(command.getCommand().getName(), "setup"))
          return;
 
-      System.err.println("COMMAND: " + command.getCommand().getName());
+      // System.err.println("COMMAND: " + command.getCommand().getName());
 
       try
       {
@@ -248,9 +241,13 @@ public class UndoFacetTest extends AbstractShellTest
 
          GitUtils.addAll(repo);
          GitUtils.stashCreate(repo);
-         GitUtils.switchBranch(repo, undoBranch);
 
-         // INFO: fails (IOException: the system cannot find the path specified)
+         Ref historyBranch = GitUtils.switchBranch(repo, undoBranch);
+
+         Assert.assertNotNull(historyBranch);
+         Assert.assertEquals("failed to switch to the history branch", historyBranch.getObjectId(),
+                  project.getFacet(UndoFacet.class).getUndoBranchRef().getObjectId());
+
          GitUtils.stashApply(repo);
 
          GitUtils.commitAll(repo,

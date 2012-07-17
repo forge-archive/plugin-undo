@@ -7,6 +7,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <properties>
     <forge.api.version>1.0.6-SNAPSHOT</forge.api.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -74,6 +75,11 @@
       <artifactId>forge-shell</artifactId>
       <scope>test</scope>
     </dependency>
+     <dependency>
+         <groupId>org.eclipse.jgit</groupId>
+         <artifactId>org.eclipse.jgit</artifactId>
+         <version>2.0.0.201206130900-r</version>
+      </dependency>
   </dependencies>
   <repositories>
     <repository>

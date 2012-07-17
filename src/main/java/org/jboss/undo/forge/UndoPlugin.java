@@ -33,9 +33,12 @@ import org.jboss.forge.project.facets.events.InstallFacets;
 import org.jboss.forge.shell.ShellMessages;
 import org.jboss.forge.shell.plugins.Alias;
 import org.jboss.forge.shell.plugins.Command;
+import org.jboss.forge.shell.plugins.DefaultCommand;
+import org.jboss.forge.shell.plugins.Help;
 import org.jboss.forge.shell.plugins.Option;
 import org.jboss.forge.shell.plugins.PipeOut;
 import org.jboss.forge.shell.plugins.Plugin;
+import org.jboss.forge.shell.plugins.RequiresFacet;
 import org.jboss.forge.shell.plugins.SetupCommand;
 
 /**
@@ -43,6 +46,8 @@ import org.jboss.forge.shell.plugins.SetupCommand;
  * 
  */
 @Alias("undo")
+@Help("Provides a possibility to revert changes introduced by the forge commands")
+@RequiresFacet(UndoFacet.class)
 public class UndoPlugin implements Plugin
 {
    private static final int GIT_HASH_ABBREV_SIZE = 8;
@@ -72,7 +77,8 @@ public class UndoPlugin implements Plugin
          ShellMessages.success(out, "Undo plugin is installed.");
    }
 
-   @Command("list")
+   @DefaultCommand(help = "list changes stored in the undo branch")
+   // @Command("list")
    public void listCommand(PipeOut out) throws Exception
    {
       Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
@@ -81,7 +87,7 @@ public class UndoPlugin implements Plugin
          out.println("@" + commit.getId().abbreviate(GIT_HASH_ABBREV_SIZE) + ": " + commit.getShortMessage());
    }
 
-   @Command("undo")
+   @Command(value = "undo", help = "reverts the changes introduced by the last forge command")
    public void undoCommand(PipeOut out) throws Exception
    {
       boolean isReverted = project.getFacet(UndoFacet.class).undoLastChange();
