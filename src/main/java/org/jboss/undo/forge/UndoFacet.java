@@ -162,6 +162,10 @@ public class UndoFacet extends BaseFacet
          String oldBranch = GitUtils.getCurrentBranchName(repo);
 
          CherryPickResult cherryPickResult = GitUtils.cherryPickNoMerge(repo, getUndoBranchRef());
+         if (cherryPickResult == null)
+         {
+            return false;
+         }
          if (cherryPickResult.getStatus() != CherryPickStatus.OK)
          {
             // TODO: replace with something nicer
