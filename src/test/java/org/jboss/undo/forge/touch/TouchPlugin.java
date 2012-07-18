@@ -50,6 +50,9 @@ public class TouchPlugin implements Plugin
             @Option(name = "contents", shortName = "c", description = "File content to be inserted on file creation") final String contents
             ) throws Exception
    {
+      if (filename == null)
+         return;
+
       DirectoryResource dir = shell.getCurrentDirectory();
       FileResource<?> file = dir.getChild(filename).reify(FileResource.class);
 
