@@ -26,7 +26,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 
 import org.eclipse.jgit.api.CherryPickResult;
@@ -42,10 +41,8 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.jboss.forge.env.Configuration;
 import org.jboss.forge.git.GitFacet;
 import org.jboss.forge.git.GitUtils;
-import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.facets.BaseFacet;
 import org.jboss.forge.resources.FileResource;
-import org.jboss.forge.shell.events.CommandExecuted;
 import org.jboss.forge.shell.plugins.Alias;
 import org.jboss.forge.shell.plugins.Help;
 import org.jboss.forge.shell.plugins.RequiresFacet;
@@ -131,49 +128,6 @@ public class UndoFacet extends BaseFacet
       }
 
       return false;
-   }
-
-   public void updateHistoryBranch(@Observes CommandExecuted command)
-   {
-      // ignore if called outside of project
-      if (project == null)
-         return;
-
-      if (Strings.areEqual(command.getCommand().getName(), "new-project"))
-         return;
-
-      if (Strings.areEqual(command.getCommand().getName(), "setup"))
-         return;
-
-      try
-      {
-         Git repo = GitUtils.git(project.getProjectRoot());
-         String oldBranch = GitUtils.getCurrentBranchName(repo);
-
-         GitUtils.addAll(repo);
-         GitUtils.stashCreate(repo);
-
-         // Ref historyBranch =
-         GitUtils.switchBranch(repo, getUndoBranchName());
-         // assert historyBranch.getName().endsWith(getUndoBranchName()) :
-         // "Couldn't switch to the history branch while adding new changes";
-         GitUtils.stashApply(repo);
-
-         GitUtils.commitAll(repo,
-                  "history-branch: changes introduced by the " + Strings.enquote(command.getCommand().getName()));
-
-         GitUtils.switchBranch(repo, oldBranch);
-         GitUtils.stashApply(repo);
-         GitUtils.stashDrop(repo);
-      }
-      catch (IOException e)
-      {
-         e.printStackTrace();
-      }
-      catch (GitAPIException e)
-      {
-         e.printStackTrace();
-      }
    }
 
    public Iterable<RevCommit> getStoredCommits()

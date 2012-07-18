@@ -22,15 +22,11 @@
 
 package org.jboss.undo.forge;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.enterprise.event.Observes;
-
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -39,7 +35,6 @@ import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.Project;
 import org.jboss.forge.resources.DirectoryResource;
 import org.jboss.forge.resources.FileResource;
-import org.jboss.forge.shell.events.CommandExecuted;
 import org.jboss.forge.test.AbstractShellTest;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -129,12 +124,10 @@ public class UndoFacetTest extends AbstractShellTest
       String forgeUndoPrefix = "history-branch: changes introduced by the ";
       String commandName = "touch";
       String command = commandName + " --filename " + filename + " --contents " + Strings.enquote(contents);
-
       getShell().execute(command);
 
       DirectoryResource dir = project.getProjectRoot();
       FileResource<?> file = dir.getChild(filename).reify(FileResource.class);
-
       Assert.assertTrue("file doesn't exist", file.exists());
 
       // assert the results of the previous command
@@ -171,13 +164,12 @@ public class UndoFacetTest extends AbstractShellTest
       String forgeUndoPrefix = "history-branch: changes introduced by the ";
       String commandName = "touch";
       String command = commandName + " --filename " + filename + " --contents " + Strings.enquote(contents);
-
       getShell().execute(command);
 
       DirectoryResource dir = project.getProjectRoot();
       FileResource<?> file = dir.getChild(filename).reify(FileResource.class);
-
       Assert.assertTrue("file doesn't exist", file.exists());
+
       Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
       List<String> commitMsgs = extractCommitMsgs(commits);
 
@@ -212,60 +204,6 @@ public class UndoFacetTest extends AbstractShellTest
       }
 
       return commitMsgs;
-   }
-
-   // INFO: copypasted from UndoFacet.
-   // During tests this method is not called in UndoFacet.
-   public void updateHistoryBranch(@Observes CommandExecuted command)
-   {
-      // ignore if called outside of project
-      if (project == null)
-         return;
-
-      // not sure in what order CommandExecuted events are fired.
-      // we are only interested in touch-command calls for this test.
-      if (Strings.areEqual(command.getCommand().getName(), "new-project"))
-         return;
-
-      if (Strings.areEqual(command.getCommand().getName(), "setup"))
-         return;
-
-      // System.err.println("COMMAND: " + command.getCommand().getName());
-
-      try
-      {
-         Git repo = GitUtils.git(project.getProjectRoot());
-         String oldBranch = GitUtils.getCurrentBranchName(repo);
-
-         String undoBranch = project.getFacet(UndoFacet.class).getUndoBranchName();
-
-         GitUtils.addAll(repo);
-         GitUtils.stashCreate(repo);
-
-         Ref historyBranch = GitUtils.switchBranch(repo, undoBranch);
-
-         Assert.assertNotNull(historyBranch);
-         Assert.assertEquals("failed to switch to the history branch", historyBranch.getObjectId(),
-                  project.getFacet(UndoFacet.class).getUndoBranchRef().getObjectId());
-
-         GitUtils.stashApply(repo);
-
-         GitUtils.commitAll(repo,
-                  "history-branch: changes introduced by the " + Strings.enquote(command.getCommand().getName()));
-
-         GitUtils.switchBranch(repo, oldBranch);
-
-         GitUtils.stashApply(repo);
-         GitUtils.stashDrop(repo);
-      }
-      catch (IOException e)
-      {
-         e.printStackTrace();
-      }
-      catch (GitAPIException e)
-      {
-         e.printStackTrace();
-      }
    }
 
 }
