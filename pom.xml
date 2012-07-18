@@ -7,6 +7,7 @@
   <version>1.0.0-SNAPSHOT</version>
   <properties>
     <forge.api.version>1.0.6-SNAPSHOT</forge.api.version>
+    <weld.version>1.1.2.Final</weld.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   <dependencyManagement>
@@ -74,6 +75,21 @@
       <groupId>org.jboss.forge</groupId>
       <artifactId>forge-shell</artifactId>
       <scope>test</scope>
+    </dependency>
+    
+    <!-- weld -->
+    <dependency>
+      <groupId>org.jboss.weld</groupId>
+      <artifactId>weld-core-bom</artifactId>
+      <version>${weld.version}</version>
+      <type>pom</type>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.weld.se</groupId>
+      <artifactId>weld-se-core</artifactId>
+      <version>${weld.version}</version>
+      <scope>provided</scope>
     </dependency>
   </dependencies>
   <repositories>

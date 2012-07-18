@@ -1,27 +1,37 @@
 package org.jboss.undo.forge;
 
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 
 import javax.enterprise.event.Observes;
-import javax.enterprise.event.TransactionPhase;
+import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.jboss.forge.git.GitUtils;
 import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.Project;
+import org.jboss.forge.shell.Shell;
 import org.jboss.forge.shell.events.CommandExecuted;
+import org.jboss.forge.shell.project.ProjectScoped;
+import org.jboss.weld.context.ContextNotActiveException;
 
-@Singleton
 public class HistoryBranchUpdater
 {
    @Inject
-   private Project project;
+   private BeanManager beanManager;
 
-   public void updateHistoryBranch(@Observes(during = TransactionPhase.AFTER_COMPLETION) final CommandExecuted command)
+   @Inject
+   private Shell shell;
+
+   public void updateHistoryBranch(@Observes final CommandExecuted command)
    {
+      if (!isContextActive(ProjectScoped.class))
+         return;
+
+      Project project = shell.getCurrentProject();
+
       if (project == null)
          return;
 
@@ -67,4 +77,18 @@ public class HistoryBranchUpdater
          e.printStackTrace();
       }
    }
+
+   private boolean isContextActive(Class<? extends Annotation> scope)
+   {
+      try
+      {
+         beanManager.getContext(scope);
+      }
+      catch (ContextNotActiveException e)
+      {
+         return false;
+      }
+      return true;
+   }
+
 }
