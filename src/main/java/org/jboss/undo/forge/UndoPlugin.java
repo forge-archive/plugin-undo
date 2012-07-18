@@ -33,12 +33,12 @@ import org.jboss.forge.project.facets.events.InstallFacets;
 import org.jboss.forge.shell.ShellMessages;
 import org.jboss.forge.shell.plugins.Alias;
 import org.jboss.forge.shell.plugins.Command;
-import org.jboss.forge.shell.plugins.DefaultCommand;
 import org.jboss.forge.shell.plugins.Help;
 import org.jboss.forge.shell.plugins.Option;
 import org.jboss.forge.shell.plugins.PipeOut;
 import org.jboss.forge.shell.plugins.Plugin;
 import org.jboss.forge.shell.plugins.RequiresFacet;
+import org.jboss.forge.shell.plugins.RequiresProject;
 import org.jboss.forge.shell.plugins.SetupCommand;
 
 /**
@@ -48,9 +48,10 @@ import org.jboss.forge.shell.plugins.SetupCommand;
 @Alias("undo")
 @Help("Provides a possibility to revert changes introduced by the forge commands")
 @RequiresFacet(UndoFacet.class)
+@RequiresProject
 public class UndoPlugin implements Plugin
 {
-   private static final int GIT_HASH_ABBREV_SIZE = 8;
+   private static final int GIT_HASH_ABBREV_SIZE = 7;
 
    @Inject
    private Configuration config;
@@ -77,17 +78,16 @@ public class UndoPlugin implements Plugin
          ShellMessages.success(out, "Undo plugin is installed.");
    }
 
-   @DefaultCommand(help = "list changes stored in the undo branch")
-   // @Command("list")
+   @Command(value = "list", help = "list changes stored in the undo branch")
    public void listCommand(PipeOut out) throws Exception
    {
       Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
 
       for (RevCommit commit : commits)
-         out.println("@" + commit.getId().abbreviate(GIT_HASH_ABBREV_SIZE) + ": " + commit.getShortMessage());
+         out.println(commit.getId().abbreviate(GIT_HASH_ABBREV_SIZE).name() + " " + commit.getShortMessage());
    }
 
-   @Command(value = "undo", help = "reverts the changes introduced by the last forge command")
+   @Command(value = "restore", help = "reverts the changes introduced by the last forge command")
    public void undoCommand(PipeOut out) throws Exception
    {
       boolean isReverted = project.getFacet(UndoFacet.class).undoLastChange();
