@@ -41,6 +41,7 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.jboss.forge.env.Configuration;
 import org.jboss.forge.git.GitFacet;
 import org.jboss.forge.git.GitUtils;
+import org.jboss.forge.git.errors.CantMergeCommitWithZeroParentsException;
 import org.jboss.forge.project.facets.BaseFacet;
 import org.jboss.forge.resources.FileResource;
 import org.jboss.forge.shell.plugins.Alias;
@@ -162,10 +163,7 @@ public class UndoFacet extends BaseFacet
          String oldBranch = GitUtils.getCurrentBranchName(repo);
 
          CherryPickResult cherryPickResult = GitUtils.cherryPickNoMerge(repo, getUndoBranchRef());
-         if (cherryPickResult == null)
-         {
-            return false;
-         }
+
          if (cherryPickResult.getStatus() != CherryPickStatus.OK)
          {
             // TODO: replace with something nicer
@@ -176,6 +174,10 @@ public class UndoFacet extends BaseFacet
          GitUtils.resetHard(repo, "HEAD^1");
          GitUtils.switchBranch(repo, oldBranch);
          success = true;
+      }
+      catch (CantMergeCommitWithZeroParentsException e)
+      {
+         return false;
       }
       catch (IOException e)
       {
