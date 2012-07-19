@@ -70,11 +70,11 @@ public class HistoryBranchUpdater
       }
       catch (IOException e)
       {
-         e.printStackTrace();
+         throw new RuntimeException("IOException during History branch execution", e.getCause());
       }
       catch (GitAPIException e)
       {
-         e.printStackTrace();
+         throw new RuntimeException("GitAPIException during History branch execution", e.getCause());
       }
    }
 
