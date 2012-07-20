@@ -6,6 +6,7 @@ import java.lang.annotation.Annotation;
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -17,6 +18,7 @@ import org.jboss.forge.shell.events.CommandExecuted;
 import org.jboss.forge.shell.project.ProjectScoped;
 import org.jboss.weld.context.ContextNotActiveException;
 
+@Singleton
 public class HistoryBranchUpdater
 {
    @Inject
