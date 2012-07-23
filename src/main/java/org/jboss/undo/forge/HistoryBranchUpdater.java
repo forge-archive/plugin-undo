@@ -54,21 +54,24 @@ public class HistoryBranchUpdater
       try
       {
          Git repo = GitUtils.git(project.getProjectRoot());
-         String oldBranch = GitUtils.getCurrentBranchName(repo);
 
-         GitUtils.addAll(repo);
-         GitUtils.stashCreate(repo);
+         if (anyFileChanged(repo))
+         {
+            String oldBranch = GitUtils.getCurrentBranchName(repo);
+            GitUtils.addAll(repo);
+            GitUtils.stashCreate(repo);
 
-         String undoBranchName = project.getFacet(UndoFacet.class).getUndoBranchName();
-         GitUtils.switchBranch(repo, undoBranchName);
-         GitUtils.stashApply(repo);
+            String undoBranchName = project.getFacet(UndoFacet.class).getUndoBranchName();
+            GitUtils.switchBranch(repo, undoBranchName);
+            GitUtils.stashApply(repo);
 
-         GitUtils.commitAll(repo,
-                  "history-branch: changes introduced by the " + Strings.enquote(command.getCommand().getName()));
+            GitUtils.commitAll(repo,
+                     "history-branch: changes introduced by the " + Strings.enquote(command.getCommand().getName()));
 
-         GitUtils.switchBranch(repo, oldBranch);
-         GitUtils.stashApply(repo);
-         GitUtils.stashDrop(repo);
+            GitUtils.switchBranch(repo, oldBranch);
+            GitUtils.stashApply(repo);
+            GitUtils.stashDrop(repo);
+         }
       }
       catch (IOException e)
       {
@@ -91,6 +94,18 @@ public class HistoryBranchUpdater
          return false;
       }
       return true;
+   }
+
+   private boolean anyFileChanged(Git repo)
+   {
+      try
+      {
+         return !repo.status().call().isClean();
+      }
+      catch (GitAPIException e)
+      {
+         throw new RuntimeException("GitAPIException during History branch execution", e.getCause());
+      }
    }
 
 }
