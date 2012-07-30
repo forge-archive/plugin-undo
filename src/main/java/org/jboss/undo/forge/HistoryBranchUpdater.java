@@ -1,7 +1,6 @@
 package org.jboss.undo.forge;
 
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.BeanManager;
@@ -10,6 +9,7 @@ import javax.inject.Singleton;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.errors.NoWorkTreeException;
 import org.jboss.forge.git.GitUtils;
 import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.Project;
@@ -29,65 +29,83 @@ public class HistoryBranchUpdater
 
    public void updateHistoryBranch(@Observes final CommandExecuted command)
    {
-      if (!isContextActive(ProjectScoped.class))
+      if (!projectScopedIsAvailable())
          return;
 
       Project project = shell.getCurrentProject();
 
-      if (project == null)
-         return;
-
-      if (Strings.areEqual(command.getCommand().getName(), "new-project"))
-         return;
-
-      if (Strings.areEqual(command.getCommand().getName(), "setup")
-               && Strings.areEqual(command.getCommand().getParent().getName(), "undo"))
-         return;
-
-      if (Strings.areEqual(command.getCommand().getName(), "setup")
-               && Strings.areEqual(command.getCommand().getParent().getName(), "git"))
-         return;
-
-      if (!project.hasFacet(UndoFacet.class))
+      if (!validRequirements(project, command))
          return;
 
       try
       {
-         Git repo = GitUtils.git(project.getProjectRoot());
+         Git repo = project.getFacet(UndoFacet.class).getGitObject();
+         String undoBranch = project.getFacet(UndoFacet.class).getUndoBranchName();
 
-         if (anyFileChanged(repo))
+         if (anythingChanged(repo))
          {
-            String oldBranch = GitUtils.getCurrentBranchName(repo);
-            GitUtils.addAll(repo);
-            GitUtils.stashCreate(repo);
-
-            String undoBranchName = project.getFacet(UndoFacet.class).getUndoBranchName();
-            GitUtils.switchBranch(repo, undoBranchName);
-            GitUtils.stashApply(repo);
-
-            GitUtils.commitAll(repo,
-                     "history-branch: changes introduced by the " + Strings.enquote(command.getCommand().getName()));
-
-            GitUtils.switchBranch(repo, oldBranch);
-            GitUtils.stashApply(repo);
-            GitUtils.stashDrop(repo);
+            createAndApplyStash(repo);
+            createTempCommit(repo);
+            addStashedChangesOntoHistoryBranch(repo, undoBranch, command);
+            destroyTempCommit(repo);
+            applyAndDestroyStash(repo);
          }
       }
-      catch (IOException e)
+      catch (Exception e)
       {
-         throw new RuntimeException("IOException during History branch execution", e.getCause());
-      }
-      catch (GitAPIException e)
-      {
-         throw new RuntimeException("GitAPIException during History branch execution", e.getCause());
+         throw new RuntimeException("Failed to add changes onto history branch: [" + e.getMessage() + "]", e.getCause());
       }
    }
 
-   private boolean isContextActive(Class<? extends Annotation> scope)
+   private void createAndApplyStash(Git repo) throws GitAPIException
+   {
+      GitUtils.addAll(repo); // to add untracked files
+      GitUtils.stashCreate(repo);
+      GitUtils.stashApply(repo);
+   }
+
+   private void createTempCommit(Git repo) throws GitAPIException
+   {
+      GitUtils.commit(repo, "tmp-commit");
+   }
+
+   private void addStashedChangesOntoHistoryBranch(Git repo, String undoBranch, final CommandExecuted command)
+            throws IOException, GitAPIException
+   {
+      String oldBranch = GitUtils.getCurrentBranchName(repo);
+
+      String cmdParentName = command.getCommand().getParent() != null ? command.getCommand().getParent().getName() : "";
+      String cmdName = command.getCommand().getName();
+      String enquotedCommand = Strings.enquote(
+               Strings.areEqual(cmdParentName, cmdName) ? cmdName : cmdParentName + " " + cmdName
+               );
+
+      GitUtils.switchToBranch(repo, undoBranch);
+      GitUtils.stashApply(repo);
+      GitUtils.addAll(repo);
+      GitUtils.commit(
+               repo,
+               "history-branch: changes introduced by the " + enquotedCommand + " command");
+
+      GitUtils.switchToBranch(repo, oldBranch);
+   }
+
+   private void destroyTempCommit(Git repo) throws GitAPIException
+   {
+      GitUtils.resetMixed(repo, "HEAD^1");
+   }
+
+   private void applyAndDestroyStash(Git repo) throws GitAPIException
+   {
+      GitUtils.stashApply(repo);
+      GitUtils.stashDrop(repo);
+   }
+
+   private boolean projectScopedIsAvailable()
    {
       try
       {
-         beanManager.getContext(scope);
+         beanManager.getContext(ProjectScoped.class);
       }
       catch (ContextNotActiveException e)
       {
@@ -96,16 +114,32 @@ public class HistoryBranchUpdater
       return true;
    }
 
-   private boolean anyFileChanged(Git repo)
+   private boolean validRequirements(Project project, final CommandExecuted command)
    {
-      try
-      {
-         return !repo.status().call().isClean();
-      }
-      catch (GitAPIException e)
-      {
-         throw new RuntimeException("GitAPIException during History branch execution", e.getCause());
-      }
+      if (project == null)
+         return false;
+
+      if (Strings.areEqual(command.getCommand().getName(), "new-project"))
+         return false;
+
+      if (Strings.areEqual(command.getCommand().getName(), "cd"))
+         return false;
+
+      if (Strings.areEqual(command.getCommand().getParent().getName(), "undo"))
+         return false;
+
+      if (Strings.areEqual(command.getCommand().getName(), "setup")
+               && Strings.areEqual(command.getCommand().getParent().getName(), "git"))
+         return false;
+
+      if (!project.hasFacet(UndoFacet.class))
+         return false;
+
+      return true;
    }
 
+   private boolean anythingChanged(Git repo) throws NoWorkTreeException, GitAPIException
+   {
+      return !repo.status().call().isClean();
+   }
 }

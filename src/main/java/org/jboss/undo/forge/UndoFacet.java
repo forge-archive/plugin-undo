@@ -23,7 +23,6 @@
 package org.jboss.undo.forge;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,6 +36,7 @@ import org.eclipse.jgit.api.errors.InvalidRefNameException;
 import org.eclipse.jgit.api.errors.RefAlreadyExistsException;
 import org.eclipse.jgit.api.errors.RefNotFoundException;
 import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.jboss.forge.env.Configuration;
 import org.jboss.forge.git.GitFacet;
@@ -58,8 +58,9 @@ public class UndoFacet extends BaseFacet
 {
    public static final String DEFAULT_HISTORY_BRANCH_NAME = "forge-history";
    public static final String HISTORY_BRANCH_CONFIG_KEY = "forge-undo-branch";
-   public static final String INITIAL_COMMIT_MSG = "initial commit";
-   public static final String UNDO_INSTALL_COMMIT_MSG = "added forge undo-plugin support";
+   public static final String INITIAL_COMMIT_MSG = "repository initial commit";
+   public static final String UNDO_INSTALL_COMMIT_MSG = "FORGE PLUGIN-UNDO: initial commit";
+   private Git gitObject = null;
 
    @Inject
    Configuration config;
@@ -69,40 +70,18 @@ public class UndoFacet extends BaseFacet
    {
       try
       {
-         Git git = GitUtils.git(project.getProjectRoot());
+         Git git = getGitObject();
 
-         // verify repository contains at least 1 branch.
-         // create a master branch with .gitingore otherwise.
-         List<Ref> branches = GitUtils.getLocalBranches(git);
-         if (branches != null && branches.size() == 0)
-         {
-            FileResource<?> file = project.getProjectRoot().getChild(".gitignore").reify(FileResource.class);
-            file.createNewFile();
-            GitUtils.add(git, ".gitignore");
-            GitUtils.commit(git, INITIAL_COMMIT_MSG);
-         }
-
-         String master = GitUtils.getCurrentBranchName(git);
-
-         String branchName = getUndoBranchName();
-         git.branchCreate().setName(branchName).call();
-         GitUtils.switchBranch(git, branchName);
-
-         FileResource<?> dotUndoPlugin = project.getProjectRoot().getChild(".undo-plugin").reify(FileResource.class);
-         dotUndoPlugin.createNewFile();
-         GitUtils.add(git, ".undo-plugin");
-         GitUtils.commit(git, UNDO_INSTALL_COMMIT_MSG);
-
-         GitUtils.switchBranch(git, master);
+         ensureGitRepositoryIsInitialized(git);
+         commitAllToHaveCleanTree(git);
+         initializeHistoryBranch(git);
 
          return true;
       }
       catch (Exception e)
       {
-         e.printStackTrace();
+         throw new RuntimeException("Failed to install the UndoFacet", e.getCause());
       }
-
-      return false;
    }
 
    @Override
@@ -110,83 +89,111 @@ public class UndoFacet extends BaseFacet
    {
       try
       {
-         Git git = GitUtils.git(project.getProjectRoot());
+         Git git = getGitObject();
          for (Ref branch : GitUtils.getLocalBranches(git))
-         {
-            // branch.getName() contains "refs/heads/" prefix by default
-            if (branch.getName().endsWith(getUndoBranchName()))
+            if (Strings.areEqual(Repository.shortenRefName(branch.getName()), getUndoBranchName()))
                return true;
-         }
-      }
-      catch (IOException e)
-      {
-         e.printStackTrace();
-      }
-      catch (GitAPIException e)
-      {
-         e.printStackTrace();
-      }
 
-      return false;
+         return false;
+      }
+      catch (Exception e)
+      {
+         throw new RuntimeException("Failed to check if UndoFacet is installed", e.getCause());
+      }
    }
 
    public Iterable<RevCommit> getStoredCommits()
    {
-      Iterable<RevCommit> result = new ArrayList<RevCommit>();
-
       try
       {
-         Git repo = GitUtils.git(project.getProjectRoot());
-         String branchName = getUndoBranchName();
-
-         result = GitUtils.getLogForBranch(repo, branchName);
+         return GitUtils.getLogForBranch(getGitObject(), getUndoBranchName());
       }
-      catch (IOException e)
+      catch (Exception e)
       {
-         e.printStackTrace();
+         throw new RuntimeException("Failed to get a list of stored commits in the history branch", e.getCause());
       }
-      catch (GitAPIException e)
-      {
-         e.printStackTrace();
-      }
-
-      return result;
    }
 
    public boolean undoLastChange()
    {
-      boolean success = false;
       try
       {
-         Git repo = GitUtils.git(project.getProjectRoot());
-         String oldBranch = GitUtils.getCurrentBranchName(repo);
+         Git repo = getGitObject();
+         // boolean isWorkingTreeClean = repo.status().call().isClean();
+
+         // if (!isWorkingTreeClean)
+         // {
+         // // GitUtils.addAll(repo);
+         // // GitUtils.stashCreate(repo);
+         createTempCommit(repo);
+         // }
 
          CherryPickResult cherryPickResult = GitUtils.cherryPickNoMerge(repo, getUndoBranchRef());
-
          if (cherryPickResult.getStatus() != CherryPickStatus.OK)
-         {
-            // TODO: replace with something nicer
-            throw new RuntimeException("GitUtils.cherryPickNoMerge failed");
-         }
+            throw new RuntimeException("UndoLastChange() failed. CherryPickNoMerge returned a bad status");
 
-         GitUtils.switchBranch(repo, getUndoBranchName());
-         GitUtils.resetHard(repo, "HEAD^1");
-         GitUtils.switchBranch(repo, oldBranch);
-         success = true;
+         // if (!isWorkingTreeClean)
+         // {
+         // // GitUtils.stashApply(repo);
+         // // GitUtils.stashDrop(repo);
+         // destroyTempCommit(repo);
+         // }
+
+         // createTempCommit(repo);
+         removeLastCommitInHistoryBranch(repo);
+
+         destroyTempCommit(repo);
+         return true;
       }
       catch (IOException e)
       {
-         e.printStackTrace();
+         throw new RuntimeException("Failed to undo last change [" + e.getMessage() + "]", e.getCause());
       }
-      catch (GitAPIException e)
-      {
-         e.printStackTrace();
-      }
-
-      return success;
    }
 
-   // helper methods
+   private void removeLastCommitInHistoryBranch(Git repo) throws IOException, GitAPIException
+   {
+      String previousBranch = GitUtils.getCurrentBranchName(repo);
+      GitUtils.switchToBranch(repo, getUndoBranchName());
+      destroyTempCommit(repo);
+      GitUtils.switchToBranch(repo, previousBranch);
+   }
+
+   private void destroyTempCommit(Git git) throws GitAPIException
+   {
+      GitUtils.resetHard(git, "HEAD^1");
+   }
+
+   private void createTempCommit(Git git) throws GitAPIException
+   {
+      GitUtils.addAll(git);
+      GitUtils.commit(git, "tmp-commit");
+   }
+
+   private void ensureGitRepositoryIsInitialized(Git git) throws GitAPIException
+   {
+      List<Ref> branches = GitUtils.getLocalBranches(git);
+      if (branches != null && branches.size() == 0)
+      {
+         FileResource<?> file = project.getProjectRoot().getChild(".gitignore").reify(FileResource.class);
+         file.createNewFile();
+         GitUtils.add(git, ".gitignore");
+         GitUtils.commit(git, INITIAL_COMMIT_MSG);
+      }
+   }
+
+   private void commitAllToHaveCleanTree(Git git) throws GitAPIException
+   {
+      GitUtils.addAll(git);
+      GitUtils.commit(git, UNDO_INSTALL_COMMIT_MSG);
+   }
+
+   private void initializeHistoryBranch(Git git) throws IOException, RefAlreadyExistsException, RefNotFoundException,
+            InvalidRefNameException, GitAPIException
+   {
+      GitUtils.createBranch(git, getUndoBranchName());
+   }
+
    public String getUndoBranchName()
    {
       return config.getString(HISTORY_BRANCH_CONFIG_KEY, DEFAULT_HISTORY_BRANCH_NAME);
@@ -195,16 +202,16 @@ public class UndoFacet extends BaseFacet
    public Ref getUndoBranchRef() throws IOException, RefAlreadyExistsException, RefNotFoundException,
             InvalidRefNameException, CheckoutConflictException, GitAPIException
    {
-      Git repo = GitUtils.git(project.getProjectRoot());
+      Git repo = getGitObject();
+      return GitUtils.getRef(repo, getUndoBranchName());
+   }
 
-      Ref result = null;
-      String oldBranch = GitUtils.getCurrentBranchName(repo);
-      result = GitUtils.switchBranch(repo, getUndoBranchName());
-      GitUtils.switchBranch(repo, oldBranch);
-
-      if (result == null)
-         throw new RuntimeException("Could not get the Ref of the history branch");
-
-      return result;
+   public Git getGitObject() throws IOException
+   {
+      if (this.gitObject == null)
+      {
+         this.gitObject = GitUtils.git(project.getProjectRoot());
+      }
+      return gitObject;
    }
 }

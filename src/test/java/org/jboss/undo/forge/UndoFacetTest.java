@@ -28,6 +28,7 @@ import java.util.List;
 
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.lib.Ref;
+import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.forge.git.GitUtils;
@@ -71,13 +72,8 @@ public class UndoFacetTest extends AbstractShellTest
 
       boolean containsUndoBranch = false;
       for (Ref branch : GitUtils.getLocalBranches(repo))
-      {
-         // branchNames contain "refs/heads" prefix by default
-         if (branch.getName().endsWith(undoBranch))
-         {
+         if (Strings.areEqual(Repository.shortenRefName(branch.getName()), undoBranch))
             containsUndoBranch = true;
-         }
-      }
 
       Assert.assertTrue("should contain undo-branch", containsUndoBranch);
    }
@@ -96,13 +92,8 @@ public class UndoFacetTest extends AbstractShellTest
 
       boolean containsUndoBranch = false;
       for (Ref branch : GitUtils.getLocalBranches(repo))
-      {
-         // branchNames contain "refs/heads" prefix by default
-         if (branch.getName().endsWith(undoBranch))
-         {
+         if (Strings.areEqual(Repository.shortenRefName(branch.getName()), undoBranch))
             containsUndoBranch = true;
-         }
-      }
 
       Assert.assertTrue("should contain undo-branch", containsUndoBranch);
    }
@@ -113,10 +104,6 @@ public class UndoFacetTest extends AbstractShellTest
       UndoFacetTest.project = initializeJavaProject();
 
       getShell().execute("undo setup");
-
-      Git repo = GitUtils.git(project.getProjectRoot());
-      GitUtils.addAll(repo);
-      GitUtils.commitAll(repo, "add all commit");
 
       String filename = "test1.txt";
       String contents = "foo bar baz";
@@ -135,8 +122,9 @@ public class UndoFacetTest extends AbstractShellTest
       List<String> commitMsgs = extractCommitMsgs(commits);
 
       Assert.assertEquals("wrong number of commits in the history branch", 3, commitMsgs.size());
-      Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName),
+      Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName) + " command",
                commitMsgs.get(0));
+      // Assert.assertEquals("commit messages do not match", "add all commit", commitMsgs.get(0));
    }
 
    @Test
@@ -154,9 +142,56 @@ public class UndoFacetTest extends AbstractShellTest
 
       getShell().execute("undo setup");
 
-      Git repo = GitUtils.git(project.getProjectRoot());
-      GitUtils.addAll(repo);
-      GitUtils.commitAll(repo, "add all commit");
+      String filename = "test1.txt";
+      String contents = "foo bar baz";
+
+      String forgeUndoPrefix = "history-branch: changes introduced by the ";
+      String commandName = "touch";
+      String command = commandName + " --filename " + filename + " --contents " + Strings.enquote(contents);
+      getShell().execute(command);
+
+      DirectoryResource dir = project.getProjectRoot();
+      FileResource<?> file = dir.getChild(filename).reify(FileResource.class);
+      Assert.assertTrue("file doesn't exist", file.exists());
+
+      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
+      List<String> commitMsgs = extractCommitMsgs(commits);
+
+      Assert.assertEquals("wrong number of commits in the history branch", 3, commitMsgs.size());
+      Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName) + " command",
+               commitMsgs.get(0));
+
+      // restore
+      boolean isRestored = project.getFacet(UndoFacet.class).undoLastChange();
+      Assert.assertTrue("undo failed", isRestored);
+
+      file = dir.getChild(filename).reify(FileResource.class);
+
+      Assert.assertFalse("file should not exist", file.exists());
+      commits = project.getFacet(UndoFacet.class).getStoredCommits();
+      commitMsgs = extractCommitMsgs(commits);
+
+      Assert.assertEquals("wrong number of commits in the history branch", 2, commitMsgs.size());
+      // Assert.assertEquals(UndoFacet.UNDO_INSTALL_COMMIT_MSG, commitMsgs.get(0));
+   }
+
+   @Test
+   public void shouldNotWhenCalledUndoRestoreInEmptyHistory() throws Exception
+   {
+      // init
+      // touch plugin file1
+      // verify file1 exists
+      // verify commit in history branch exists
+      // undo last change
+      // verify file1 doesn't exist
+      // verify commit in history branch doesn't exist
+      // undo last change 2 times
+
+      boolean isRestored = false;
+
+      UndoFacetTest.project = initializeJavaProject();
+
+      getShell().execute("undo setup");
 
       String filename = "test1.txt";
       String contents = "foo bar baz";
@@ -174,11 +209,11 @@ public class UndoFacetTest extends AbstractShellTest
       List<String> commitMsgs = extractCommitMsgs(commits);
 
       Assert.assertEquals("wrong number of commits in the history branch", 3, commitMsgs.size());
-      Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName),
+      Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName) + " command",
                commitMsgs.get(0));
 
       // restore
-      boolean isRestored = project.getFacet(UndoFacet.class).undoLastChange();
+      isRestored = project.getFacet(UndoFacet.class).undoLastChange();
       Assert.assertTrue("undo failed", isRestored);
 
       file = dir.getChild(filename).reify(FileResource.class);
@@ -189,6 +224,12 @@ public class UndoFacetTest extends AbstractShellTest
 
       Assert.assertEquals("wrong number of commits in the history branch", 2, commitMsgs.size());
       Assert.assertEquals(UndoFacet.UNDO_INSTALL_COMMIT_MSG, commitMsgs.get(0));
+
+      isRestored = project.getFacet(UndoFacet.class).undoLastChange();
+      Assert.assertTrue("failed to undo second to last commit", isRestored);
+
+      isRestored = project.getFacet(UndoFacet.class).undoLastChange();
+      Assert.assertFalse("should not be able to undo last commit", isRestored);
    }
 
    // helper methods
