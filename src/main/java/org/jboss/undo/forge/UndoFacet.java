@@ -125,12 +125,19 @@ public class UndoFacet extends BaseFacet
          // {
          // // GitUtils.addAll(repo);
          // // GitUtils.stashCreate(repo);
-         createTempCommit(repo);
+         // createTempCommit(repo);
          // }
 
-         CherryPickResult cherryPickResult = GitUtils.cherryPickNoMerge(repo, getUndoBranchRef());
-         if (cherryPickResult.getStatus() != CherryPickStatus.OK)
-            throw new RuntimeException("UndoLastChange() failed. CherryPickNoMerge returned a bad status");
+         GitUtils.addAll(repo);
+
+         // TODO: Use inverted patch here instead of cherrypicking!
+         // CherryPickResult cherryPickResult = repo.cherryPick().include(getUndoBranchRef()).call();
+         // if (cherryPickResult.getStatus() != CherryPickStatus.OK)
+         // throw new RuntimeException("UndoLastChange() failed. CherryPick returned a bad status");
+
+         // CherryPickResult cherryPickResult = GitUtils.cherryPickNoMerge(repo, getUndoBranchRef());
+         // if (cherryPickResult.getStatus() != CherryPickStatus.OK)
+         // throw new RuntimeException("UndoLastChange() failed. CherryPickNoMerge returned a bad status");
 
          // if (!isWorkingTreeClean)
          // {
@@ -139,10 +146,12 @@ public class UndoFacet extends BaseFacet
          // destroyTempCommit(repo);
          // }
 
-         // createTempCommit(repo);
+         createTempCommit(repo);
+
          removeLastCommitInHistoryBranch(repo);
 
-         destroyTempCommit(repo);
+         GitUtils.resetMixed(repo, "HEAD^1"); // tmp commit
+         GitUtils.resetMixed(repo, "HEAD^1"); // cherry picked commit
          return true;
       }
       catch (IOException e)
@@ -155,13 +164,8 @@ public class UndoFacet extends BaseFacet
    {
       String previousBranch = GitUtils.getCurrentBranchName(repo);
       GitUtils.switchToBranch(repo, getUndoBranchName());
-      destroyTempCommit(repo);
+      GitUtils.resetHard(repo, "HEAD^1");
       GitUtils.switchToBranch(repo, previousBranch);
-   }
-
-   private void destroyTempCommit(Git git) throws GitAPIException
-   {
-      GitUtils.resetHard(git, "HEAD^1");
    }
 
    private void createTempCommit(Git git) throws GitAPIException

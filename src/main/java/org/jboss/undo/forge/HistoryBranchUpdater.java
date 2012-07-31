@@ -66,6 +66,7 @@ public class HistoryBranchUpdater
 
    private void createTempCommit(Git repo) throws GitAPIException
    {
+      GitUtils.addAll(repo);
       GitUtils.commit(repo, "tmp-commit");
    }
 
