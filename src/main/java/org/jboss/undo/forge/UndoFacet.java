@@ -23,24 +23,28 @@
 package org.jboss.undo.forge;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.eclipse.jgit.api.CherryPickResult;
-import org.eclipse.jgit.api.CherryPickResult.CherryPickStatus;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.MergeResult;
+import org.eclipse.jgit.api.Status;
 import org.eclipse.jgit.api.errors.CheckoutConflictException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRefNameException;
 import org.eclipse.jgit.api.errors.RefAlreadyExistsException;
 import org.eclipse.jgit.api.errors.RefNotFoundException;
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
 import org.jboss.forge.env.Configuration;
 import org.jboss.forge.git.GitFacet;
 import org.jboss.forge.git.GitUtils;
+import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.facets.BaseFacet;
 import org.jboss.forge.resources.FileResource;
 import org.jboss.forge.shell.plugins.Alias;
@@ -119,77 +123,73 @@ public class UndoFacet extends BaseFacet
       try
       {
          Git repo = getGitObject();
-         // boolean isWorkingTreeClean = repo.status().call().isClean();
+         String previousBranch = GitUtils.getCurrentBranchName(repo);
 
-         // if (!isWorkingTreeClean)
-         // {
-         // // GitUtils.addAll(repo);
-         // // GitUtils.stashCreate(repo);
-         // createTempCommit(repo);
-         // }
+         repo.add().addFilepattern(".").call();
+         repo.stashCreate().call();
 
-         GitUtils.addAll(repo);
+         Ref historyBranchRef = repo.checkout().setName(getUndoBranchName()).call();
+         RevCommit reverted = repo.revert().include(historyBranchRef).call();
 
-         // TODO: Use inverted patch here instead of cherrypicking!
-         // CherryPickResult cherryPickResult = repo.cherryPick().include(getUndoBranchRef()).call();
-         // if (cherryPickResult.getStatus() != CherryPickStatus.OK)
-         // throw new RuntimeException("UndoLastChange() failed. CherryPick returned a bad status");
+         Ref master = repo.checkout().setName(previousBranch).call();
+         System.err.println("master: " + master.getName());
+         System.err.println("master's last commit: " + master.getObjectId().getName());
 
-         // CherryPickResult cherryPickResult = GitUtils.cherryPickNoMerge(repo, getUndoBranchRef());
-         // if (cherryPickResult.getStatus() != CherryPickStatus.OK)
-         // throw new RuntimeException("UndoLastChange() failed. CherryPickNoMerge returned a bad status");
+         CherryPickResult cherried = repo.cherryPick().include(reverted).call();
+         System.err.println("cherry-pick status:   " + cherried.getStatus());
+         System.err.println("cherry-pick new-head: " + cherried.getNewHead().name());
+         System.err.println("cherry-picked refs:   " + cherried.getCherryPickedRefs());
+         // repo.stashApply().call();
+         // repo.stashDrop().call();
 
-         // if (!isWorkingTreeClean)
-         // {
-         // // GitUtils.stashApply(repo);
-         // // GitUtils.stashDrop(repo);
-         // destroyTempCommit(repo);
-         // }
+         //
 
-         createTempCommit(repo);
+         // repo.add().addFilepattern(".").call();
+         // repo.stashCreate().call();
+         // repo.checkout().setName(getUndoBranchName()).call();
+         // repo.reset().setMode(ResetType.HARD).setRef("HEAD^1").call(); // move 1 commit back (reverted commit)
+         // repo.reset().setMode(ResetType.HARD).setRef("HEAD^1").call(); // move 1 commit back (changeset in undo
+         // branch)
+         //
+         // repo.checkout().setName(previousBranch).call();
+         // repo.stashApply().call();
+         // repo.stashDrop().call();
 
-         removeLastCommitInHistoryBranch(repo);
-
-         GitUtils.resetMixed(repo, "HEAD^1"); // tmp commit
-         GitUtils.resetMixed(repo, "HEAD^1"); // cherry picked commit
          return true;
       }
-      catch (IOException e)
+      catch (Exception e)
       {
          throw new RuntimeException("Failed to undo last change [" + e.getMessage() + "]", e.getCause());
       }
    }
 
-   private void removeLastCommitInHistoryBranch(Git repo) throws IOException, GitAPIException
+   private void printStatus(PrintStream stream, Status status)
    {
-      String previousBranch = GitUtils.getCurrentBranchName(repo);
-      GitUtils.switchToBranch(repo, getUndoBranchName());
-      GitUtils.resetHard(repo, "HEAD^1");
-      GitUtils.switchToBranch(repo, previousBranch);
+      stream.println("modified: " + status.getModified());
+      stream.println("added: " + status.getAdded());
+      stream.println("untracked: " + status.getUntracked());
+      stream.println("changed: " + status.getChanged());
+      stream.println("conflicting: " + status.getConflicting());
+      stream.println("missing: " + status.getMissing());
+      stream.println("removed: " + status.getRemoved());
    }
 
-   private void createTempCommit(Git git) throws GitAPIException
+   private void ensureGitRepositoryIsInitialized(Git repo) throws GitAPIException
    {
-      GitUtils.addAll(git);
-      GitUtils.commit(git, "tmp-commit");
-   }
-
-   private void ensureGitRepositoryIsInitialized(Git git) throws GitAPIException
-   {
-      List<Ref> branches = GitUtils.getLocalBranches(git);
+      List<Ref> branches = GitUtils.getLocalBranches(repo);
       if (branches != null && branches.size() == 0)
       {
          FileResource<?> file = project.getProjectRoot().getChild(".gitignore").reify(FileResource.class);
          file.createNewFile();
-         GitUtils.add(git, ".gitignore");
-         GitUtils.commit(git, INITIAL_COMMIT_MSG);
+         GitUtils.add(repo, ".gitignore");
+         GitUtils.commit(repo, INITIAL_COMMIT_MSG);
       }
    }
 
-   private void commitAllToHaveCleanTree(Git git) throws GitAPIException
+   private void commitAllToHaveCleanTree(Git repo) throws GitAPIException
    {
-      GitUtils.addAll(git);
-      GitUtils.commit(git, UNDO_INSTALL_COMMIT_MSG);
+      GitUtils.addAll(repo);
+      GitUtils.commit(repo, UNDO_INSTALL_COMMIT_MSG);
    }
 
    private void initializeHistoryBranch(Git git) throws IOException, RefAlreadyExistsException, RefNotFoundException,
