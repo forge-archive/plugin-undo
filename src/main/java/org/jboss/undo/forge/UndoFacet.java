@@ -24,6 +24,8 @@ package org.jboss.undo.forge;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,6 +33,7 @@ import javax.inject.Inject;
 import org.eclipse.jgit.api.CherryPickResult;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.MergeResult;
+import org.eclipse.jgit.api.ResetCommand.ResetType;
 import org.eclipse.jgit.api.Status;
 import org.eclipse.jgit.api.errors.CheckoutConflictException;
 import org.eclipse.jgit.api.errors.GitAPIException;
@@ -122,36 +125,33 @@ public class UndoFacet extends BaseFacet
    {
       try
       {
+         // TODO: verify at least 1 commit is present in the history-branch
          Git repo = getGitObject();
          String previousBranch = GitUtils.getCurrentBranchName(repo);
 
          repo.add().addFilepattern(".").call();
-         repo.stashCreate().call();
-
+         repo.commit().setMessage("FORGE PLUGIN-UNDO: preparing to undo a change").call();
          Ref historyBranchRef = repo.checkout().setName(getUndoBranchName()).call();
          RevCommit reverted = repo.revert().include(historyBranchRef).call();
 
-         Ref master = repo.checkout().setName(previousBranch).call();
-         System.err.println("master: " + master.getName());
-         System.err.println("master's last commit: " + master.getObjectId().getName());
+         repo.checkout().setName(getUndoBranchName()).call();
 
-         CherryPickResult cherried = repo.cherryPick().include(reverted).call();
-         System.err.println("cherry-pick status:   " + cherried.getStatus());
-         System.err.println("cherry-pick new-head: " + cherried.getNewHead().name());
-         System.err.println("cherry-picked refs:   " + cherried.getCherryPickedRefs());
-         // repo.stashApply().call();
-         // repo.stashDrop().call();
-
-         //
+         List<String> commitsBefore = extractCommitMsgs(repo.log().add(repo.getRepository().resolve("HEAD")).call());
+         System.err.println(commitsBefore.size());
+         CherryPickResult cherryPickResult = repo.cherryPick().include(reverted).call();
+         List<String> commitsAfter = extractCommitMsgs(repo.log().add(repo.getRepository().resolve("HEAD")).call());
+         System.err.println(commitsAfter.size());
+         // System.err.println(cherryPickResult.getStatus());
+         // System.err.println(cherryPickResult.getNewHead());
+         // System.err.println(cherryPickResult.getCherryPickedRefs());
 
          // repo.add().addFilepattern(".").call();
          // repo.stashCreate().call();
          // repo.checkout().setName(getUndoBranchName()).call();
          // repo.reset().setMode(ResetType.HARD).setRef("HEAD^1").call(); // move 1 commit back (reverted commit)
-         // repo.reset().setMode(ResetType.HARD).setRef("HEAD^1").call(); // move 1 commit back (changeset in undo
-         // branch)
-         //
+         // repo.reset().setMode(ResetType.HARD).setRef("HEAD^1").call(); // move 1 commit back (changeset in undo)
          // repo.checkout().setName(previousBranch).call();
+
          // repo.stashApply().call();
          // repo.stashDrop().call();
 
@@ -161,6 +161,20 @@ public class UndoFacet extends BaseFacet
       {
          throw new RuntimeException("Failed to undo last change [" + e.getMessage() + "]", e.getCause());
       }
+   }
+
+   private List<String> extractCommitMsgs(final Iterable<RevCommit> collection)
+   {
+      List<String> commitMsgs = new ArrayList<String>();
+
+      Iterator<RevCommit> iter = collection.iterator();
+      while (iter.hasNext())
+      {
+         RevCommit commit = iter.next();
+         commitMsgs.add(commit.getFullMessage());
+      }
+
+      return commitMsgs;
    }
 
    private void printStatus(PrintStream stream, Status status)

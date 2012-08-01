@@ -44,11 +44,24 @@ public class HistoryBranchUpdater
 
          if (anythingChanged(repo))
          {
-            createAndApplyStash(repo);
-            createTempCommit(repo);
-            addStashedChangesOntoHistoryBranch(repo, undoBranch, command);
-            destroyTempCommit(repo);
-            applyAndDestroyStash(repo);
+            String previousBranch = repo.getRepository().getBranch();
+
+            repo.add().addFilepattern(".").call();
+            repo.stashCreate().call();
+            repo.checkout().setName(undoBranch).call();
+            repo.stashApply().call();
+            repo.commit().setMessage("plugin-undo snapshot added").call();
+            repo.checkout().setName(previousBranch).call();
+            repo.stashApply().call();
+            repo.stashDrop().call();
+            repo.add().addFilepattern(".");
+
+            // createAndApplyStash(repo);
+            // createTempCommit(repo);
+            // addStashedChangesOntoHistoryBranch(repo, undoBranch, command);
+            // destroyTempCommit(repo);
+            // applyAndDestroyStash(repo);
+            // GitUtils.addAll(repo);
          }
       }
       catch (Exception e)
@@ -66,24 +79,23 @@ public class HistoryBranchUpdater
 
    private void createTempCommit(Git repo) throws GitAPIException
    {
-      GitUtils.addAll(repo);
+      // GitUtils.addAll(repo);
       GitUtils.commit(repo, "tmp-commit");
    }
 
    private void addStashedChangesOntoHistoryBranch(Git repo, String undoBranch, final CommandExecuted command)
             throws IOException, GitAPIException
    {
-      String oldBranch = GitUtils.getCurrentBranchName(repo);
-
       String cmdParentName = command.getCommand().getParent() != null ? command.getCommand().getParent().getName() : "";
       String cmdName = command.getCommand().getName();
       String enquotedCommand = Strings.enquote(
                Strings.areEqual(cmdParentName, cmdName) ? cmdName : cmdParentName + " " + cmdName
                );
 
+      String oldBranch = GitUtils.getCurrentBranchName(repo);
       GitUtils.switchToBranch(repo, undoBranch);
       GitUtils.stashApply(repo);
-      GitUtils.addAll(repo);
+      // GitUtils.addAll(repo);
       GitUtils.commit(
                repo,
                "history-branch: changes introduced by the " + enquotedCommand + " command");
