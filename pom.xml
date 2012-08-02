@@ -21,27 +21,10 @@
       </dependency>
       <dependency>
         <groupId>org.jboss.forge</groupId>
-        <artifactId>forge-shell-api</artifactId>
+        <artifactId>forge-parent</artifactId>
         <version>${forge.api.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.forge</groupId>
-        <artifactId>forge-git-tools</artifactId>
-        <version>${forge.api.version}</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.forge</groupId>
-        <artifactId>forge-test-harness</artifactId>
-        <version>${forge.api.version}</version>
-        <scope>test</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.jboss.forge</groupId>
-        <artifactId>forge-shell</artifactId>
-        <version>${forge.api.version}</version>
-        <scope>test</scope>
+        <scope>import</scope>
+        <type>pom</type>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -75,21 +58,6 @@
       <groupId>org.jboss.forge</groupId>
       <artifactId>forge-shell</artifactId>
       <scope>test</scope>
-    </dependency>
-    
-    <!-- weld -->
-    <dependency>
-      <groupId>org.jboss.weld</groupId>
-      <artifactId>weld-core-bom</artifactId>
-      <version>${weld.version}</version>
-      <type>pom</type>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.weld.se</groupId>
-      <artifactId>weld-se-core</artifactId>
-      <version>${weld.version}</version>
-      <scope>provided</scope>
     </dependency>
   </dependencies>
   <repositories>
