@@ -23,24 +23,17 @@
 package org.jboss.undo.forge;
 
 import java.io.IOException;
-import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.eclipse.jgit.api.CherryPickResult;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.MergeResult;
 import org.eclipse.jgit.api.ResetCommand.ResetType;
-import org.eclipse.jgit.api.Status;
 import org.eclipse.jgit.api.errors.CheckoutConflictException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRefNameException;
 import org.eclipse.jgit.api.errors.RefAlreadyExistsException;
 import org.eclipse.jgit.api.errors.RefNotFoundException;
-import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -126,6 +119,7 @@ public class UndoFacet extends BaseFacet
       try
       {
          // TODO: verify at least 1 commit is present in the history-branch
+
          Git repo = getGitObject();
          String previousBranch = GitUtils.getCurrentBranchName(repo);
 
@@ -133,59 +127,19 @@ public class UndoFacet extends BaseFacet
          repo.commit().setMessage("FORGE PLUGIN-UNDO: preparing to undo a change").call();
          Ref historyBranchRef = repo.checkout().setName(getUndoBranchName()).call();
          RevCommit reverted = repo.revert().include(historyBranchRef).call();
+         // TODO: verify reverted != null
+         repo.checkout().setName(previousBranch).call();
+         repo.cherryPick().include(reverted).call();
 
          repo.checkout().setName(getUndoBranchName()).call();
-
-         List<String> commitsBefore = extractCommitMsgs(repo.log().add(repo.getRepository().resolve("HEAD")).call());
-         System.err.println(commitsBefore.size());
-         CherryPickResult cherryPickResult = repo.cherryPick().include(reverted).call();
-         List<String> commitsAfter = extractCommitMsgs(repo.log().add(repo.getRepository().resolve("HEAD")).call());
-         System.err.println(commitsAfter.size());
-         // System.err.println(cherryPickResult.getStatus());
-         // System.err.println(cherryPickResult.getNewHead());
-         // System.err.println(cherryPickResult.getCherryPickedRefs());
-
-         // repo.add().addFilepattern(".").call();
-         // repo.stashCreate().call();
-         // repo.checkout().setName(getUndoBranchName()).call();
-         // repo.reset().setMode(ResetType.HARD).setRef("HEAD^1").call(); // move 1 commit back (reverted commit)
-         // repo.reset().setMode(ResetType.HARD).setRef("HEAD^1").call(); // move 1 commit back (changeset in undo)
-         // repo.checkout().setName(previousBranch).call();
-
-         // repo.stashApply().call();
-         // repo.stashDrop().call();
-
+         repo.reset().setMode(ResetType.HARD).setRef("HEAD~2").call();
+         repo.checkout().setName(previousBranch).call();
          return true;
       }
       catch (Exception e)
       {
          throw new RuntimeException("Failed to undo last change [" + e.getMessage() + "]", e.getCause());
       }
-   }
-
-   private List<String> extractCommitMsgs(final Iterable<RevCommit> collection)
-   {
-      List<String> commitMsgs = new ArrayList<String>();
-
-      Iterator<RevCommit> iter = collection.iterator();
-      while (iter.hasNext())
-      {
-         RevCommit commit = iter.next();
-         commitMsgs.add(commit.getFullMessage());
-      }
-
-      return commitMsgs;
-   }
-
-   private void printStatus(PrintStream stream, Status status)
-   {
-      stream.println("modified: " + status.getModified());
-      stream.println("added: " + status.getAdded());
-      stream.println("untracked: " + status.getUntracked());
-      stream.println("changed: " + status.getChanged());
-      stream.println("conflicting: " + status.getConflicting());
-      stream.println("missing: " + status.getMissing());
-      stream.println("removed: " + status.getRemoved());
    }
 
    private void ensureGitRepositoryIsInitialized(Git repo) throws GitAPIException
@@ -221,7 +175,7 @@ public class UndoFacet extends BaseFacet
             InvalidRefNameException, CheckoutConflictException, GitAPIException
    {
       Git repo = getGitObject();
-      return repo.getRepository().getRef(getUndoBranchName());     
+      return repo.getRepository().getRef(getUndoBranchName());
    }
 
    public Git getGitObject() throws IOException
