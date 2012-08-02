@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.ResetCommand.ResetType;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.errors.NoWorkTreeException;
 import org.jboss.forge.git.GitUtils;
@@ -93,19 +94,19 @@ public class HistoryBranchUpdater
                );
 
       String oldBranch = GitUtils.getCurrentBranchName(repo);
-      GitUtils.switchToBranch(repo, undoBranch);
+      GitUtils.switchBranch(repo, undoBranch);
       GitUtils.stashApply(repo);
       // GitUtils.addAll(repo);
       GitUtils.commit(
                repo,
                "history-branch: changes introduced by the " + enquotedCommand + " command");
 
-      GitUtils.switchToBranch(repo, oldBranch);
+      GitUtils.switchBranch(repo, oldBranch);
    }
 
    private void destroyTempCommit(Git repo) throws GitAPIException
    {
-      GitUtils.resetMixed(repo, "HEAD^1");
+      repo.reset().setMode(ResetType.MIXED).setRef("HEAD^1").call();
    }
 
    private void applyAndDestroyStash(Git repo) throws GitAPIException

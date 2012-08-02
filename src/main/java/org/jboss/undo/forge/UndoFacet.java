@@ -221,7 +221,7 @@ public class UndoFacet extends BaseFacet
             InvalidRefNameException, CheckoutConflictException, GitAPIException
    {
       Git repo = getGitObject();
-      return GitUtils.getRef(repo, getUndoBranchName());
+      return repo.getRepository().getRef(getUndoBranchName());     
    }
 
    public Git getGitObject() throws IOException
