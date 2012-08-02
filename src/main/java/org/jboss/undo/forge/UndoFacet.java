@@ -32,6 +32,7 @@ import org.eclipse.jgit.api.ResetCommand.ResetType;
 import org.eclipse.jgit.api.errors.CheckoutConflictException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRefNameException;
+import org.eclipse.jgit.api.errors.MultipleParentsNotAllowedException;
 import org.eclipse.jgit.api.errors.RefAlreadyExistsException;
 import org.eclipse.jgit.api.errors.RefNotFoundException;
 import org.eclipse.jgit.lib.Ref;
@@ -49,7 +50,7 @@ import org.jboss.forge.shell.plugins.RequiresFacet;
 
 /**
  * @author <a href="mailto:jevgeni.zelenkov@gmail.com">Jevgeni Zelenkov</a>
- * 
+ *
  */
 @Alias("forge.plugin.undo")
 @Help("Undo plugin facet")
@@ -60,6 +61,8 @@ public class UndoFacet extends BaseFacet
    public static final String HISTORY_BRANCH_CONFIG_KEY = "forge-undo-branch";
    public static final String INITIAL_COMMIT_MSG = "repository initial commit";
    public static final String UNDO_INSTALL_COMMIT_MSG = "FORGE PLUGIN-UNDO: initial commit";
+   public static boolean isReady = false;
+   public int historyBranchSize = 0;
    private Git gitObject = null;
 
    @Inject
@@ -76,6 +79,7 @@ public class UndoFacet extends BaseFacet
          commitAllToHaveCleanTree(git);
          initializeHistoryBranch(git);
 
+         UndoFacet.isReady = true;
          return true;
       }
       catch (Exception e)
@@ -116,25 +120,51 @@ public class UndoFacet extends BaseFacet
 
    public boolean undoLastChange()
    {
+      Git repo = null;
+      String previousBranch = "";
+
       try
       {
-         // TODO: verify at least 1 commit is present in the history-branch
+         if (historyBranchSize > 0)
+         {
+            repo = getGitObject();
+            previousBranch = GitUtils.getCurrentBranchName(repo);
 
-         Git repo = getGitObject();
-         String previousBranch = GitUtils.getCurrentBranchName(repo);
+            repo.add().addFilepattern(".").call();
+            repo.commit().setMessage("FORGE PLUGIN-UNDO: preparing to undo a change").call();
+            Ref historyBranchRef = repo.checkout().setName(getUndoBranchName()).call();
+            RevCommit reverted = repo.revert().include(historyBranchRef).call();
+            if(reverted == null)
+               throw new RuntimeException("failed to revert a commit on a history branch");
 
-         repo.add().addFilepattern(".").call();
-         repo.commit().setMessage("FORGE PLUGIN-UNDO: preparing to undo a change").call();
-         Ref historyBranchRef = repo.checkout().setName(getUndoBranchName()).call();
-         RevCommit reverted = repo.revert().include(historyBranchRef).call();
-         // TODO: verify reverted != null
-         repo.checkout().setName(previousBranch).call();
-         repo.cherryPick().include(reverted).call();
+            repo.checkout().setName(previousBranch).call();
+            repo.cherryPick().include(reverted).call();
 
-         repo.checkout().setName(getUndoBranchName()).call();
-         repo.reset().setMode(ResetType.HARD).setRef("HEAD~2").call();
-         repo.checkout().setName(previousBranch).call();
-         return true;
+            repo.checkout().setName(getUndoBranchName()).call();
+            repo.reset().setMode(ResetType.HARD).setRef("HEAD~2").call();
+            repo.checkout().setName(previousBranch).call();
+
+            historyBranchSize--;
+            return true;
+         }
+
+         return false;
+      }
+      catch (MultipleParentsNotAllowedException e)
+      {
+         // revert of a merged commit failed. Roll back the changes introduced so far.
+         try
+         {
+            repo.checkout().setName(previousBranch).call();
+         }
+         catch (Exception e2)
+         {
+            throw new RuntimeException(
+                     "Failed during revert command (MultipleParentsNotAllowed). Then failed trying to rollback changes ["
+                              + e.getMessage() + "]", e2.getCause());
+         }
+
+         return false;
       }
       catch (Exception e)
       {

@@ -12,8 +12,6 @@ import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.Project;
 import org.jboss.forge.shell.Shell;
 import org.jboss.forge.shell.events.CommandExecuted;
-import org.jboss.forge.shell.project.ProjectScoped;
-import org.jboss.weld.context.ContextNotActiveException;
 
 @Singleton
 public class HistoryBranchUpdater
@@ -26,7 +24,10 @@ public class HistoryBranchUpdater
 
    public void updateHistoryBranch(@Observes final CommandExecuted command)
    {
-      if (!projectScopedIsAvailable())
+      if(command.getStatus() != CommandExecuted.Status.SUCCESS)
+         return;
+
+      if (!UndoFacet.isReady)
          return;
 
       Project project = shell.getCurrentProject();
@@ -51,6 +52,7 @@ public class HistoryBranchUpdater
             repo.checkout().setName(previousBranch).call();
             repo.stashApply().call();
             repo.stashDrop().call();
+            project.getFacet(UndoFacet.class).historyBranchSize++;
          }
       }
       catch (Exception e)
@@ -67,19 +69,6 @@ public class HistoryBranchUpdater
                Strings.areEqual(cmdParentName, cmdName) ? cmdName : cmdParentName + " " + cmdName
                );
       return "history-branch: changes introduced by the " + enquotedCommand + " command";
-   }
-
-   private boolean projectScopedIsAvailable()
-   {
-      try
-      {
-         beanManager.getContext(ProjectScoped.class);
-      }
-      catch (ContextNotActiveException e)
-      {
-         return false;
-      }
-      return true;
    }
 
    private boolean validRequirements(Project project, final CommandExecuted command)
