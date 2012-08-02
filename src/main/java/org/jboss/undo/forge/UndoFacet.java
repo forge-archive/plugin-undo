@@ -41,7 +41,6 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.jboss.forge.env.Configuration;
 import org.jboss.forge.git.GitFacet;
 import org.jboss.forge.git.GitUtils;
-import org.jboss.forge.git.errors.CantMergeCommitWithZeroParentsException;
 import org.jboss.forge.project.facets.BaseFacet;
 import org.jboss.forge.resources.FileResource;
 import org.jboss.forge.shell.plugins.Alias;
@@ -86,7 +85,7 @@ public class UndoFacet extends BaseFacet
          String master = GitUtils.getCurrentBranchName(git);
 
          String branchName = getUndoBranchName();
-         GitUtils.createBranch(git, branchName);
+         git.branchCreate().setName(branchName).call();
          GitUtils.switchBranch(git, branchName);
 
          FileResource<?> dotUndoPlugin = project.getProjectRoot().getChild(".undo-plugin").reify(FileResource.class);
@@ -174,10 +173,6 @@ public class UndoFacet extends BaseFacet
          GitUtils.resetHard(repo, "HEAD^1");
          GitUtils.switchBranch(repo, oldBranch);
          success = true;
-      }
-      catch (CantMergeCommitWithZeroParentsException e)
-      {
-         return false;
       }
       catch (IOException e)
       {
