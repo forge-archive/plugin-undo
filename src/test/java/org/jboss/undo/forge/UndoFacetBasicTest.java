@@ -104,11 +104,10 @@ public class UndoFacetBasicTest extends AbstractShellTest
       getShell().execute("undo setup");
 
       String filename = "test1.txt";
-      String contents = "foo bar baz";
 
       String forgeUndoPrefix = "history-branch: changes introduced by the ";
       String commandName = "touch";
-      String command = commandName + " --filename " + filename + " --contents " + Strings.enquote(contents);
+      String command = commandName + " " + filename;
       getShell().execute(command);
 
       DirectoryResource dir = project.getProjectRoot();
@@ -135,14 +134,13 @@ public class UndoFacetBasicTest extends AbstractShellTest
       getShell().execute("undo setup");
 
       String filename = "test1.txt";
-      String contents = "foo bar baz";
       String subdir = "subdir";
 
       Assert.assertFalse("failed because subdir exists already", dir.getChildDirectory(subdir).exists());
 
       String forgeUndoPrefix = "history-branch: changes introduced by the ";
       String commandName = "touch";
-      String command = commandName + " --filename " + filename + " --contents " + Strings.enquote(contents);
+      String command = commandName + " " + filename;
       DirectoryResource subDirResource = dir.getOrCreateChildDirectory(subdir);
 
       getShell().setCurrentResource(subDirResource);
@@ -182,11 +180,10 @@ public class UndoFacetBasicTest extends AbstractShellTest
       getShell().execute("undo setup");
 
       String filename = "test1.txt";
-      String contents = "foo bar baz";
 
       String forgeUndoPrefix = "history-branch: changes introduced by the ";
       String commandName = "touch";
-      String command = commandName + " --filename " + filename + " --contents " + Strings.enquote(contents);
+      String command = commandName + " " + filename;
       getShell().execute(command);
 
       DirectoryResource dir = project.getProjectRoot();
@@ -240,11 +237,10 @@ public class UndoFacetBasicTest extends AbstractShellTest
       getShell().execute("undo setup");
 
       String filename = "test1.txt";
-      String contents = "foo bar baz";
 
       String forgeUndoPrefix = "history-branch: changes introduced by the ";
       String commandName = "touch";
-      String command = commandName + " --filename " + filename + " --contents " + Strings.enquote(contents);
+      String command = commandName + " " + filename;
       getShell().execute(command);
 
       DirectoryResource dir = project.getProjectRoot();
