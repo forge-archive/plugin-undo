@@ -110,7 +110,7 @@ public class UndoFacet extends BaseFacet
    {
       try
       {
-         return GitUtils.getLogForBranch(getGitObject(), getUndoBranchName());
+         return GitUtils.getLogForBranch(getGitObject(), getUndoBranchName(), historyBranchSize);
       }
       catch (Exception e)
       {
@@ -134,7 +134,7 @@ public class UndoFacet extends BaseFacet
             repo.commit().setMessage("FORGE PLUGIN-UNDO: preparing to undo a change").call();
             Ref historyBranchRef = repo.checkout().setName(getUndoBranchName()).call();
             RevCommit reverted = repo.revert().include(historyBranchRef).call();
-            if(reverted == null)
+            if (reverted == null)
                throw new RuntimeException("failed to revert a commit on a history branch");
 
             repo.checkout().setName(previousBranch).call();
