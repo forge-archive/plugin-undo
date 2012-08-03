@@ -46,7 +46,7 @@ import org.junit.Test;
  * @author <a href="mailto:jevgeni.zelenkov@gmail.com">Jevgeni Zelenkov</a>
  *
  */
-public class UndoFacetTest extends AbstractShellTest
+public class UndoFacetSimpleTests extends AbstractShellTest
 {
    @Deployment
    public static JavaArchive getDeployment()
@@ -102,7 +102,7 @@ public class UndoFacetTest extends AbstractShellTest
    @Test
    public void shouldAddChangesIntoUndoBranch() throws Exception
    {
-      UndoFacetTest.project = initializeJavaProject();
+      UndoFacetSimpleTests.project = initializeJavaProject();
       getShell().execute("undo setup");
 
       String filename = "test1.txt";
@@ -130,7 +130,7 @@ public class UndoFacetTest extends AbstractShellTest
    @Test
    public void shouldAddChangesFromInsideNonTrackedDirs() throws Exception
    {
-      UndoFacetTest.project = initializeJavaProject();
+      UndoFacetSimpleTests.project = initializeJavaProject();
       DirectoryResource dir = project.getProjectRoot();
       getShell().execute("undo setup");
 
@@ -176,7 +176,7 @@ public class UndoFacetTest extends AbstractShellTest
       // verify file1 doesn't exist
       // verify commit in history branch doesn't exist
 
-      UndoFacetTest.project = initializeJavaProject();
+      UndoFacetSimpleTests.project = initializeJavaProject();
       getShell().execute("undo setup");
 
       String filename = "test1.txt";
@@ -230,7 +230,7 @@ public class UndoFacetTest extends AbstractShellTest
 
       boolean isRestored = false;
 
-      UndoFacetTest.project = initializeJavaProject();
+      UndoFacetSimpleTests.project = initializeJavaProject();
 
       getShell().execute("undo setup");
 
@@ -271,7 +271,7 @@ public class UndoFacetTest extends AbstractShellTest
    }
 
    // helper methods
-   private List<String> extractCommitMsgs(final Iterable<RevCommit> collection)
+   private static List<String> extractCommitMsgs(final Iterable<RevCommit> collection)
    {
       List<String> commitMsgs = new ArrayList<String>();
 
