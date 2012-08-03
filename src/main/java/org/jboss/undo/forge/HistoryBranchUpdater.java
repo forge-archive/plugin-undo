@@ -52,6 +52,7 @@ public class HistoryBranchUpdater
             repo.checkout().setName(previousBranch).call();
             repo.stashApply().call();
             repo.stashDrop().call();
+            repo.add().addFilepattern(".").call();
 
             project.getFacet(UndoFacet.class).historyBranchSize++;
          }
@@ -81,6 +82,12 @@ public class HistoryBranchUpdater
          return false;
 
       if (Strings.areEqual(command.getCommand().getName(), "cd"))
+         return false;
+
+      if (Strings.areEqual(command.getCommand().getName(), "clear"))
+         return false;
+
+      if (Strings.areEqual(command.getCommand().getName(), "wait"))
          return false;
 
       if (Strings.areEqual(command.getCommand().getParent().getName(), "undo"))
