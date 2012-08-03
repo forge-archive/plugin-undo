@@ -23,7 +23,9 @@ def step( cmd ) {
 clear;
 @step("new-project --named conftrack --topLevelPackage com.conftrack");
 @step("undo setup");
-@step("java new-class --package com.conftrack "class One{}");
-@step("java new-class --package com.conftrack "class Two{}");
+
+@step("touch One.txt");
+@step("touch Two.txt");
+
 @step("undo restore");
 @step("undo restore");
