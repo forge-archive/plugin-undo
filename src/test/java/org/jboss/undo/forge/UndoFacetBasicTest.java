@@ -127,6 +127,59 @@ public class UndoFacetBasicTest extends AbstractShellTest
    }
 
    @Test
+   // here only for test purposes. Actually belongs to UndoFacetMultipleOpsTest.java
+   public void shouldAddTwoChangesIntoUndoBranch() throws Exception
+   {
+      Project project = initializeJavaProject();
+      getShell().execute("undo setup");
+
+      String filename = "test1.txt";
+      String filename2 = "test2.txt";
+
+      String forgeUndoPrefix = "history-branch: changes introduced by the ";
+      String commandName = "touch";
+      String command = commandName + " " + filename;
+      getShell().execute(command);
+
+      DirectoryResource dir = project.getProjectRoot();
+      FileResource<?> file = dir.getChild(filename).reify(FileResource.class);
+      Assert.assertTrue("file doesn't exist", file.exists());
+
+      // assert the results of the previous command
+      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
+      List<String> commitMsgs = extractCommitMsgs(commits);
+
+      Assert.assertEquals(1, getHistoryBranchSize(project));
+      Assert.assertEquals("wrong number of commits in the history branch", getHistoryBranchSize(project),
+               commitMsgs.size());
+      Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName) +
+               " command",
+               commitMsgs.get(0));
+
+      String command2 = commandName + " " + filename2;
+      getShell().execute(command2);
+
+      DirectoryResource dir2 = project.getProjectRoot();
+      FileResource<?> file2 = dir2.getChild(filename2).reify(FileResource.class);
+      Assert.assertTrue("file doesn't exist", file2.exists());
+
+      // assert the results of the previous command
+      Iterable<RevCommit> commits2 = project.getFacet(UndoFacet.class).getStoredCommits();
+      List<String> commitMsgs2 = extractCommitMsgs(commits2);
+
+      Assert.assertEquals(2, getHistoryBranchSize(project));
+      Assert.assertEquals("wrong number of commits in the history branch", getHistoryBranchSize(project),
+               commitMsgs2.size());
+      Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName) +
+               " command",
+               commitMsgs2.get(0));
+
+      // file1 should still exist
+      // FileResource<?> firstFileAgain = dir.getChild(filename).reify(FileResource.class);
+      // Assert.assertTrue("file doesn't exist", firstFileAgain.exists());
+   }
+
+   @Test
    public void shouldAddChangesFromInsideNonTrackedDirs() throws Exception
    {
       Project project = initializeJavaProject();
