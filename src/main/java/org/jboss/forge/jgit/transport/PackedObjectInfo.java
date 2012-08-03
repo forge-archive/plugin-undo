@@ -42,10 +42,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.ObjectIdOwnerMap;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdOwnerMap;
 
 /**
  * Description of an object stored in a pack file, including offset.

@@ -42,11 +42,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.util.QuotedString;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.util.QuotedString;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /**
  * Recreate a stream from a base stream and a GIT pack delta.

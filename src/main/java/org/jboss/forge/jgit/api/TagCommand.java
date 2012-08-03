@@ -40,29 +40,31 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidTagNameException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.api.errors.NoHeadException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.PersonIdent;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.RefUpdate.Result;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.RepositoryState;
-import org.eclipse.jgit.lib.TagBuilder;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.api.GitCommand;
+import org.jboss.forge.jgit.api.TagCommand;
+import org.jboss.forge.jgit.api.errors.ConcurrentRefUpdateException;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.InvalidTagNameException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.api.errors.NoHeadException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.RepositoryState;
+import org.jboss.forge.jgit.lib.TagBuilder;
+import org.jboss.forge.jgit.lib.RefUpdate.Result;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevWalk;
 
 /**
  * A class used to execute a {@code Tag} command. It has setters for all

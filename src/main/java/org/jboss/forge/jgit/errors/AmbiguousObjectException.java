@@ -41,15 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.errors;
+package org.jboss.forge.jgit.errors;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Collection;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
 
 /** An {@link AbbreviatedObjectId} cannot be extended. */
 public class AmbiguousObjectException extends IOException {

@@ -42,13 +42,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefComparator;
 
 /**
  * Util for sorting (or comparing) Ref instances by name.

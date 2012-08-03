@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -51,9 +51,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.util.MutableInteger;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.util.MutableInteger;
 
 /** Misc. constants used throughout JGit. */
 public final class Constants {

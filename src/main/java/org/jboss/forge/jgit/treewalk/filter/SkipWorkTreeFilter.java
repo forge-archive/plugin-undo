@@ -42,11 +42,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.treewalk.filter;
+package org.jboss.forge.jgit.treewalk.filter;
 
-import org.eclipse.jgit.dircache.DirCacheEntry;
-import org.eclipse.jgit.dircache.DirCacheIterator;
-import org.eclipse.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.dircache.DirCacheEntry;
+import org.jboss.forge.jgit.dircache.DirCacheIterator;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.filter.TreeFilter;
 
 /**
  * To be used in combination with a DirCacheIterator: includes only tree entries

@@ -41,39 +41,44 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.blame;
+package org.jboss.forge.jgit.blame;
 
-import static org.eclipse.jgit.lib.Constants.OBJ_BLOB;
+import static org.jboss.forge.jgit.lib.Constants.OBJ_BLOB;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.eclipse.jgit.blame.Candidate.BlobCandidate;
-import org.eclipse.jgit.blame.Candidate.ReverseCandidate;
-import org.eclipse.jgit.blame.ReverseWalk.ReverseCommit;
-import org.eclipse.jgit.diff.DiffAlgorithm;
-import org.eclipse.jgit.diff.DiffEntry;
-import org.eclipse.jgit.diff.DiffEntry.ChangeType;
-import org.eclipse.jgit.diff.EditList;
-import org.eclipse.jgit.diff.HistogramDiff;
-import org.eclipse.jgit.diff.RawText;
-import org.eclipse.jgit.diff.RawTextComparator;
-import org.eclipse.jgit.diff.RenameDetector;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.PersonIdent;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevFlag;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.filter.PathFilter;
-import org.eclipse.jgit.treewalk.filter.TreeFilter;
+import org.jboss.forge.jgit.blame.BlameGenerator;
+import org.jboss.forge.jgit.blame.BlameResult;
+import org.jboss.forge.jgit.blame.Candidate;
+import org.jboss.forge.jgit.blame.Region;
+import org.jboss.forge.jgit.blame.ReverseWalk;
+import org.jboss.forge.jgit.blame.Candidate.BlobCandidate;
+import org.jboss.forge.jgit.blame.Candidate.ReverseCandidate;
+import org.jboss.forge.jgit.blame.ReverseWalk.ReverseCommit;
+import org.jboss.forge.jgit.diff.DiffAlgorithm;
+import org.jboss.forge.jgit.diff.DiffEntry;
+import org.jboss.forge.jgit.diff.EditList;
+import org.jboss.forge.jgit.diff.HistogramDiff;
+import org.jboss.forge.jgit.diff.RawText;
+import org.jboss.forge.jgit.diff.RawTextComparator;
+import org.jboss.forge.jgit.diff.RenameDetector;
+import org.jboss.forge.jgit.diff.DiffEntry.ChangeType;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevFlag;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.filter.PathFilter;
+import org.jboss.forge.jgit.treewalk.filter.TreeFilter;
 
 /**
  * Generate author information for lines based on introduction to the file.

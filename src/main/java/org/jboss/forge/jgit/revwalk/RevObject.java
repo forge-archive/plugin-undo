@@ -41,16 +41,19 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdOwnerMap;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdOwnerMap;
+import org.jboss.forge.jgit.revwalk.RevFlag;
+import org.jboss.forge.jgit.revwalk.RevFlagSet;
+import org.jboss.forge.jgit.revwalk.RevWalk;
 
 /** Base object type accessed during revision walking. */
 public abstract class RevObject extends ObjectIdOwnerMap.Entry {

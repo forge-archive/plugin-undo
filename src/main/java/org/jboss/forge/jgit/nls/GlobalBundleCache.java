@@ -41,14 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.nls;
+package org.jboss.forge.jgit.nls;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import org.eclipse.jgit.errors.TranslationBundleLoadingException;
-import org.eclipse.jgit.errors.TranslationStringMissingException;
+import org.jboss.forge.jgit.errors.TranslationBundleLoadingException;
+import org.jboss.forge.jgit.errors.TranslationStringMissingException;
+import org.jboss.forge.jgit.nls.TranslationBundle;
 
 /**
  * Global cache of translation bundles.

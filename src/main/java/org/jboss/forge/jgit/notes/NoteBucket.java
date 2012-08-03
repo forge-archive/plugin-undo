@@ -41,15 +41,19 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.notes;
+package org.jboss.forge.jgit.notes;
 
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.notes.FanoutBucket;
+import org.jboss.forge.jgit.notes.InMemoryNoteBucket;
+import org.jboss.forge.jgit.notes.LeafBucket;
+import org.jboss.forge.jgit.notes.Note;
 
 /**
  * A tree that stores note objects.

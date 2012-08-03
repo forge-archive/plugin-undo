@@ -42,15 +42,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.Serializable;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.PersonIdent;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.storage.file.CheckoutEntry;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /**
  * Parsed reflog entry

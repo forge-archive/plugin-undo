@@ -41,11 +41,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.Arrays;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
 
 /**
  * A credential requested from a {@link CredentialsProvider}.

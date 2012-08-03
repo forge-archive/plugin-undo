@@ -42,15 +42,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.treewalk.filter;
+package org.jboss.forge.jgit.treewalk.filter;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Comparator;
 
-import org.eclipse.jgit.errors.StopWalkException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.errors.StopWalkException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
 
 /**
  * Includes tree entries only if they match one or more configured paths.
@@ -171,14 +171,16 @@ public class PathFilterGroup {
 			return this;
 		}
 
-		public String toString() {
+		@Override
+      public String toString() {
 			return "FAST_" + path.toString();
 		}
 	}
 
 	static class Group extends TreeFilter {
 		private static final Comparator<PathFilter> PATH_SORT = new Comparator<PathFilter>() {
-			public int compare(final PathFilter o1, final PathFilter o2) {
+			@Override
+         public int compare(final PathFilter o1, final PathFilter o2) {
 				return o1.pathStr.compareTo(o2.pathStr);
 			}
 		};
@@ -219,7 +221,8 @@ public class PathFilterGroup {
 			return this;
 		}
 
-		public String toString() {
+		@Override
+      public String toString() {
 			final StringBuilder r = new StringBuilder();
 			r.append("FAST(");
 			for (int i = 0; i < paths.length; i++) {

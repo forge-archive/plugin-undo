@@ -41,13 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.errors;
+package org.jboss.forge.jgit.errors;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.dircache.DirCacheEntry;
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.dircache.DirCacheEntry;
+import org.jboss.forge.jgit.internal.JGitText;
 
 /**
  * Indicates one or more paths in a DirCache have non-zero stages present.

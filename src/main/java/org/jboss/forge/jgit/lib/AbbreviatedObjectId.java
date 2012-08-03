@@ -41,15 +41,19 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.Serializable;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.errors.InvalidObjectIdException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.util.NB;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.errors.InvalidObjectIdException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.util.NB;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /**
  * A prefix abbreviation of an {@link ObjectId}.

@@ -40,7 +40,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -50,18 +50,21 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.PatchApplyException;
-import org.eclipse.jgit.api.errors.PatchFormatException;
-import org.eclipse.jgit.diff.DiffEntry.ChangeType;
-import org.eclipse.jgit.diff.RawText;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.patch.FileHeader;
-import org.eclipse.jgit.patch.HunkHeader;
-import org.eclipse.jgit.patch.Patch;
-import org.eclipse.jgit.util.FileUtils;
-import org.eclipse.jgit.util.IO;
+import org.jboss.forge.jgit.api.ApplyCommand;
+import org.jboss.forge.jgit.api.ApplyResult;
+import org.jboss.forge.jgit.api.GitCommand;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.PatchApplyException;
+import org.jboss.forge.jgit.api.errors.PatchFormatException;
+import org.jboss.forge.jgit.diff.RawText;
+import org.jboss.forge.jgit.diff.DiffEntry.ChangeType;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.patch.FileHeader;
+import org.jboss.forge.jgit.patch.HunkHeader;
+import org.jboss.forge.jgit.patch.Patch;
+import org.jboss.forge.jgit.util.FileUtils;
+import org.jboss.forge.jgit.util.IO;
 
 /**
  * Apply a patch to files and/or to the index.

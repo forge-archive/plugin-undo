@@ -44,15 +44,21 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.transport.BundleFetchConnection;
+import org.jboss.forge.jgit.transport.FetchConnection;
+import org.jboss.forge.jgit.transport.PushConnection;
+import org.jboss.forge.jgit.transport.Transport;
+import org.jboss.forge.jgit.transport.TransportBundle;
+import org.jboss.forge.jgit.transport.URIish;
 
 /**
  * Single shot fetch from a streamed Git bundle.

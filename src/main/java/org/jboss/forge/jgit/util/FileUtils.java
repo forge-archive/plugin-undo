@@ -43,14 +43,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.channels.FileLock;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
 
 /**
  * File Utilities

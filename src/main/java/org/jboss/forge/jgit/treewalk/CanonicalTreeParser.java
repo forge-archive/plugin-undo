@@ -42,19 +42,21 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.treewalk;
+package org.jboss.forge.jgit.treewalk;
 
 import java.io.IOException;
 import java.util.Arrays;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.treewalk.CanonicalTreeParser;
 
 /** Parses raw Git trees from the canonical semi-text/semi-binary format. */
 public class CanonicalTreeParser extends AbstractTreeIterator {

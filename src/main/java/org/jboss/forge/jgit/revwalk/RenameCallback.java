@@ -40,9 +40,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
-import org.eclipse.jgit.diff.DiffEntry;
+import org.jboss.forge.jgit.diff.DiffEntry;
+import org.jboss.forge.jgit.revwalk.FollowFilter;
+import org.jboss.forge.jgit.revwalk.RenameCallback;
 
 /**
  * An instance of this class can be used in conjunction with a

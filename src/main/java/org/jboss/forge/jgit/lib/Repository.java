@@ -44,7 +44,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -62,31 +62,46 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.eclipse.jgit.dircache.DirCache;
-import org.eclipse.jgit.errors.AmbiguousObjectException;
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.NoWorkTreeException;
-import org.eclipse.jgit.errors.RevisionSyntaxException;
-import org.eclipse.jgit.events.IndexChangedEvent;
-import org.eclipse.jgit.events.IndexChangedListener;
-import org.eclipse.jgit.events.ListenerList;
-import org.eclipse.jgit.events.RepositoryEvent;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.revwalk.RevBlob;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevTree;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.storage.file.ReflogEntry;
-import org.eclipse.jgit.storage.file.ReflogReader;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.util.FS;
-import org.eclipse.jgit.util.FileUtils;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.RawParseUtils;
-import org.eclipse.jgit.util.io.SafeBufferedOutputStream;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.errors.AmbiguousObjectException;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.NoWorkTreeException;
+import org.jboss.forge.jgit.errors.RevisionSyntaxException;
+import org.jboss.forge.jgit.events.IndexChangedEvent;
+import org.jboss.forge.jgit.events.IndexChangedListener;
+import org.jboss.forge.jgit.events.ListenerList;
+import org.jboss.forge.jgit.events.RepositoryEvent;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.BaseRepositoryBuilder;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectDatabase;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefDatabase;
+import org.jboss.forge.jgit.lib.RefRename;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.RepositoryState;
+import org.jboss.forge.jgit.lib.StoredConfig;
+import org.jboss.forge.jgit.revwalk.RevBlob;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevTree;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.storage.file.ReflogEntry;
+import org.jboss.forge.jgit.storage.file.ReflogReader;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.FileUtils;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.util.io.SafeBufferedOutputStream;
 
 /**
  * Represents a Git repository.

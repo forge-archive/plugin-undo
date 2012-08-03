@@ -44,7 +44,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.dircache;
+package org.jboss.forge.jgit.dircache;
 
 import java.io.ByteArrayOutputStream;
 import java.io.EOFException;
@@ -56,15 +56,18 @@ import java.security.MessageDigest;
 import java.text.MessageFormat;
 import java.util.Arrays;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.MutableInteger;
-import org.eclipse.jgit.util.NB;
-import org.eclipse.jgit.util.SystemReader;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.dircache.DirCacheEntry;
+import org.jboss.forge.jgit.dircache.InvalidPathException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.MutableInteger;
+import org.jboss.forge.jgit.util.NB;
+import org.jboss.forge.jgit.util.SystemReader;
 
 /**
  * A single file (or stage of a file) in a {@link DirCache}.

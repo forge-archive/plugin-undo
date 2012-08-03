@@ -42,11 +42,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revplot;
+package org.jboss.forge.jgit.revplot;
 
-import static org.eclipse.jgit.lib.Constants.R_HEADS;
-import static org.eclipse.jgit.lib.Constants.R_REMOTES;
-import static org.eclipse.jgit.lib.Constants.R_TAGS;
+import static org.jboss.forge.jgit.lib.Constants.R_HEADS;
+import static org.jboss.forge.jgit.lib.Constants.R_REMOTES;
+import static org.jboss.forge.jgit.lib.Constants.R_TAGS;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -57,18 +57,18 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.PersonIdent;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevSort;
-import org.eclipse.jgit.revwalk.RevTag;
-import org.eclipse.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevSort;
+import org.jboss.forge.jgit.revwalk.RevTag;
+import org.jboss.forge.jgit.revwalk.RevWalk;
 
 /** Specialized RevWalk for visualization of a commit graph. */
 public class PlotWalk extends RevWalk {
@@ -147,7 +147,8 @@ public class PlotWalk extends RevWalk {
 	}
 
 	class PlotRefComparator implements Comparator<Ref> {
-		public int compare(Ref o1, Ref o2) {
+		@Override
+      public int compare(Ref o1, Ref o2) {
 			try {
 				RevObject obj1 = parseAny(o1.getObjectId());
 				RevObject obj2 = parseAny(o2.getObjectId());

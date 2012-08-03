@@ -42,12 +42,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
-import static org.eclipse.jgit.lib.ObjectChecker.author;
-import static org.eclipse.jgit.lib.ObjectChecker.committer;
-import static org.eclipse.jgit.lib.ObjectChecker.encoding;
-import static org.eclipse.jgit.lib.ObjectChecker.tagger;
+import static org.jboss.forge.jgit.lib.ObjectChecker.author;
+import static org.jboss.forge.jgit.lib.ObjectChecker.committer;
+import static org.jboss.forge.jgit.lib.ObjectChecker.encoding;
+import static org.jboss.forge.jgit.lib.ObjectChecker.tagger;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.CharacterCodingException;
@@ -60,8 +60,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.util.IntList;
+import org.jboss.forge.jgit.util.MutableInteger;
+import org.jboss.forge.jgit.util.StringUtils;
 
 /** Handy utility functions to parse raw object contents. */
 public final class RawParseUtils {

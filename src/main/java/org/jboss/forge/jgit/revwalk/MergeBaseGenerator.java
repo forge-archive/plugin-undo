@@ -41,20 +41,25 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.revwalk.AbstractRevQueue;
+import org.jboss.forge.jgit.revwalk.DateRevQueue;
+import org.jboss.forge.jgit.revwalk.Generator;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevWalk;
 
 /**
  * Computes the merge base(s) of the starting commits.
  * <p>
  * This generator is selected if the RevFilter is only
- * {@link org.eclipse.jgit.revwalk.filter.RevFilter#MERGE_BASE}.
+ * {@link org.jboss.forge.jgit.revwalk.filter.RevFilter#MERGE_BASE}.
  * <p>
  * To compute the merge base we assign a temporary flag to each of the starting
  * commits. The maximum number of starting commits is bounded by the number of

@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,15 +85,18 @@ public class CredentialsProviderUserInfo implements UserInfo,
 		return uri;
 	}
 
-	public String getPassword() {
+	@Override
+   public String getPassword() {
 		return password;
 	}
 
-	public String getPassphrase() {
+	@Override
+   public String getPassphrase() {
 		return passphrase;
 	}
 
-	public boolean promptPassphrase(String msg) {
+	@Override
+   public boolean promptPassphrase(String msg) {
 		CredentialItem.StringType v = newPrompt(msg);
 		if (provider.get(uri, v)) {
 			passphrase = v.getValue();
@@ -104,7 +107,8 @@ public class CredentialsProviderUserInfo implements UserInfo,
 		}
 	}
 
-	public boolean promptPassword(String msg) {
+	@Override
+   public boolean promptPassword(String msg) {
 		CredentialItem.Password p = new CredentialItem.Password(msg);
 		if (provider.get(uri, p)) {
 			password = new String(p.getValue());
@@ -119,16 +123,19 @@ public class CredentialsProviderUserInfo implements UserInfo,
 		return new CredentialItem.StringType(msg, true);
 	}
 
-	public boolean promptYesNo(String msg) {
+	@Override
+   public boolean promptYesNo(String msg) {
 		CredentialItem.YesNoType v = new CredentialItem.YesNoType(msg);
 		return provider.get(uri, v) && v.getValue();
 	}
 
-	public void showMessage(String msg) {
+	@Override
+   public void showMessage(String msg) {
 		provider.get(uri, new CredentialItem.InformationalMessage(msg));
 	}
 
-	public String[] promptKeyboardInteractive(String destination, String name,
+	@Override
+   public String[] promptKeyboardInteractive(String destination, String name,
 			String instruction, String[] prompt, boolean[] echo) {
 		CredentialItem.StringType[] v = new CredentialItem.StringType[prompt.length];
 		for (int i = 0; i < prompt.length; i++)

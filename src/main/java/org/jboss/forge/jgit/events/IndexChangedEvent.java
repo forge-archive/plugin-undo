@@ -41,7 +41,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.events;
+package org.jboss.forge.jgit.events;
+
+import org.jboss.forge.jgit.events.IndexChangedListener;
+import org.jboss.forge.jgit.events.RepositoryEvent;
 
 /** Describes a change to one or more paths in the index file. */
 public class IndexChangedEvent extends RepositoryEvent<IndexChangedListener> {

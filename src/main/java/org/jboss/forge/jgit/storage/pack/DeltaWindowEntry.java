@@ -41,7 +41,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
+
+import org.jboss.forge.jgit.storage.pack.DeltaIndex;
+import org.jboss.forge.jgit.storage.pack.ObjectToPack;
 
 class DeltaWindowEntry {
 	ObjectToPack object;

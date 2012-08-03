@@ -41,11 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
 import java.nio.charset.Charset;
 
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.revwalk.FooterKey;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /**
  * Single line at the end of a message, such as a "Signed-off-by: someone".

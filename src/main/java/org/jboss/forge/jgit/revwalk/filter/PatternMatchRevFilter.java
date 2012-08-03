@@ -42,19 +42,20 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk.filter;
+package org.jboss.forge.jgit.revwalk.filter;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.util.RawCharSequence;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.revwalk.filter.RevFilter;
+import org.jboss.forge.jgit.util.RawCharSequence;
 
 /** Abstract filter that searches text using extended regular expressions. */
 public abstract class PatternMatchRevFilter extends RevFilter {

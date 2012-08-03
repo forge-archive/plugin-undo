@@ -43,18 +43,18 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.errors.PackProtocolException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.errors.PackProtocolException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /**
  * Read Git style pkt-line formatting from an input stream.

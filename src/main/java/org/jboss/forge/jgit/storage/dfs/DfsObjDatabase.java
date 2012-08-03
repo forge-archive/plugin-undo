@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -53,9 +53,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.eclipse.jgit.lib.ObjectDatabase;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.ObjectDatabase;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.ObjectReader;
 
 /** Manages objects stored in {@link DfsPackFile} on a storage system. */
 public abstract class DfsObjDatabase extends ObjectDatabase {

@@ -40,9 +40,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
-import org.eclipse.jgit.transport.FetchResult;
+import org.jboss.forge.jgit.api.MergeResult;
+import org.jboss.forge.jgit.api.PullCommand;
+import org.jboss.forge.jgit.api.RebaseResult;
+import org.jboss.forge.jgit.transport.FetchResult;
 
 /**
  * Encapsulates the result of a {@link PullCommand}

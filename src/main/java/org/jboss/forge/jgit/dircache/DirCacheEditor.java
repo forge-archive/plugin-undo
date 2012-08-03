@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.dircache;
+package org.jboss.forge.jgit.dircache;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -51,8 +51,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
 
 /**
  * Updates a {@link DirCache} by supplying discrete edit commands.
@@ -69,7 +69,8 @@ import org.eclipse.jgit.lib.Constants;
  */
 public class DirCacheEditor extends BaseDirCacheEditor {
 	private static final Comparator<PathEdit> EDIT_CMP = new Comparator<PathEdit>() {
-		public int compare(final PathEdit o1, final PathEdit o2) {
+		@Override
+      public int compare(final PathEdit o1, final PathEdit o2) {
 			final byte[] a = o1.path;
 			final byte[] b = o2.path;
 			return DirCache.cmp(a, a.length, b, b.length);
@@ -117,7 +118,8 @@ public class DirCacheEditor extends BaseDirCacheEditor {
 		return super.commit();
 	}
 
-	public void finish() {
+	@Override
+   public void finish() {
 		if (!edits.isEmpty()) {
 			applyEdits();
 			replace();
@@ -242,7 +244,8 @@ public class DirCacheEditor extends BaseDirCacheEditor {
 			super(ent);
 		}
 
-		public void apply(final DirCacheEntry ent) {
+		@Override
+      public void apply(final DirCacheEntry ent) {
 			throw new UnsupportedOperationException(JGitText.get().noApplyInDelete);
 		}
 	}
@@ -275,7 +278,8 @@ public class DirCacheEditor extends BaseDirCacheEditor {
 							: entryPath + "/");
 		}
 
-		public void apply(final DirCacheEntry ent) {
+		@Override
+      public void apply(final DirCacheEntry ent) {
 			throw new UnsupportedOperationException(JGitText.get().noApplyInDelete);
 		}
 	}

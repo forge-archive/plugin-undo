@@ -41,15 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.treewalk.filter;
+package org.jboss.forge.jgit.treewalk.filter;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.dircache.DirCacheIterator;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.WorkingTreeIterator;
+import org.jboss.forge.jgit.dircache.DirCacheIterator;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.WorkingTreeIterator;
 
 /**
  * Selects interesting tree entries during walking.
@@ -220,7 +220,8 @@ public abstract class TreeFilter {
 	 *
 	 * @return another copy of this filter, suitable for another thread.
 	 */
-	public abstract TreeFilter clone();
+	@Override
+   public abstract TreeFilter clone();
 
 	@Override
 	public String toString() {

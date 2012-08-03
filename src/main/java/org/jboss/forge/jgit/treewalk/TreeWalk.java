@@ -42,25 +42,28 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.treewalk;
+package org.jboss.forge.jgit.treewalk;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.StopWalkException;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.RevTree;
-import org.eclipse.jgit.treewalk.filter.PathFilter;
-import org.eclipse.jgit.treewalk.filter.TreeFilter;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.StopWalkException;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.revwalk.RevTree;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.treewalk.CanonicalTreeParser;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.filter.PathFilter;
+import org.jboss.forge.jgit.treewalk.filter.TreeFilter;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /**
  * Walks one or more {@link AbstractTreeIterator}s in parallel.
@@ -279,8 +282,8 @@ public class TreeWalk {
 	 * @param newFilter
 	 *            the new filter. If null the special {@link TreeFilter#ALL}
 	 *            filter will be used instead, as it matches every entry.
-	 * @see org.eclipse.jgit.treewalk.filter.AndTreeFilter
-	 * @see org.eclipse.jgit.treewalk.filter.OrTreeFilter
+	 * @see org.jboss.forge.jgit.treewalk.filter.AndTreeFilter
+	 * @see org.jboss.forge.jgit.treewalk.filter.OrTreeFilter
 	 */
 	public void setFilter(final TreeFilter newFilter) {
 		filter = newFilter != null ? newFilter : TreeFilter.ALL;

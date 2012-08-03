@@ -40,7 +40,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,29 +50,36 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRemoteException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.dircache.DirCache;
-import org.eclipse.jgit.dircache.DirCacheCheckout;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.ConfigConstants;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.submodule.SubmoduleWalk;
-import org.eclipse.jgit.transport.FetchResult;
-import org.eclipse.jgit.transport.RefSpec;
-import org.eclipse.jgit.transport.RemoteConfig;
-import org.eclipse.jgit.transport.TagOpt;
-import org.eclipse.jgit.transport.URIish;
+import org.jboss.forge.jgit.api.CloneCommand;
+import org.jboss.forge.jgit.api.FetchCommand;
+import org.jboss.forge.jgit.api.Git;
+import org.jboss.forge.jgit.api.InitCommand;
+import org.jboss.forge.jgit.api.SubmoduleInitCommand;
+import org.jboss.forge.jgit.api.SubmoduleUpdateCommand;
+import org.jboss.forge.jgit.api.TransportCommand;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.InvalidRemoteException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.dircache.DirCacheCheckout;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.ConfigConstants;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.submodule.SubmoduleWalk;
+import org.jboss.forge.jgit.transport.FetchResult;
+import org.jboss.forge.jgit.transport.RefSpec;
+import org.jboss.forge.jgit.transport.RemoteConfig;
+import org.jboss.forge.jgit.transport.TagOpt;
+import org.jboss.forge.jgit.transport.URIish;
 
 /**
  * Clone a repository into a new working directory
@@ -114,11 +121,11 @@ public class CloneCommand extends TransportCommand<CloneCommand, Git> {
 	 *
 	 * @return the newly created {@code Git} object with associated repository
 	 * @throws InvalidRemoteException
-	 * @throws org.eclipse.jgit.api.errors.TransportException
+	 * @throws org.jboss.forge.jgit.api.errors.TransportException
 	 * @throws GitAPIException
 	 */
 	public Git call() throws GitAPIException, InvalidRemoteException,
-			org.eclipse.jgit.api.errors.TransportException {
+			org.jboss.forge.jgit.api.errors.TransportException {
 		try {
 			URIish u = new URIish(uri);
 			Repository repository = init(u);
@@ -148,7 +155,7 @@ public class CloneCommand extends TransportCommand<CloneCommand, Git> {
 
 	private FetchResult fetch(Repository clonedRepo, URIish u)
 			throws URISyntaxException,
-			org.eclipse.jgit.api.errors.TransportException, IOException,
+			org.jboss.forge.jgit.api.errors.TransportException, IOException,
 			GitAPIException {
 		// create the remote config and save it
 		RemoteConfig config = new RemoteConfig(clonedRepo.getConfig(), remote);

@@ -40,15 +40,15 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.merge;
+package org.jboss.forge.jgit.merge;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.util.StringUtils;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.util.StringUtils;
 
 /**
  * Formatter for constructing the commit message for a merge commit.

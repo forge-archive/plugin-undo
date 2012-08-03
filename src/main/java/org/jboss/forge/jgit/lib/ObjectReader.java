@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,12 +49,21 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.revwalk.ObjectWalk;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.storage.pack.ObjectReuseAsIs;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.AsyncObjectLoaderQueue;
+import org.jboss.forge.jgit.lib.AsyncObjectSizeQueue;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectDatabase;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.revwalk.ObjectWalk;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.storage.pack.ObjectReuseAsIs;
 
 /**
  * Reads an {@link ObjectDatabase} for a single thread.

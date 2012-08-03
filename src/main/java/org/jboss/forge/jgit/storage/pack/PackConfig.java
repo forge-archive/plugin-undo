@@ -42,14 +42,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
 
 import java.util.concurrent.Executor;
 import java.util.zip.Deflater;
 
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.file.PackIndexWriter;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.storage.file.PackIndexWriter;
+import org.jboss.forge.jgit.storage.pack.PackConfig;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
 
 /**
  * Configuration used by a {@link PackWriter} when constructing the stream.

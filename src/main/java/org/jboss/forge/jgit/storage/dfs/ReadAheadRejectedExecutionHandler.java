@@ -41,10 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
+
+import org.jboss.forge.jgit.storage.dfs.ReadAheadRejectedExecutionHandler;
+import org.jboss.forge.jgit.storage.dfs.ReadAheadTask;
 
 /** This handler aborts a {@link ReadAheadTask} when the queue is full. */
 final class ReadAheadRejectedExecutionHandler implements

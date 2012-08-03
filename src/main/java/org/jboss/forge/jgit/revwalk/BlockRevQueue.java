@@ -41,12 +41,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
 
 abstract class BlockRevQueue extends AbstractRevQueue {
 	protected BlockFreeList free;
@@ -83,7 +83,8 @@ abstract class BlockRevQueue extends AbstractRevQueue {
 	 * @param q
 	 *            the other queue we will steal entries from.
 	 */
-	public void shareFreeList(final BlockRevQueue q) {
+	@Override
+   public void shareFreeList(final BlockRevQueue q) {
 		free = q.free;
 	}
 

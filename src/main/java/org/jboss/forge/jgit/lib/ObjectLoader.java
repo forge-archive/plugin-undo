@@ -45,15 +45,18 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.eclipse.jgit.errors.LargeObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.util.IO;
+import org.jboss.forge.jgit.errors.LargeObjectException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectStream;
+import org.jboss.forge.jgit.util.IO;
 
 /**
  * Base class for a set of loaders for different representations of Git objects.

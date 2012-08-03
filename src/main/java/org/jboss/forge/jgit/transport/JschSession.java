@@ -46,7 +46,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -54,8 +54,8 @@ import java.io.OutputStream;
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.util.io.StreamCopyThread;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.util.io.StreamCopyThread;
 
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelExec;
@@ -76,7 +76,7 @@ public class JschSession implements RemoteSession {
 	/**
 	 * Create a new session object by passing the real Jsch session and the URI
 	 * information.
-	 * 
+	 *
 	 * @param session
 	 *            the real Jsch session created elsewhere.
 	 * @param uri
@@ -87,11 +87,13 @@ public class JschSession implements RemoteSession {
 		this.uri = uri;
 	}
 
-	public Process exec(String command, int timeout) throws IOException {
+	@Override
+   public Process exec(String command, int timeout) throws IOException {
 		return new JschProcess(command, timeout);
 	}
 
-	public void disconnect() {
+	@Override
+   public void disconnect() {
 		if (sock.isConnected())
 			sock.disconnect();
 	}

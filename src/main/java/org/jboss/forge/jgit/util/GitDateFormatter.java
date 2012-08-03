@@ -41,14 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.eclipse.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.lib.PersonIdent;
 
 /**
  * A utility for formatting dates according to the Git log.date formats plus

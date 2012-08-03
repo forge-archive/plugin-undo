@@ -41,14 +41,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.util.FS;
-import org.eclipse.jgit.util.FileUtils;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.storage.file.LockFile;
+import org.jboss.forge.jgit.storage.file.PackFile;
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.FileUtils;
 
 /** Keeps track of a {@link PackFile}'s associated <code>.keep</code> file. */
 public class PackLock {

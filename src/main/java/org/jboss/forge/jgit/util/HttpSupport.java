@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -55,7 +55,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
 
 /** Extra utilities to support usage of HTTP. */
 public class HttpSupport {

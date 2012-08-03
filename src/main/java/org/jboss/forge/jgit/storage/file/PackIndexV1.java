@@ -44,7 +44,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,13 +53,13 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.NB;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.NB;
 
 class PackIndexV1 extends PackIndex {
 	private static final int IDX_HDR_LEN = 256 * 4;
@@ -220,14 +220,16 @@ class PackIndexV1 extends PackIndex {
 		@Override
 		protected MutableEntry initEntry() {
 			return new MutableEntry() {
-				protected void ensureId() {
+				@Override
+            protected void ensureId() {
 					idBuffer.fromRaw(idxdata[levelOne], levelTwo
 							- Constants.OBJECT_ID_LENGTH);
 				}
 			};
 		}
 
-		public MutableEntry next() {
+		@Override
+      public MutableEntry next() {
 			for (; levelOne < idxdata.length; levelOne++) {
 				if (idxdata[levelOne] == null)
 					continue;

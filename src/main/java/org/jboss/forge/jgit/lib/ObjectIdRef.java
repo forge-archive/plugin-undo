@@ -42,7 +42,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
+
 
 /** A {@link Ref} that points directly at an {@link ObjectId}. */
 public abstract class ObjectIdRef implements Ref {
@@ -63,11 +64,13 @@ public abstract class ObjectIdRef implements Ref {
 			super(st, name, id);
 		}
 
-		public ObjectId getPeeledObjectId() {
+		@Override
+      public ObjectId getPeeledObjectId() {
 			return null;
 		}
 
-		public boolean isPeeled() {
+		@Override
+      public boolean isPeeled() {
 			return false;
 		}
 	}
@@ -93,11 +96,13 @@ public abstract class ObjectIdRef implements Ref {
 			peeledObjectId = p;
 		}
 
-		public ObjectId getPeeledObjectId() {
+		@Override
+      public ObjectId getPeeledObjectId() {
 			return peeledObjectId;
 		}
 
-		public boolean isPeeled() {
+		@Override
+      public boolean isPeeled() {
 			return true;
 		}
 	}
@@ -119,11 +124,13 @@ public abstract class ObjectIdRef implements Ref {
 			super(st, name, id);
 		}
 
-		public ObjectId getPeeledObjectId() {
+		@Override
+      public ObjectId getPeeledObjectId() {
 			return null;
 		}
 
-		public boolean isPeeled() {
+		@Override
+      public boolean isPeeled() {
 			return true;
 		}
 	}
@@ -151,27 +158,33 @@ public abstract class ObjectIdRef implements Ref {
 		this.objectId = id;
 	}
 
-	public String getName() {
+	@Override
+   public String getName() {
 		return name;
 	}
 
-	public boolean isSymbolic() {
+	@Override
+   public boolean isSymbolic() {
 		return false;
 	}
 
-	public Ref getLeaf() {
+	@Override
+   public Ref getLeaf() {
 		return this;
 	}
 
-	public Ref getTarget() {
+	@Override
+   public Ref getTarget() {
 		return this;
 	}
 
-	public ObjectId getObjectId() {
+	@Override
+   public ObjectId getObjectId() {
 		return objectId;
 	}
 
-	public Storage getStorage() {
+	@Override
+   public Storage getStorage() {
 		return storage;
 	}
 

@@ -40,21 +40,23 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.errors.ConfigInvalidException;
-import org.eclipse.jgit.lib.ConfigConstants;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.StoredConfig;
-import org.eclipse.jgit.submodule.SubmoduleWalk;
-import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
+import org.jboss.forge.jgit.api.GitCommand;
+import org.jboss.forge.jgit.api.SubmoduleInitCommand;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.errors.ConfigInvalidException;
+import org.jboss.forge.jgit.lib.ConfigConstants;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.StoredConfig;
+import org.jboss.forge.jgit.submodule.SubmoduleWalk;
+import org.jboss.forge.jgit.treewalk.filter.PathFilterGroup;
 
 /**
  * A class used to execute a submodule init command.

@@ -44,7 +44,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.ByteArrayInputStream;
 import java.io.EOFException;
@@ -52,7 +52,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 
-import org.eclipse.jgit.transport.PackParser;
+import org.jboss.forge.jgit.lib.CommitBuilder;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.TagBuilder;
+import org.jboss.forge.jgit.lib.TreeFormatter;
+import org.jboss.forge.jgit.transport.PackParser;
 
 /**
  * Inserts objects into an existing {@code ObjectDatabase}.

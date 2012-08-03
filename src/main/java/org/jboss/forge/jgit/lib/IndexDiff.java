@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,22 +52,22 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.jgit.dircache.DirCache;
-import org.eclipse.jgit.dircache.DirCacheEntry;
-import org.eclipse.jgit.dircache.DirCacheIterator;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.StopWalkException;
-import org.eclipse.jgit.revwalk.RevTree;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.treewalk.AbstractTreeIterator;
-import org.eclipse.jgit.treewalk.EmptyTreeIterator;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.WorkingTreeIterator;
-import org.eclipse.jgit.treewalk.filter.AndTreeFilter;
-import org.eclipse.jgit.treewalk.filter.IndexDiffFilter;
-import org.eclipse.jgit.treewalk.filter.SkipWorkTreeFilter;
-import org.eclipse.jgit.treewalk.filter.TreeFilter;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.dircache.DirCacheEntry;
+import org.jboss.forge.jgit.dircache.DirCacheIterator;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.StopWalkException;
+import org.jboss.forge.jgit.revwalk.RevTree;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.treewalk.EmptyTreeIterator;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.WorkingTreeIterator;
+import org.jboss.forge.jgit.treewalk.filter.AndTreeFilter;
+import org.jboss.forge.jgit.treewalk.filter.IndexDiffFilter;
+import org.jboss.forge.jgit.treewalk.filter.SkipWorkTreeFilter;
+import org.jboss.forge.jgit.treewalk.filter.TreeFilter;
 
 /**
  * Compares the index, a tree, and the working directory Ignored files are not

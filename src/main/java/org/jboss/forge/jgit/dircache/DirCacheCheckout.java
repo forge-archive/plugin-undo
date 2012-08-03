@@ -40,7 +40,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.dircache;
+package org.jboss.forge.jgit.dircache;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -52,32 +52,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.jgit.errors.CheckoutConflictException;
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.IndexWriteException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.CoreConfig.AutoCRLF;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.treewalk.AbstractTreeIterator;
-import org.eclipse.jgit.treewalk.CanonicalTreeParser;
-import org.eclipse.jgit.treewalk.EmptyTreeIterator;
-import org.eclipse.jgit.treewalk.FileTreeIterator;
-import org.eclipse.jgit.treewalk.NameConflictTreeWalk;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.WorkingTreeIterator;
-import org.eclipse.jgit.treewalk.WorkingTreeOptions;
-import org.eclipse.jgit.treewalk.filter.PathFilter;
-import org.eclipse.jgit.util.FS;
-import org.eclipse.jgit.util.FileUtils;
-import org.eclipse.jgit.util.SystemReader;
-import org.eclipse.jgit.util.io.AutoCRLFOutputStream;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.dircache.DirCacheBuildIterator;
+import org.jboss.forge.jgit.dircache.DirCacheBuilder;
+import org.jboss.forge.jgit.dircache.DirCacheCheckout;
+import org.jboss.forge.jgit.dircache.DirCacheEntry;
+import org.jboss.forge.jgit.dircache.DirCacheIterator;
+import org.jboss.forge.jgit.dircache.InvalidPathException;
+import org.jboss.forge.jgit.errors.CheckoutConflictException;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.IndexWriteException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.CoreConfig.AutoCRLF;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.treewalk.CanonicalTreeParser;
+import org.jboss.forge.jgit.treewalk.EmptyTreeIterator;
+import org.jboss.forge.jgit.treewalk.FileTreeIterator;
+import org.jboss.forge.jgit.treewalk.NameConflictTreeWalk;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.WorkingTreeIterator;
+import org.jboss.forge.jgit.treewalk.WorkingTreeOptions;
+import org.jboss.forge.jgit.treewalk.filter.PathFilter;
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.FileUtils;
+import org.jboss.forge.jgit.util.SystemReader;
+import org.jboss.forge.jgit.util.io.AutoCRLFOutputStream;
 
 /**
  * This class handles checking out one or two trees merging with the index.

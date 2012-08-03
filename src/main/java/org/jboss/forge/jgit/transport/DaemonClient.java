@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -50,9 +50,12 @@ import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.Socket;
 
-import org.eclipse.jgit.transport.resolver.ServiceNotAuthorizedException;
-import org.eclipse.jgit.transport.resolver.ServiceNotEnabledException;
-import org.eclipse.jgit.util.io.SafeBufferedOutputStream;
+import org.jboss.forge.jgit.transport.Daemon;
+import org.jboss.forge.jgit.transport.DaemonService;
+import org.jboss.forge.jgit.transport.PacketLineIn;
+import org.jboss.forge.jgit.transport.resolver.ServiceNotAuthorizedException;
+import org.jboss.forge.jgit.transport.resolver.ServiceNotEnabledException;
+import org.jboss.forge.jgit.util.io.SafeBufferedOutputStream;
 
 /** Active network client of {@link Daemon}. */
 public class DaemonClient {

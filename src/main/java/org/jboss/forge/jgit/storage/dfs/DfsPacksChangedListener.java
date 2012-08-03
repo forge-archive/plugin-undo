@@ -41,9 +41,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
-import org.eclipse.jgit.events.RepositoryListener;
+import org.jboss.forge.jgit.events.RepositoryListener;
+import org.jboss.forge.jgit.storage.dfs.DfsPacksChangedEvent;
 
 /** Receives {@link DfsPacksChangedEvent}s. */
 public interface DfsPacksChangedListener extends RepositoryListener {

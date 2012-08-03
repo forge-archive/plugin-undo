@@ -41,7 +41,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
+
+import org.jboss.forge.jgit.diff.Edit;
+import org.jboss.forge.jgit.diff.Sequence;
 
 /**
  * Equivalence function for a {@link Sequence} compared by difference algorithm.

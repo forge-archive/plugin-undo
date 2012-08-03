@@ -42,7 +42,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.merge;
+package org.jboss.forge.jgit.merge;
+
 
 /**
  * One chunk from a merge result. Each chunk contains a range from a
@@ -87,7 +88,7 @@ public class MergeChunk {
 	 *
 	 * @param sequenceIndex
 	 *            determines to which sequence this chunks belongs to. Same as
-	 *            in {@link org.eclipse.jgit.merge.MergeResult#add}
+	 *            in {@link org.jboss.forge.jgit.merge.MergeResult#add}
 	 * @param begin
 	 *            the first element from the specified sequence which should be
 	 *            included in the merge result. Indexes start with 0.
@@ -109,7 +110,7 @@ public class MergeChunk {
 
 	/**
 	 * @return the index of the sequence to which sequence this chunks belongs
-	 *         to. Same as in {@link org.eclipse.jgit.merge.MergeResult#add}
+	 *         to. Same as in {@link org.jboss.forge.jgit.merge.MergeResult#add}
 	 */
 	public int getSequenceIndex() {
 		return sequenceIndex;

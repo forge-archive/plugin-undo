@@ -42,13 +42,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.treewalk.filter;
+package org.jboss.forge.jgit.treewalk.filter;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.filter.NotTreeFilter;
+import org.jboss.forge.jgit.treewalk.filter.TreeFilter;
 
 /** Includes an entry only if the subfilter does not include the entry. */
 public class NotTreeFilter extends TreeFilter {

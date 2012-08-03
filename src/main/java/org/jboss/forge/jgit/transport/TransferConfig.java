@@ -41,10 +41,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.Config.SectionParser;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.Config.SectionParser;
+import org.jboss.forge.jgit.transport.TransferConfig;
 
 /**
  * The standard "transfer", "fetch" and "receive" configuration parameters.

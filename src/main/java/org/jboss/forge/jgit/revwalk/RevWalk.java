@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -52,23 +52,41 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.LargeObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.RevWalkException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.AsyncObjectLoaderQueue;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdOwnerMap;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.filter.RevFilter;
-import org.eclipse.jgit.treewalk.filter.TreeFilter;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.LargeObjectException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.RevWalkException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.AsyncObjectLoaderQueue;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdOwnerMap;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.revwalk.AbstractRevQueue;
+import org.jboss.forge.jgit.revwalk.AsyncRevObjectQueue;
+import org.jboss.forge.jgit.revwalk.DateRevQueue;
+import org.jboss.forge.jgit.revwalk.FIFORevQueue;
+import org.jboss.forge.jgit.revwalk.Generator;
+import org.jboss.forge.jgit.revwalk.ObjectWalk;
+import org.jboss.forge.jgit.revwalk.RevBlob;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevFlag;
+import org.jboss.forge.jgit.revwalk.RevFlagSet;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevSort;
+import org.jboss.forge.jgit.revwalk.RevTag;
+import org.jboss.forge.jgit.revwalk.RevTree;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.revwalk.RewriteGenerator;
+import org.jboss.forge.jgit.revwalk.StartGenerator;
+import org.jboss.forge.jgit.revwalk.TopoSortGenerator;
+import org.jboss.forge.jgit.revwalk.filter.RevFilter;
+import org.jboss.forge.jgit.treewalk.filter.TreeFilter;
 
 /**
  * Walks a commit graph and produces the matching commits in order.
@@ -509,8 +527,8 @@ public class RevWalk implements Iterable<RevCommit> {
 	 * @param newFilter
 	 *            the new filter. If null the special {@link RevFilter#ALL}
 	 *            filter will be used instead, as it matches every commit.
-	 * @see org.eclipse.jgit.revwalk.filter.AndRevFilter
-	 * @see org.eclipse.jgit.revwalk.filter.OrRevFilter
+	 * @see org.jboss.forge.jgit.revwalk.filter.AndRevFilter
+	 * @see org.jboss.forge.jgit.revwalk.filter.OrRevFilter
 	 */
 	public void setRevFilter(final RevFilter newFilter) {
 		assertNotStarted();
@@ -539,12 +557,12 @@ public class RevWalk implements Iterable<RevCommit> {
 	 * <p>
 	 * Usually callers should be inserting a filter graph including
 	 * {@link TreeFilter#ANY_DIFF} along with one or more
-	 * {@link org.eclipse.jgit.treewalk.filter.PathFilter} instances.
+	 * {@link org.jboss.forge.jgit.treewalk.filter.PathFilter} instances.
 	 *
 	 * @param newFilter
 	 *            new filter. If null the special {@link TreeFilter#ALL} filter
 	 *            will be used instead, as it matches everything.
-	 * @see org.eclipse.jgit.treewalk.filter.PathFilter
+	 * @see org.jboss.forge.jgit.treewalk.filter.PathFilter
 	 */
 	public void setTreeFilter(final TreeFilter newFilter) {
 		assertNotStarted();

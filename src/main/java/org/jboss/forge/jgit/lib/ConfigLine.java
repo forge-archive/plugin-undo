@@ -49,9 +49,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
-import org.eclipse.jgit.util.StringUtils;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.ConfigLine;
+import org.jboss.forge.jgit.util.StringUtils;
 
 /** A line in a Git {@link Config} file. */
 class ConfigLine {

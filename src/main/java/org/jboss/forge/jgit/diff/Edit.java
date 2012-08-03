@@ -41,7 +41,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
+
 
 /**
  * A modified region detected between two versions of roughly the same content.

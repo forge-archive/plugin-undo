@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport.resolver;
+package org.jboss.forge.jgit.transport.resolver;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,12 +50,14 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.RepositoryCache;
-import org.eclipse.jgit.lib.RepositoryCache.FileKey;
-import org.eclipse.jgit.util.FS;
+import org.jboss.forge.jgit.errors.RepositoryNotFoundException;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.RepositoryCache;
+import org.jboss.forge.jgit.lib.RepositoryCache.FileKey;
+import org.jboss.forge.jgit.transport.resolver.RepositoryResolver;
+import org.jboss.forge.jgit.transport.resolver.ServiceNotEnabledException;
+import org.jboss.forge.jgit.util.FS;
 
 /**
  * Default resolver serving from the local filesystem.

@@ -41,12 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.util.Set;
 
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.storage.dfs.DfsPackDescription;
+import org.jboss.forge.jgit.storage.dfs.DfsRepositoryDescription;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
 
 /**
  * Description of a DFS stored pack/index file.

@@ -42,17 +42,25 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.IOException;
+
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.Tree;
+import org.jboss.forge.jgit.lib.TreeEntry;
 
 /**
  * A representation of a file (blob) object in a {@link Tree}.
  *
  * @deprecated To look up information about a single path, use
- * {@link org.eclipse.jgit.treewalk.TreeWalk#forPath(Repository, String, org.eclipse.jgit.revwalk.RevTree)}.
+ * {@link org.jboss.forge.jgit.treewalk.TreeWalk#forPath(Repository, String, org.jboss.forge.jgit.revwalk.RevTree)}.
  * To lookup information about multiple paths at once, use a
- * {@link org.eclipse.jgit.treewalk.TreeWalk} and obtain the current entry's
+ * {@link org.jboss.forge.jgit.treewalk.TreeWalk} and obtain the current entry's
  * information from its getter methods.
  */
 @Deprecated

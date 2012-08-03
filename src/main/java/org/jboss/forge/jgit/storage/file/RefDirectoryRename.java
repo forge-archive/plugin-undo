@@ -42,18 +42,20 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.RefRename;
-import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.RefUpdate.Result;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.util.FileUtils;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.RefRename;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.RefUpdate.Result;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.storage.file.RefDirectory;
+import org.jboss.forge.jgit.storage.file.RefDirectoryUpdate;
+import org.jboss.forge.jgit.util.FileUtils;
 
 /**
  * Rename any reference stored by {@link RefDirectory}.

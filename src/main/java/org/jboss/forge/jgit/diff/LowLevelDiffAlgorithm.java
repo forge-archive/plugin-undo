@@ -41,7 +41,17 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
+
+import org.jboss.forge.jgit.diff.DiffAlgorithm;
+import org.jboss.forge.jgit.diff.Edit;
+import org.jboss.forge.jgit.diff.EditList;
+import org.jboss.forge.jgit.diff.HashedSequence;
+import org.jboss.forge.jgit.diff.HashedSequenceComparator;
+import org.jboss.forge.jgit.diff.HashedSequencePair;
+import org.jboss.forge.jgit.diff.Sequence;
+import org.jboss.forge.jgit.diff.SequenceComparator;
+import org.jboss.forge.jgit.diff.Subsequence;
 
 /** Compares two sequences primarily based upon hash codes. */
 public abstract class LowLevelDiffAlgorithm extends DiffAlgorithm {

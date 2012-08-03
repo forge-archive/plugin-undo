@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -55,34 +55,34 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.PackProtocolException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.AsyncRevObjectQueue;
-import org.eclipse.jgit.revwalk.DepthWalk;
-import org.eclipse.jgit.revwalk.ObjectWalk;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevFlag;
-import org.eclipse.jgit.revwalk.RevFlagSet;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevTag;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.revwalk.filter.CommitTimeRevFilter;
-import org.eclipse.jgit.storage.pack.PackConfig;
-import org.eclipse.jgit.storage.pack.PackWriter;
-import org.eclipse.jgit.transport.BasePackFetchConnection.MultiAck;
-import org.eclipse.jgit.transport.RefAdvertiser.PacketLineOutRefAdvertiser;
-import org.eclipse.jgit.util.io.InterruptTimer;
-import org.eclipse.jgit.util.io.TimeoutInputStream;
-import org.eclipse.jgit.util.io.TimeoutOutputStream;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.PackProtocolException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.revwalk.AsyncRevObjectQueue;
+import org.jboss.forge.jgit.revwalk.DepthWalk;
+import org.jboss.forge.jgit.revwalk.ObjectWalk;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevFlag;
+import org.jboss.forge.jgit.revwalk.RevFlagSet;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevTag;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.revwalk.filter.CommitTimeRevFilter;
+import org.jboss.forge.jgit.storage.pack.PackConfig;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.transport.BasePackFetchConnection.MultiAck;
+import org.jboss.forge.jgit.transport.RefAdvertiser.PacketLineOutRefAdvertiser;
+import org.jboss.forge.jgit.util.io.InterruptTimer;
+import org.jboss.forge.jgit.util.io.TimeoutInputStream;
+import org.jboss.forge.jgit.util.io.TimeoutOutputStream;
 
 /**
  * Implements the server side of a fetch connection, transmitting objects.

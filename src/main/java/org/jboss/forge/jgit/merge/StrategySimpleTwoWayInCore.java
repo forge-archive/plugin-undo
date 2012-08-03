@@ -41,20 +41,20 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.merge;
+package org.jboss.forge.jgit.merge;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.dircache.DirCache;
-import org.eclipse.jgit.dircache.DirCacheBuilder;
-import org.eclipse.jgit.dircache.DirCacheEntry;
-import org.eclipse.jgit.errors.UnmergedPathException;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.treewalk.AbstractTreeIterator;
-import org.eclipse.jgit.treewalk.NameConflictTreeWalk;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.dircache.DirCacheBuilder;
+import org.jboss.forge.jgit.dircache.DirCacheEntry;
+import org.jboss.forge.jgit.errors.UnmergedPathException;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.treewalk.NameConflictTreeWalk;
 
 /**
  * Merges two commits together in-memory, ignoring any working directory.

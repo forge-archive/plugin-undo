@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -57,18 +57,18 @@ import java.util.List;
 import java.util.zip.CRC32;
 import java.util.zip.Deflater;
 
-import org.eclipse.jgit.errors.LockFailedException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.CoreConfig;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.transport.PackParser;
-import org.eclipse.jgit.transport.PackedObjectInfo;
-import org.eclipse.jgit.util.FileUtils;
-import org.eclipse.jgit.util.NB;
+import org.jboss.forge.jgit.errors.LockFailedException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.CoreConfig;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.transport.PackParser;
+import org.jboss.forge.jgit.transport.PackedObjectInfo;
+import org.jboss.forge.jgit.util.FileUtils;
+import org.jboss.forge.jgit.util.NB;
 
 /**
  * Consumes a pack stream and stores as a pack file in {@link ObjectDirectory}.

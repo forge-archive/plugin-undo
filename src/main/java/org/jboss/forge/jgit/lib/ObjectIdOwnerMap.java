@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -219,7 +219,8 @@ public class ObjectIdOwnerMap<V extends ObjectIdOwnerMap.Entry> implements
 		return size == 0;
 	}
 
-	public Iterator<V> iterator() {
+	@Override
+   public Iterator<V> iterator() {
 		return new Iterator<V>() {
 			private int found;
 
@@ -229,11 +230,13 @@ public class ObjectIdOwnerMap<V extends ObjectIdOwnerMap.Entry> implements
 
 			private V next;
 
-			public boolean hasNext() {
+			@Override
+         public boolean hasNext() {
 				return found < size;
 			}
 
-			public V next() {
+			@Override
+         public V next() {
 				if (next != null)
 					return found(next);
 
@@ -261,7 +264,8 @@ public class ObjectIdOwnerMap<V extends ObjectIdOwnerMap.Entry> implements
 				return v;
 			}
 
-			public void remove() {
+			@Override
+         public void remove() {
 				throw new UnsupportedOperationException();
 			}
 		};

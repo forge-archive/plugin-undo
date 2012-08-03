@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,7 +62,7 @@ import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
 
 abstract class WalkEncryption {
 	static final WalkEncryption NONE = new NoEncryption();

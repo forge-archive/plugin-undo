@@ -41,14 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
-import static org.eclipse.jgit.lib.ConfigConstants.CONFIG_CORE_SECTION;
-import static org.eclipse.jgit.lib.ConfigConstants.CONFIG_DFS_SECTION;
-import static org.eclipse.jgit.lib.ConfigConstants.CONFIG_KEY_BLOCK_LIMIT;
-import static org.eclipse.jgit.lib.ConfigConstants.CONFIG_KEY_BLOCK_SIZE;
-import static org.eclipse.jgit.lib.ConfigConstants.CONFIG_KEY_READ_AHEAD_LIMIT;
-import static org.eclipse.jgit.lib.ConfigConstants.CONFIG_KEY_READ_AHEAD_THREADS;
+import static org.jboss.forge.jgit.lib.ConfigConstants.CONFIG_CORE_SECTION;
+import static org.jboss.forge.jgit.lib.ConfigConstants.CONFIG_DFS_SECTION;
+import static org.jboss.forge.jgit.lib.ConfigConstants.CONFIG_KEY_BLOCK_LIMIT;
+import static org.jboss.forge.jgit.lib.ConfigConstants.CONFIG_KEY_BLOCK_SIZE;
+import static org.jboss.forge.jgit.lib.ConfigConstants.CONFIG_KEY_READ_AHEAD_LIMIT;
+import static org.jboss.forge.jgit.lib.ConfigConstants.CONFIG_KEY_READ_AHEAD_THREADS;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.RejectedExecutionHandler;
@@ -57,7 +57,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.eclipse.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.Config;
 
 /** Configuration parameters for {@link DfsBlockCache}. */
 public class DfsBlockCacheConfig {
@@ -198,7 +198,8 @@ public class DfsBlockCacheConfig {
 						private final AtomicInteger cnt = new AtomicInteger();
 						private final ThreadGroup group = new ThreadGroup(name);
 
-						public Thread newThread(Runnable body) {
+						@Override
+                  public Thread newThread(Runnable body) {
 							int id = cnt.incrementAndGet();
 							Thread thread = new Thread(group, body, name + "-" + id);
 							thread.setDaemon(true);

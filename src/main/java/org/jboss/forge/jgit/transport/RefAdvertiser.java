@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -50,13 +50,17 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedMap;
 
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefComparator;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.util.RefMap;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefComparator;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.transport.PacketLineOut;
+import org.jboss.forge.jgit.transport.ReceivePack;
+import org.jboss.forge.jgit.transport.RefAdvertiser;
+import org.jboss.forge.jgit.transport.UploadPack;
+import org.jboss.forge.jgit.util.RefMap;
 
 /** Support for the start of {@link UploadPack} and {@link ReceivePack}. */
 public abstract class RefAdvertiser {

@@ -42,13 +42,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.Map;
 
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.transport.RemoteRefUpdate.Status;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.transport.Connection;
+import org.jboss.forge.jgit.transport.RemoteRefUpdate;
+import org.jboss.forge.jgit.transport.Transport;
+import org.jboss.forge.jgit.transport.RemoteRefUpdate.Status;
 
 /**
  * Lists known refs from the remote and sends objects to the remote.

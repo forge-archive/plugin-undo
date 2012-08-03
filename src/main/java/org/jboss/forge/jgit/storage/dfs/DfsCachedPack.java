@@ -41,16 +41,20 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.IOException;
 import java.util.Set;
 
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.storage.pack.CachedPack;
-import org.eclipse.jgit.storage.pack.ObjectToPack;
-import org.eclipse.jgit.storage.pack.PackOutputStream;
-import org.eclipse.jgit.storage.pack.StoredObjectRepresentation;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.storage.dfs.DfsObjectRepresentation;
+import org.jboss.forge.jgit.storage.dfs.DfsPackDescription;
+import org.jboss.forge.jgit.storage.dfs.DfsPackFile;
+import org.jboss.forge.jgit.storage.dfs.DfsReader;
+import org.jboss.forge.jgit.storage.pack.CachedPack;
+import org.jboss.forge.jgit.storage.pack.ObjectToPack;
+import org.jboss.forge.jgit.storage.pack.PackOutputStream;
+import org.jboss.forge.jgit.storage.pack.StoredObjectRepresentation;
 
 /** A DfsPackFile available for reuse as-is. */
 public class DfsCachedPack extends CachedPack {

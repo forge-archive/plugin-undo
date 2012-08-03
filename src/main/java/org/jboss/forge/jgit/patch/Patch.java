@@ -41,22 +41,27 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.patch;
+package org.jboss.forge.jgit.patch;
 
-import static org.eclipse.jgit.lib.Constants.encodeASCII;
-import static org.eclipse.jgit.patch.FileHeader.isHunkHdr;
-import static org.eclipse.jgit.patch.FileHeader.NEW_NAME;
-import static org.eclipse.jgit.patch.FileHeader.OLD_NAME;
-import static org.eclipse.jgit.util.RawParseUtils.match;
-import static org.eclipse.jgit.util.RawParseUtils.nextLF;
+import static org.jboss.forge.jgit.lib.Constants.encodeASCII;
+import static org.jboss.forge.jgit.patch.FileHeader.NEW_NAME;
+import static org.jboss.forge.jgit.patch.FileHeader.OLD_NAME;
+import static org.jboss.forge.jgit.patch.FileHeader.isHunkHdr;
+import static org.jboss.forge.jgit.util.RawParseUtils.match;
+import static org.jboss.forge.jgit.util.RawParseUtils.nextLF;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.util.TemporaryBuffer;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.patch.BinaryHunk;
+import org.jboss.forge.jgit.patch.CombinedFileHeader;
+import org.jboss.forge.jgit.patch.FileHeader;
+import org.jboss.forge.jgit.patch.FormatError;
+import org.jboss.forge.jgit.patch.HunkHeader;
+import org.jboss.forge.jgit.util.TemporaryBuffer;
 
 /** A parsed collection of {@link FileHeader}s from a unified diff patch file */
 public class Patch {

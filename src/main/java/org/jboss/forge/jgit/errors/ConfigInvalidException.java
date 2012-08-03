@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.errors;
+package org.jboss.forge.jgit.errors;
 
 /** Indicates a text string is not a valid Git style configuration. */
 public class ConfigInvalidException extends Exception {

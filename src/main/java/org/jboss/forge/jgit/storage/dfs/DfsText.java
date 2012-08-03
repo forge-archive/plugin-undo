@@ -41,10 +41,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
-import org.eclipse.jgit.nls.NLS;
-import org.eclipse.jgit.nls.TranslationBundle;
+import org.jboss.forge.jgit.nls.NLS;
+import org.jboss.forge.jgit.nls.TranslationBundle;
+import org.jboss.forge.jgit.storage.dfs.DfsText;
 
 /** Translation bundle for the DFS storage implementation. */
 public class DfsText extends TranslationBundle {

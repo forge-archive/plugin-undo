@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.IOException;
 import java.lang.ref.ReferenceQueue;
@@ -53,7 +53,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReferenceArray;
 import java.util.concurrent.locks.ReentrantLock;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
 
 /**
  * Caches slices of a {@link PackFile} in memory for faster read access.

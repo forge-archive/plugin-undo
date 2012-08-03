@@ -41,15 +41,58 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.RepositoryBuilder;
-import org.eclipse.jgit.lib.RepositoryCache;
-import org.eclipse.jgit.util.FS;
+import org.jboss.forge.jgit.api.AddCommand;
+import org.jboss.forge.jgit.api.AddNoteCommand;
+import org.jboss.forge.jgit.api.ApplyCommand;
+import org.jboss.forge.jgit.api.BlameCommand;
+import org.jboss.forge.jgit.api.CheckoutCommand;
+import org.jboss.forge.jgit.api.CherryPickCommand;
+import org.jboss.forge.jgit.api.CleanCommand;
+import org.jboss.forge.jgit.api.CloneCommand;
+import org.jboss.forge.jgit.api.CommitCommand;
+import org.jboss.forge.jgit.api.CreateBranchCommand;
+import org.jboss.forge.jgit.api.DeleteBranchCommand;
+import org.jboss.forge.jgit.api.DeleteTagCommand;
+import org.jboss.forge.jgit.api.DiffCommand;
+import org.jboss.forge.jgit.api.FetchCommand;
+import org.jboss.forge.jgit.api.Git;
+import org.jboss.forge.jgit.api.InitCommand;
+import org.jboss.forge.jgit.api.ListBranchCommand;
+import org.jboss.forge.jgit.api.ListNotesCommand;
+import org.jboss.forge.jgit.api.ListTagCommand;
+import org.jboss.forge.jgit.api.LogCommand;
+import org.jboss.forge.jgit.api.LsRemoteCommand;
+import org.jboss.forge.jgit.api.MergeCommand;
+import org.jboss.forge.jgit.api.PullCommand;
+import org.jboss.forge.jgit.api.PushCommand;
+import org.jboss.forge.jgit.api.RebaseCommand;
+import org.jboss.forge.jgit.api.ReflogCommand;
+import org.jboss.forge.jgit.api.RemoveNoteCommand;
+import org.jboss.forge.jgit.api.RenameBranchCommand;
+import org.jboss.forge.jgit.api.ResetCommand;
+import org.jboss.forge.jgit.api.RevertCommand;
+import org.jboss.forge.jgit.api.RmCommand;
+import org.jboss.forge.jgit.api.ShowNoteCommand;
+import org.jboss.forge.jgit.api.StashApplyCommand;
+import org.jboss.forge.jgit.api.StashCreateCommand;
+import org.jboss.forge.jgit.api.StashDropCommand;
+import org.jboss.forge.jgit.api.StashListCommand;
+import org.jboss.forge.jgit.api.StatusCommand;
+import org.jboss.forge.jgit.api.SubmoduleAddCommand;
+import org.jboss.forge.jgit.api.SubmoduleInitCommand;
+import org.jboss.forge.jgit.api.SubmoduleStatusCommand;
+import org.jboss.forge.jgit.api.SubmoduleSyncCommand;
+import org.jboss.forge.jgit.api.SubmoduleUpdateCommand;
+import org.jboss.forge.jgit.api.TagCommand;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.RepositoryBuilder;
+import org.jboss.forge.jgit.lib.RepositoryCache;
+import org.jboss.forge.jgit.util.FS;
 
 /**
  * Offers a "GitPorcelain"-like API to interact with a git repository.

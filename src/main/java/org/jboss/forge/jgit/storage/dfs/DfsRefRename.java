@@ -41,13 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.RefRename;
-import org.eclipse.jgit.lib.RefUpdate.Result;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.RefRename;
+import org.jboss.forge.jgit.lib.RefUpdate.Result;
+import org.jboss.forge.jgit.storage.dfs.DfsRefUpdate;
 
 final class DfsRefRename extends RefRename {
 	DfsRefRename(DfsRefUpdate src, DfsRefUpdate dst) {

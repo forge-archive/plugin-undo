@@ -41,7 +41,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.events;
+package org.jboss.forge.jgit.events;
+
+import org.jboss.forge.jgit.events.RefsChangedEvent;
+import org.jboss.forge.jgit.events.RepositoryListener;
 
 /** Receives {@link RefsChangedEvent}s. */
 public interface RefsChangedListener extends RepositoryListener {

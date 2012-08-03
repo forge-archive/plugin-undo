@@ -40,27 +40,32 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.api.errors.NoFilepatternException;
-import org.eclipse.jgit.errors.ConfigInvalidException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.ConfigConstants;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.StoredConfig;
-import org.eclipse.jgit.storage.file.FileBasedConfig;
-import org.eclipse.jgit.submodule.SubmoduleWalk;
-import org.eclipse.jgit.treewalk.filter.PathFilter;
-import org.eclipse.jgit.treewalk.filter.TreeFilter;
+import org.jboss.forge.jgit.api.AddCommand;
+import org.jboss.forge.jgit.api.CloneCommand;
+import org.jboss.forge.jgit.api.Git;
+import org.jboss.forge.jgit.api.SubmoduleAddCommand;
+import org.jboss.forge.jgit.api.TransportCommand;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.api.errors.NoFilepatternException;
+import org.jboss.forge.jgit.errors.ConfigInvalidException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.ConfigConstants;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.StoredConfig;
+import org.jboss.forge.jgit.storage.file.FileBasedConfig;
+import org.jboss.forge.jgit.submodule.SubmoduleWalk;
+import org.jboss.forge.jgit.treewalk.filter.PathFilter;
+import org.jboss.forge.jgit.treewalk.filter.TreeFilter;
 
 /**
  * A class used to execute a submodule add command.

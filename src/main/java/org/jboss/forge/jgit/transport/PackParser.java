@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -58,31 +58,31 @@ import java.util.concurrent.TimeUnit;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.TooLargeObjectInPackException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.BatchingProgressMonitor;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.InflaterCache;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ObjectChecker;
-import org.eclipse.jgit.lib.ObjectDatabase;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdOwnerMap;
-import org.eclipse.jgit.lib.ObjectIdSubclassMap;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.ObjectStream;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.storage.file.PackLock;
-import org.eclipse.jgit.storage.pack.BinaryDelta;
-import org.eclipse.jgit.util.BlockList;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.NB;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.TooLargeObjectInPackException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.BatchingProgressMonitor;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.InflaterCache;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ObjectChecker;
+import org.jboss.forge.jgit.lib.ObjectDatabase;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdOwnerMap;
+import org.jboss.forge.jgit.lib.ObjectIdSubclassMap;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.ObjectStream;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.storage.file.PackLock;
+import org.jboss.forge.jgit.storage.pack.BinaryDelta;
+import org.jboss.forge.jgit.util.BlockList;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.NB;
 
 /**
  * Parses a pack stream and imports it for an {@link ObjectInserter}.

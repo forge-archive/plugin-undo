@@ -41,7 +41,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
+
+import org.jboss.forge.jgit.diff.HashedSequence;
+import org.jboss.forge.jgit.diff.HashedSequencePair;
+import org.jboss.forge.jgit.diff.Sequence;
+import org.jboss.forge.jgit.diff.SequenceComparator;
 
 /**
  * Wrap another comparator for use with {@link HashedSequence}.

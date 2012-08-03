@@ -43,17 +43,21 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
+import org.jboss.forge.jgit.transport.OperationResult;
+import org.jboss.forge.jgit.transport.RemoteRefUpdate;
+import org.jboss.forge.jgit.transport.Transport;
+
 /**
  * Result of push operation to the remote repository. Holding information of
  * {@link OperationResult} and remote refs updates status.
  *
- * @see Transport#push(org.eclipse.jgit.lib.ProgressMonitor, Collection)
+ * @see Transport#push(org.jboss.forge.jgit.lib.ProgressMonitor, Collection)
  */
 public class PushResult extends OperationResult {
 	private Map<String, RemoteRefUpdate> remoteUpdates = Collections.emptyMap();

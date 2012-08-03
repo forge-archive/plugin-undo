@@ -44,7 +44,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.io.File;
 import java.net.InetAddress;
@@ -54,8 +54,10 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.storage.file.FileBasedConfig;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.storage.file.FileBasedConfig;
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.SystemReader;
 
 /**
  * Interface to read values from the system.

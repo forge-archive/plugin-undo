@@ -41,12 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.notes;
+package org.jboss.forge.jgit.notes;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.notes.Note;
+import org.jboss.forge.jgit.notes.NotesMergeConflictException;
 
 /**
  * Three-way note merge operation.

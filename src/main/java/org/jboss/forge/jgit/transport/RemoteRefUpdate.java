@@ -41,17 +41,17 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.revwalk.RevWalk;
 
 /**
  * Represent request and status of a remote ref update. Specification is
@@ -62,7 +62,7 @@ import org.eclipse.jgit.revwalk.RevWalk;
  * specification and advertised refs ({@link Connection} or through
  * {@link Transport} helper methods. Apply this specification on remote
  * repository using
- * {@link Transport#push(org.eclipse.jgit.lib.ProgressMonitor, java.util.Collection)}
+ * {@link Transport#push(org.jboss.forge.jgit.lib.ProgressMonitor, java.util.Collection)}
  * method.
  * </p>
  *

@@ -41,12 +41,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
 
 import java.io.IOException;
 import java.util.Set;
 
-import org.eclipse.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.storage.pack.ObjectReuseAsIs;
+import org.jboss.forge.jgit.storage.pack.ObjectToPack;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.storage.pack.StoredObjectRepresentation;
 
 /** Describes a pack file {@link ObjectReuseAsIs} can append onto a stream. */
 public abstract class CachedPack {
@@ -103,7 +107,7 @@ public abstract class CachedPack {
 	 * only and using its internal state to decide if this object is within this
 	 * pack. Implementors should ensure a representation from this cached pack
 	 * is tested as part of
-	 * {@link ObjectReuseAsIs#selectObjectRepresentation(PackWriter, org.eclipse.jgit.lib.ProgressMonitor, Iterable)}
+	 * {@link ObjectReuseAsIs#selectObjectRepresentation(PackWriter, org.jboss.forge.jgit.lib.ProgressMonitor, Iterable)}
 	 * , ensuring this method would eventually return true if the object would
 	 * be included by this cached pack.
 	 *

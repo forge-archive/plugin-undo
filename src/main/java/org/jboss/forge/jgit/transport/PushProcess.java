@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -49,17 +49,22 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.transport.RemoteRefUpdate.Status;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.transport.PushConnection;
+import org.jboss.forge.jgit.transport.PushResult;
+import org.jboss.forge.jgit.transport.RemoteRefUpdate;
+import org.jboss.forge.jgit.transport.TrackingRefUpdate;
+import org.jboss.forge.jgit.transport.Transport;
+import org.jboss.forge.jgit.transport.RemoteRefUpdate.Status;
 
 /**
  * Class performing push operation on remote repository.

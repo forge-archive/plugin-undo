@@ -41,22 +41,28 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.notes;
+package org.jboss.forge.jgit.notes;
 
-import static org.eclipse.jgit.lib.Constants.OBJECT_ID_STRING_LENGTH;
-import static org.eclipse.jgit.lib.Constants.encodeASCII;
-import static org.eclipse.jgit.lib.FileMode.TREE;
-import static org.eclipse.jgit.util.RawParseUtils.parseHexInt4;
+import static org.jboss.forge.jgit.lib.Constants.OBJECT_ID_STRING_LENGTH;
+import static org.jboss.forge.jgit.lib.Constants.encodeASCII;
+import static org.jboss.forge.jgit.lib.FileMode.TREE;
+import static org.jboss.forge.jgit.util.RawParseUtils.parseHexInt4;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.treewalk.CanonicalTreeParser;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.notes.FanoutBucket;
+import org.jboss.forge.jgit.notes.InMemoryNoteBucket;
+import org.jboss.forge.jgit.notes.LeafBucket;
+import org.jboss.forge.jgit.notes.NonNoteEntry;
+import org.jboss.forge.jgit.notes.NoteBucket;
+import org.jboss.forge.jgit.notes.NoteParser;
+import org.jboss.forge.jgit.treewalk.CanonicalTreeParser;
 
 /** Custom tree parser to select note bucket type and load it. */
 final class NoteParser extends CanonicalTreeParser {

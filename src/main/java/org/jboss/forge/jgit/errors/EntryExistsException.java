@@ -42,12 +42,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.errors;
+package org.jboss.forge.jgit.errors;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
 
 /**
  * Attempt to add an entry to a tree that already exists.

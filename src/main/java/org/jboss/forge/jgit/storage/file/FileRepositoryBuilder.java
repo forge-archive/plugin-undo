@@ -41,13 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.eclipse.jgit.lib.BaseRepositoryBuilder;
+import org.jboss.forge.jgit.errors.RepositoryNotFoundException;
+import org.jboss.forge.jgit.lib.BaseRepositoryBuilder;
+import org.jboss.forge.jgit.storage.file.FileRepository;
+import org.jboss.forge.jgit.storage.file.FileRepositoryBuilder;
 
 /**
  * Constructs a {@link FileRepository}.

@@ -41,9 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.List;
+
+import org.jboss.forge.jgit.transport.AdvertiseRefsHook;
+import org.jboss.forge.jgit.transport.AdvertiseRefsHookChain;
+import org.jboss.forge.jgit.transport.BaseReceivePack;
+import org.jboss.forge.jgit.transport.ServiceMayNotContinueException;
+import org.jboss.forge.jgit.transport.UploadPack;
 
 /**
  * {@link AdvertiseRefsHook} that delegates to a list of other hooks.

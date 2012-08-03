@@ -42,11 +42,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.transport.TagOpt;
 
 /** Specification of annotated tag behavior during fetch. */
 public enum TagOpt {

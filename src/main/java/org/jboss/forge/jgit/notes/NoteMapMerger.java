@@ -41,23 +41,34 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.notes;
+package org.jboss.forge.jgit.notes;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.merge.MergeStrategy;
-import org.eclipse.jgit.merge.Merger;
-import org.eclipse.jgit.merge.ThreeWayMerger;
-import org.eclipse.jgit.treewalk.AbstractTreeIterator;
-import org.eclipse.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.merge.MergeStrategy;
+import org.jboss.forge.jgit.merge.Merger;
+import org.jboss.forge.jgit.merge.ThreeWayMerger;
+import org.jboss.forge.jgit.notes.DefaultNoteMerger;
+import org.jboss.forge.jgit.notes.FanoutBucket;
+import org.jboss.forge.jgit.notes.InMemoryNoteBucket;
+import org.jboss.forge.jgit.notes.LeafBucket;
+import org.jboss.forge.jgit.notes.NonNoteEntry;
+import org.jboss.forge.jgit.notes.Note;
+import org.jboss.forge.jgit.notes.NoteBucket;
+import org.jboss.forge.jgit.notes.NoteMap;
+import org.jboss.forge.jgit.notes.NoteMerger;
+import org.jboss.forge.jgit.notes.NoteParser;
+import org.jboss.forge.jgit.notes.NotesMergeConflictException;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
 
 /**
  * Three-way note tree merge.

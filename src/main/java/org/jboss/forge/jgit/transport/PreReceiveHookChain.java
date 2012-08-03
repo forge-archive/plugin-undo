@@ -41,10 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.Collection;
 import java.util.List;
+
+import org.jboss.forge.jgit.transport.PreReceiveHook;
+import org.jboss.forge.jgit.transport.PreReceiveHookChain;
+import org.jboss.forge.jgit.transport.ReceiveCommand;
+import org.jboss.forge.jgit.transport.ReceivePack;
 
 /**
  * {@link PreReceiveHook} that delegates to a list of other hooks.

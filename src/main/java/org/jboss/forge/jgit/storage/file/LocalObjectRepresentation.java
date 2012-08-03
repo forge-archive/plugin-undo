@@ -41,12 +41,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.storage.pack.StoredObjectRepresentation;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.storage.pack.StoredObjectRepresentation;
 
 class LocalObjectRepresentation extends StoredObjectRepresentation {
 	static LocalObjectRepresentation newWhole(PackFile f, long p, long length) {

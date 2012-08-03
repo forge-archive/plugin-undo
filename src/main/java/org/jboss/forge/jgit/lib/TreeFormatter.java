@@ -41,23 +41,30 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
-import static org.eclipse.jgit.lib.Constants.OBJECT_ID_LENGTH;
-import static org.eclipse.jgit.lib.Constants.OBJ_TREE;
-import static org.eclipse.jgit.lib.Constants.encode;
-import static org.eclipse.jgit.lib.FileMode.GITLINK;
-import static org.eclipse.jgit.lib.FileMode.REGULAR_FILE;
-import static org.eclipse.jgit.lib.FileMode.TREE;
+import static org.jboss.forge.jgit.lib.Constants.OBJECT_ID_LENGTH;
+import static org.jboss.forge.jgit.lib.Constants.OBJ_TREE;
+import static org.jboss.forge.jgit.lib.Constants.encode;
+import static org.jboss.forge.jgit.lib.FileMode.GITLINK;
+import static org.jboss.forge.jgit.lib.FileMode.REGULAR_FILE;
+import static org.jboss.forge.jgit.lib.FileMode.TREE;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.revwalk.RevBlob;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevTree;
-import org.eclipse.jgit.treewalk.CanonicalTreeParser;
-import org.eclipse.jgit.util.TemporaryBuffer;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.ObjectChecker;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.TreeFormatter;
+import org.jboss.forge.jgit.revwalk.RevBlob;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevTree;
+import org.jboss.forge.jgit.treewalk.CanonicalTreeParser;
+import org.jboss.forge.jgit.util.TemporaryBuffer;
 
 /**
  * Mutable formatter to construct a single tree object.

@@ -41,18 +41,22 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.InflaterInputStream;
 
-import org.eclipse.jgit.errors.LargeObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.ObjectStream;
+import org.jboss.forge.jgit.errors.LargeObjectException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectStream;
+import org.jboss.forge.jgit.storage.dfs.DfsObjDatabase;
+import org.jboss.forge.jgit.storage.dfs.DfsPackFile;
+import org.jboss.forge.jgit.storage.dfs.DfsReader;
+import org.jboss.forge.jgit.storage.dfs.PackInputStream;
 
 final class LargePackedWholeObject extends ObjectLoader {
 	private final int type;

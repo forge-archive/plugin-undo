@@ -40,11 +40,14 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jboss.forge.jgit.api.ApplyCommand;
+import org.jboss.forge.jgit.api.ApplyResult;
 
 /**
  * Encapsulates the result of a {@link ApplyCommand}

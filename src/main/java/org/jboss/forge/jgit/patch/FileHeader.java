@@ -41,15 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.patch;
+package org.jboss.forge.jgit.patch;
 
-import static org.eclipse.jgit.lib.Constants.encodeASCII;
-import static org.eclipse.jgit.util.RawParseUtils.decode;
-import static org.eclipse.jgit.util.RawParseUtils.decodeNoFallback;
-import static org.eclipse.jgit.util.RawParseUtils.extractBinaryString;
-import static org.eclipse.jgit.util.RawParseUtils.match;
-import static org.eclipse.jgit.util.RawParseUtils.nextLF;
-import static org.eclipse.jgit.util.RawParseUtils.parseBase10;
+import static org.jboss.forge.jgit.lib.Constants.encodeASCII;
+import static org.jboss.forge.jgit.util.RawParseUtils.decode;
+import static org.jboss.forge.jgit.util.RawParseUtils.decodeNoFallback;
+import static org.jboss.forge.jgit.util.RawParseUtils.extractBinaryString;
+import static org.jboss.forge.jgit.util.RawParseUtils.match;
+import static org.jboss.forge.jgit.util.RawParseUtils.nextLF;
+import static org.jboss.forge.jgit.util.RawParseUtils.parseBase10;
 
 import java.io.IOException;
 import java.nio.charset.CharacterCodingException;
@@ -59,15 +59,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.jgit.diff.DiffEntry;
-import org.eclipse.jgit.diff.EditList;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.util.QuotedString;
-import org.eclipse.jgit.util.RawParseUtils;
-import org.eclipse.jgit.util.TemporaryBuffer;
+import org.jboss.forge.jgit.diff.DiffEntry;
+import org.jboss.forge.jgit.diff.EditList;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.util.QuotedString;
+import org.jboss.forge.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.util.TemporaryBuffer;
 
 /** Patch header describing an action for a single file path. */
 public class FileHeader extends DiffEntry {

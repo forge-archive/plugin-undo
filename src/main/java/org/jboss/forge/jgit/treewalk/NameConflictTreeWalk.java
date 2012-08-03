@@ -41,13 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.treewalk;
+package org.jboss.forge.jgit.treewalk;
 
-import org.eclipse.jgit.dircache.DirCacheBuilder;
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.dircache.DirCacheBuilder;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
 
 /**
  * Specialized TreeWalk to detect directory-file (D/F) name conflicts.

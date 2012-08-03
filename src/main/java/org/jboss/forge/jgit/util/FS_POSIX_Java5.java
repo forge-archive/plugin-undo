@@ -41,9 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.io.File;
+
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.FS_POSIX;
+import org.jboss.forge.jgit.util.FS_POSIX_Java5;
 
 class FS_POSIX_Java5 extends FS_POSIX {
 	FS_POSIX_Java5() {

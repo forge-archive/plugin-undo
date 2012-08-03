@@ -40,7 +40,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api.errors;
+package org.jboss.forge.jgit.api.errors;
+
+import org.jboss.forge.jgit.api.errors.GitAPIException;
 
 /**
  * Exception thrown when applying a patch fails

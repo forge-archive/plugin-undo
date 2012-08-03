@@ -41,7 +41,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.events;
+package org.jboss.forge.jgit.events;
+
+import org.jboss.forge.jgit.events.ListenerList;
+import org.jboss.forge.jgit.events.RepositoryListener;
 
 /** Tracks a previously registered {@link RepositoryListener}. */
 public class ListenerHandle {

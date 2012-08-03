@@ -41,11 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.Arrays;
 
-import org.eclipse.jgit.errors.UnsupportedCredentialItem;
+import org.jboss.forge.jgit.errors.UnsupportedCredentialItem;
+import org.jboss.forge.jgit.transport.CredentialItem;
+import org.jboss.forge.jgit.transport.CredentialsProvider;
+import org.jboss.forge.jgit.transport.URIish;
 
 /**
  * Simple {@link CredentialsProvider} that always uses the same information.

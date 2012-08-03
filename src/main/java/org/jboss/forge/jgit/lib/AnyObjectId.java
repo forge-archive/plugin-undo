@@ -41,14 +41,20 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Writer;
 import java.nio.ByteBuffer;
 
-import org.eclipse.jgit.util.NB;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.util.NB;
 
 /**
  * A (possibly mutable) SHA-1 abstraction.

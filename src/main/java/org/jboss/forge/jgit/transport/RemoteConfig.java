@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.Serializable;
 import java.net.URISyntaxException;
@@ -54,7 +54,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.eclipse.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.transport.RefSpec;
+import org.jboss.forge.jgit.transport.RemoteConfig;
+import org.jboss.forge.jgit.transport.TagOpt;
+import org.jboss.forge.jgit.transport.URIish;
 
 /**
  * A remembered remote repository, including URLs and RefSpecs.

@@ -44,7 +44,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -67,15 +67,15 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.pack.PackConfig;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.storage.pack.PackConfig;
 
 /**
  * Connects two Git repositories together and copies objects between them.

@@ -41,21 +41,21 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.notes;
+package org.jboss.forge.jgit.notes;
 
-import static org.eclipse.jgit.lib.FileMode.TREE;
+import static org.jboss.forge.jgit.lib.FileMode.TREE;
 
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.TreeFormatter;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.TreeFormatter;
 
 /**
  * A note tree holding only note subtrees, each named using a 2 digit hex name.
@@ -140,7 +140,8 @@ class FanoutBucket extends InMemoryNoteBucket {
 
 			private Iterator<Note> itr;
 
-			public boolean hasNext() {
+			@Override
+         public boolean hasNext() {
 				if (itr != null && itr.hasNext())
 					return true;
 
@@ -164,14 +165,16 @@ class FanoutBucket extends InMemoryNoteBucket {
 				return false;
 			}
 
-			public Note next() {
+			@Override
+         public Note next() {
 				if (hasNext())
 					return itr.next();
 				else
 					throw new NoSuchElementException();
 			}
 
-			public void remove() {
+			@Override
+         public void remove() {
 				throw new UnsupportedOperationException();
 			}
 		};
@@ -259,7 +262,8 @@ class FanoutBucket extends InMemoryNoteBucket {
 		return inserter.insert(build(true, inserter));
 	}
 
-	ObjectId getTreeId() {
+	@Override
+   ObjectId getTreeId() {
 		try {
 			return new ObjectInserter.Formatter().idFor(build(false, null));
 		} catch (IOException e) {

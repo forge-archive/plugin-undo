@@ -41,18 +41,22 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.InflaterInputStream;
 
-import org.eclipse.jgit.errors.LargeObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.ObjectStream;
+import org.jboss.forge.jgit.errors.LargeObjectException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectStream;
+import org.jboss.forge.jgit.storage.file.FileObjectDatabase;
+import org.jboss.forge.jgit.storage.file.PackFile;
+import org.jboss.forge.jgit.storage.file.PackInputStream;
+import org.jboss.forge.jgit.storage.file.WindowCursor;
 
 class LargePackedWholeObject extends ObjectLoader {
 	private final int type;

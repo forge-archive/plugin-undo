@@ -42,10 +42,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.dircache;
+package org.jboss.forge.jgit.dircache;
 
-import static org.eclipse.jgit.lib.FileMode.TREE;
-import static org.eclipse.jgit.lib.TreeFormatter.entrySize;
+import static org.jboss.forge.jgit.lib.FileMode.TREE;
+import static org.jboss.forge.jgit.lib.TreeFormatter.entrySize;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -53,13 +53,16 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Comparator;
 
-import org.eclipse.jgit.errors.UnmergedPathException;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.TreeFormatter;
-import org.eclipse.jgit.util.MutableInteger;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.dircache.DirCacheEntry;
+import org.jboss.forge.jgit.dircache.DirCacheTree;
+import org.jboss.forge.jgit.errors.UnmergedPathException;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.TreeFormatter;
+import org.jboss.forge.jgit.util.MutableInteger;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /**
  * Single tree record from the 'TREE' {@link DirCache} extension.

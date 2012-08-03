@@ -25,13 +25,13 @@
 //import java.io.BufferedReader;
 //import java.io.InputStreamReader;
 //
-//import org.jboss.arquillian.container.test.api.Deployment;
-//import org.jboss.forge.parser.java.util.Strings;
-//import org.jboss.forge.project.Project;
-//import org.jboss.forge.resources.DirectoryResource;
-//import org.jboss.forge.resources.FileResource;
-//import org.jboss.forge.test.AbstractShellTest;
-//import org.jboss.shrinkwrap.api.spec.JavaArchive;
+//import org.jboss.forge.arquillian.container.test.api.Deployment;
+//import org.jboss.forge.forge.parser.java.util.Strings;
+//import org.jboss.forge.forge.project.Project;
+//import org.jboss.forge.forge.resources.DirectoryResource;
+//import org.jboss.forge.forge.resources.FileResource;
+//import org.jboss.forge.forge.test.AbstractShellTest;
+//import org.jboss.forge.shrinkwrap.api.spec.JavaArchive;
 //import org.junit.Assert;
 //import org.junit.Test;
 //

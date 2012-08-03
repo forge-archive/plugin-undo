@@ -40,7 +40,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,36 +48,39 @@ import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jgit.api.ResetCommand.ResetType;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.api.errors.NoHeadException;
-import org.eclipse.jgit.dircache.DirCache;
-import org.eclipse.jgit.dircache.DirCacheEditor;
-import org.eclipse.jgit.dircache.DirCacheEditor.DeletePath;
-import org.eclipse.jgit.dircache.DirCacheEditor.PathEdit;
-import org.eclipse.jgit.dircache.DirCacheEntry;
-import org.eclipse.jgit.dircache.DirCacheIterator;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.CommitBuilder;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.PersonIdent;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.treewalk.AbstractTreeIterator;
-import org.eclipse.jgit.treewalk.FileTreeIterator;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.WorkingTreeIterator;
-import org.eclipse.jgit.treewalk.filter.AndTreeFilter;
-import org.eclipse.jgit.treewalk.filter.IndexDiffFilter;
-import org.eclipse.jgit.treewalk.filter.SkipWorkTreeFilter;
+import org.jboss.forge.jgit.api.GitCommand;
+import org.jboss.forge.jgit.api.ResetCommand;
+import org.jboss.forge.jgit.api.StashCreateCommand;
+import org.jboss.forge.jgit.api.ResetCommand.ResetType;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.api.errors.NoHeadException;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.dircache.DirCacheEditor;
+import org.jboss.forge.jgit.dircache.DirCacheEntry;
+import org.jboss.forge.jgit.dircache.DirCacheIterator;
+import org.jboss.forge.jgit.dircache.DirCacheEditor.DeletePath;
+import org.jboss.forge.jgit.dircache.DirCacheEditor.PathEdit;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.CommitBuilder;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.treewalk.FileTreeIterator;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.WorkingTreeIterator;
+import org.jboss.forge.jgit.treewalk.filter.AndTreeFilter;
+import org.jboss.forge.jgit.treewalk.filter.IndexDiffFilter;
+import org.jboss.forge.jgit.treewalk.filter.SkipWorkTreeFilter;
 
 /**
  * Command class to stash changes in the working directory and index in a

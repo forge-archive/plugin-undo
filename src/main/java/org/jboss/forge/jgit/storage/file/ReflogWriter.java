@@ -43,14 +43,14 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
-import static org.eclipse.jgit.lib.Constants.HEAD;
-import static org.eclipse.jgit.lib.Constants.LOGS;
-import static org.eclipse.jgit.lib.Constants.R_HEADS;
-import static org.eclipse.jgit.lib.Constants.R_REFS;
-import static org.eclipse.jgit.lib.Constants.R_REMOTES;
-import static org.eclipse.jgit.lib.Constants.R_STASH;
+import static org.jboss.forge.jgit.lib.Constants.HEAD;
+import static org.jboss.forge.jgit.lib.Constants.LOGS;
+import static org.jboss.forge.jgit.lib.Constants.R_HEADS;
+import static org.jboss.forge.jgit.lib.Constants.R_REFS;
+import static org.jboss.forge.jgit.lib.Constants.R_REMOTES;
+import static org.jboss.forge.jgit.lib.Constants.R_STASH;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -60,16 +60,20 @@ import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.CoreConfig;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.PersonIdent;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.util.FS;
-import org.eclipse.jgit.util.FileUtils;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.CoreConfig;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.storage.file.LockFile;
+import org.jboss.forge.jgit.storage.file.ReflogEntry;
+import org.jboss.forge.jgit.storage.file.ReflogWriter;
+import org.jboss.forge.jgit.storage.file.WriteConfig;
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.FileUtils;
 
 /**
  * Utility for writing reflog entries

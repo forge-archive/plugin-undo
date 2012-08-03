@@ -41,11 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.File;
 
-import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+import org.jboss.forge.jgit.lib.BaseRepositoryBuilder;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.RepositoryBuilder;
+import org.jboss.forge.jgit.storage.file.FileRepositoryBuilder;
 
 /**
  * Base class to support constructing a {@link Repository}.

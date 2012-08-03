@@ -41,12 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.errors;
+package org.jboss.forge.jgit.errors;
 
 import java.io.File;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
 
 /** Indicates a local repository does not exist. */
 public class RepositoryNotFoundException extends TransportException {

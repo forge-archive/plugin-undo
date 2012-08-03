@@ -42,15 +42,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.Repository;
 
 /** Interface for revision walkers that perform depth filtering. */
 public interface DepthWalk {
@@ -86,7 +86,7 @@ public interface DepthWalk {
 	}
 
 	/** Subclass of RevWalk that performs depth filtering. */
-	public class RevWalk extends org.eclipse.jgit.revwalk.RevWalk implements DepthWalk {
+	public class RevWalk extends org.jboss.forge.jgit.revwalk.RevWalk implements DepthWalk {
 		private final int depth;
 
 		private final RevFlag UNSHALLOW;
@@ -138,21 +138,24 @@ public interface DepthWalk {
 			return new Commit(id);
 		}
 
-		public int getDepth() {
+		@Override
+      public int getDepth() {
 			return depth;
 		}
 
-		public RevFlag getUnshallowFlag() {
+		@Override
+      public RevFlag getUnshallowFlag() {
 			return UNSHALLOW;
 		}
 
-		public RevFlag getReinterestingFlag() {
+		@Override
+      public RevFlag getReinterestingFlag() {
 			return REINTERESTING;
 		}
 	}
 
 	/** Subclass of ObjectWalk that performs depth filtering. */
-	public class ObjectWalk extends org.eclipse.jgit.revwalk.ObjectWalk implements DepthWalk {
+	public class ObjectWalk extends org.jboss.forge.jgit.revwalk.ObjectWalk implements DepthWalk {
 		private final int depth;
 
 		private final RevFlag UNSHALLOW;
@@ -228,15 +231,18 @@ public interface DepthWalk {
 			return new Commit(id);
 		}
 
-		public int getDepth() {
+		@Override
+      public int getDepth() {
 			return depth;
 		}
 
-		public RevFlag getUnshallowFlag() {
+		@Override
+      public RevFlag getUnshallowFlag() {
 			return UNSHALLOW;
 		}
 
-		public RevFlag getReinterestingFlag() {
+		@Override
+      public RevFlag getReinterestingFlag() {
 			return REINTERESTING;
 		}
 	}

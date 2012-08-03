@@ -44,7 +44,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
+
+import org.jboss.forge.jgit.transport.JschConfigSessionFactory;
+import org.jboss.forge.jgit.transport.OpenSshConfig;
 
 import com.jcraft.jsch.Session;
 

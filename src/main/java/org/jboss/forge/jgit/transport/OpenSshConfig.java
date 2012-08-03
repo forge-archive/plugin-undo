@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -58,11 +58,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.jgit.errors.InvalidPatternException;
-import org.eclipse.jgit.fnmatch.FileNameMatcher;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.util.FS;
-import org.eclipse.jgit.util.StringUtils;
+import org.jboss.forge.jgit.errors.InvalidPatternException;
+import org.jboss.forge.jgit.fnmatch.FileNameMatcher;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.StringUtils;
 
 /**
  * Simple configuration parser for the OpenSSH ~/.ssh/config file.
@@ -295,7 +295,8 @@ public class OpenSshConfig {
 
 	static String userName() {
 		return AccessController.doPrivileged(new PrivilegedAction<String>() {
-			public String run() {
+			@Override
+         public String run() {
 				return System.getProperty("user.name");
 			}
 		});

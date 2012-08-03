@@ -42,15 +42,19 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.StopWalkException;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.revwalk.filter.RevFilter;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.StopWalkException;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.revwalk.DateRevQueue;
+import org.jboss.forge.jgit.revwalk.Generator;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.revwalk.filter.RevFilter;
 
 /**
  * Default (and first pass) RevCommit Generator implementation for RevWalk.

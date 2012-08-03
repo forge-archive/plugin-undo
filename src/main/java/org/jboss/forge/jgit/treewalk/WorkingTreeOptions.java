@@ -40,18 +40,19 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.treewalk;
+package org.jboss.forge.jgit.treewalk;
 
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.ConfigConstants;
-import org.eclipse.jgit.lib.Config.SectionParser;
-import org.eclipse.jgit.lib.CoreConfig.AutoCRLF;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.Config.SectionParser;
+import org.jboss.forge.jgit.lib.ConfigConstants;
+import org.jboss.forge.jgit.lib.CoreConfig.AutoCRLF;
 
 /** Options used by the {@link WorkingTreeIterator}. */
 public class WorkingTreeOptions {
 	/** Key for {@link Config#get(SectionParser)}. */
 	public static final Config.SectionParser<WorkingTreeOptions> KEY = new SectionParser<WorkingTreeOptions>() {
-		public WorkingTreeOptions parse(final Config cfg) {
+		@Override
+      public WorkingTreeOptions parse(final Config cfg) {
 			return new WorkingTreeOptions(cfg);
 		}
 	};

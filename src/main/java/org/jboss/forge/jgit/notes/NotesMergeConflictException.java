@@ -41,12 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.notes;
+package org.jboss.forge.jgit.notes;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.notes.NonNoteEntry;
+import org.jboss.forge.jgit.notes.Note;
+import org.jboss.forge.jgit.notes.NoteMerger;
 
 /**
  * This exception will be thrown from the {@link NoteMerger} when a conflict on

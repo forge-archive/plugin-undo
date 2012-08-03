@@ -27,18 +27,20 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.RevCommit;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.forge.git.GitUtils;
+import org.jboss.forge.jgit.api.Git;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.revwalk.RevCommit;
 import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.Project;
 import org.jboss.forge.resources.DirectoryResource;
 import org.jboss.forge.resources.FileResource;
 import org.jboss.forge.test.AbstractShellTest;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.undo.forge.UndoFacet;
+import org.jboss.undo.forge.UndoPlugin;
 import org.junit.Assert;
 import org.junit.Test;
 

@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,8 +49,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefComparator;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefComparator;
 
 /**
  * Specialized variant of an ArrayList to support a {@code RefDatabase}.
@@ -100,21 +100,25 @@ public class RefList<T extends Ref> implements Iterable<Ref> {
 		this.cnt = src.cnt;
 	}
 
-	public Iterator<Ref> iterator() {
+	@Override
+   public Iterator<Ref> iterator() {
 		return new Iterator<Ref>() {
 			private int idx;
 
-			public boolean hasNext() {
+			@Override
+         public boolean hasNext() {
 				return idx < cnt;
 			}
 
-			public Ref next() {
+			@Override
+         public Ref next() {
 				if (idx < cnt)
 					return list[idx++];
 				throw new NoSuchElementException();
 			}
 
-			public void remove() {
+			@Override
+         public void remove() {
 				throw new UnsupportedOperationException();
 			}
 		};

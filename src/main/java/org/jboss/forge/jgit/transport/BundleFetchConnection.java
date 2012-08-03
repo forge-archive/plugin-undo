@@ -45,7 +45,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -60,25 +60,29 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.MissingBundlePrerequisiteException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.PackProtocolException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdRef;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevFlag;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.storage.file.PackLock;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.errors.MissingBundlePrerequisiteException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.PackProtocolException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdRef;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevFlag;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.storage.file.PackLock;
+import org.jboss.forge.jgit.transport.BaseFetchConnection;
+import org.jboss.forge.jgit.transport.PackParser;
+import org.jboss.forge.jgit.transport.Transport;
+import org.jboss.forge.jgit.transport.TransportBundle;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /**
  * Fetch connection for bundle based classes. It used by

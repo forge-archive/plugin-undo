@@ -41,9 +41,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
-import org.eclipse.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.revwalk.FooterKey;
+import org.jboss.forge.jgit.revwalk.FooterLine;
 
 /** Case insensitive key for a {@link FooterLine}. */
 public final class FooterKey {

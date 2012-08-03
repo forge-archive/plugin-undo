@@ -35,10 +35,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api.errors;
+package org.jboss.forge.jgit.api.errors;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import org.jboss.forge.jgit.api.errors.CheckoutConflictException;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
 
 /**
  * Exception thrown when a command can't succeed because of unresolved
@@ -55,11 +58,11 @@ public class CheckoutConflictException extends GitAPIException {
 	 *            list of conflicting paths
 	 *
 	 * @param e
-	 *            a {@link org.eclipse.jgit.errors.CheckoutConflictException}
+	 *            a {@link org.jboss.forge.jgit.errors.CheckoutConflictException}
 	 *            exception
 	 */
 	public CheckoutConflictException(List<String> conflictingPaths,
-			org.eclipse.jgit.errors.CheckoutConflictException e) {
+			org.jboss.forge.jgit.errors.CheckoutConflictException e) {
 		super(e.getMessage(), e);
 		this.conflictingPaths = conflictingPaths;
 	}

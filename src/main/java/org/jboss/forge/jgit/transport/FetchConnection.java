@@ -44,16 +44,19 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.Collection;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.storage.file.PackLock;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.storage.file.PackLock;
+import org.jboss.forge.jgit.transport.Connection;
+import org.jboss.forge.jgit.transport.TagOpt;
+import org.jboss.forge.jgit.transport.Transport;
 
 /**
  * Lists known refs from the remote and copies objects of selected refs.

@@ -41,11 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.storage.pack.ObjectToPack;
-import org.eclipse.jgit.storage.pack.StoredObjectRepresentation;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.storage.dfs.DfsObjDatabase;
+import org.jboss.forge.jgit.storage.dfs.DfsObjectRepresentation;
+import org.jboss.forge.jgit.storage.dfs.DfsPackFile;
+import org.jboss.forge.jgit.storage.pack.ObjectToPack;
+import org.jboss.forge.jgit.storage.pack.StoredObjectRepresentation;
 
 /** {@link ObjectToPack} for {@link DfsObjDatabase}. */
 class DfsObjectToPack extends ObjectToPack {

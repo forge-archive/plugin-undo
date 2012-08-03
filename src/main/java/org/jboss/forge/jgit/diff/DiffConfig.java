@@ -41,20 +41,21 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
 
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.Config.SectionParser;
-import org.eclipse.jgit.util.StringUtils;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.Config.SectionParser;
+import org.jboss.forge.jgit.util.StringUtils;
 
 /** Keeps track of diff related configuration options. */
 public class DiffConfig {
 	/** Key for {@link Config#get(SectionParser)}. */
 	public static final Config.SectionParser<DiffConfig> KEY = new SectionParser<DiffConfig>() {
-		public DiffConfig parse(final Config cfg) {
+		@Override
+      public DiffConfig parse(final Config cfg) {
 			return new DiffConfig(cfg);
 		}
 	};

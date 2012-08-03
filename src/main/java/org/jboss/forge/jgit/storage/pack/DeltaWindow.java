@@ -41,19 +41,19 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
 
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.zip.Deflater;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.LargeObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.util.TemporaryBuffer;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.LargeObjectException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.util.TemporaryBuffer;
 
 class DeltaWindow {
 	private static final int NEXT_RES = 0;

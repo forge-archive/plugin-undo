@@ -42,15 +42,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.Config.SectionParser;
-import org.eclipse.jgit.transport.resolver.ServiceNotAuthorizedException;
-import org.eclipse.jgit.transport.resolver.ServiceNotEnabledException;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.Config.SectionParser;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.transport.resolver.ServiceNotAuthorizedException;
+import org.jboss.forge.jgit.transport.resolver.ServiceNotEnabledException;
 
 /** A service exposed by {@link Daemon} over anonymous <code>git://</code>. */
 public abstract class DaemonService {
@@ -65,7 +65,8 @@ public abstract class DaemonService {
 	DaemonService(final String cmdName, final String cfgName) {
 		command = cmdName.startsWith("git-") ? cmdName : "git-" + cmdName;
 		configKey = new SectionParser<ServiceConfig>() {
-			public ServiceConfig parse(final Config cfg) {
+			@Override
+         public ServiceConfig parse(final Config cfg) {
 				return new ServiceConfig(DaemonService.this, cfg, cfgName);
 			}
 		};

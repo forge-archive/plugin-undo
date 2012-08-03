@@ -41,14 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util.io;
+package org.jboss.forge.jgit.util.io;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.OutputStream;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.util.io.InterruptTimer;
 
 /** OutputStream with a configurable timeout. */
 public class TimeoutOutputStream extends OutputStream {

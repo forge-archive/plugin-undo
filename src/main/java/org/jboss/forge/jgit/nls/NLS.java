@@ -41,13 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.nls;
+package org.jboss.forge.jgit.nls;
 
 import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.eclipse.jgit.errors.TranslationBundleLoadingException;
-import org.eclipse.jgit.errors.TranslationStringMissingException;
+import org.jboss.forge.jgit.errors.TranslationBundleLoadingException;
+import org.jboss.forge.jgit.errors.TranslationStringMissingException;
 
 /**
  * The purpose of this class is to provide NLS (National Language Support)
@@ -72,7 +72,8 @@ public class NLS {
 	public static final Locale ROOT_LOCALE = new Locale("", "", "");
 
 	private static final InheritableThreadLocal<NLS> local = new InheritableThreadLocal<NLS>() {
-		protected NLS initialValue() {
+		@Override
+      protected NLS initialValue() {
 			return new NLS(Locale.getDefault());
 		}
 	};

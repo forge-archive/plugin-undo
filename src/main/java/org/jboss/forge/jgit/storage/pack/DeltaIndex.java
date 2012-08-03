@@ -41,10 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
 
 import java.io.IOException;
 import java.io.OutputStream;
+
+import org.jboss.forge.jgit.storage.pack.BinaryDelta;
+import org.jboss.forge.jgit.storage.pack.DeltaEncoder;
+import org.jboss.forge.jgit.storage.pack.DeltaIndexScanner;
+import org.jboss.forge.jgit.storage.pack.DeltaStream;
 
 /**
  * Index of blocks in a source file.

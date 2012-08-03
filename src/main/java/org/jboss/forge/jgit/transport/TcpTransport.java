@@ -43,9 +43,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.transport.Transport;
+import org.jboss.forge.jgit.transport.URIish;
 
 /**
  * The base class for transports based on TCP sockets. This class

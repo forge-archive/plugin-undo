@@ -42,16 +42,20 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.dircache;
+package org.jboss.forge.jgit.dircache;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.treewalk.AbstractTreeIterator;
-import org.eclipse.jgit.treewalk.EmptyTreeIterator;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.dircache.DirCacheEntry;
+import org.jboss.forge.jgit.dircache.DirCacheIterator;
+import org.jboss.forge.jgit.dircache.DirCacheTree;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.treewalk.EmptyTreeIterator;
 
 /**
  * Iterate a {@link DirCache} as part of a <code>TreeWalk</code>.
@@ -62,7 +66,7 @@ import org.eclipse.jgit.treewalk.EmptyTreeIterator;
  * over any combination of tree objects already in the object database, index
  * files, or working directories.
  *
- * @see org.eclipse.jgit.treewalk.TreeWalk
+ * @see org.jboss.forge.jgit.treewalk.TreeWalk
  */
 public class DirCacheIterator extends AbstractTreeIterator {
 	/** The cache this iterator was created to walk. */

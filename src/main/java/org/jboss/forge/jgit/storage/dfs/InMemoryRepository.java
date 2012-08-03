@@ -1,4 +1,4 @@
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -11,9 +11,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Ref.Storage;
-import org.eclipse.jgit.util.RefList;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Ref.Storage;
+import org.jboss.forge.jgit.util.RefList;
 
 /**
  * Git repository stored entirely in the local process memory.
@@ -197,7 +197,8 @@ public class InMemoryRepository extends DfsRepository {
 			data = buf;
 		}
 
-		public int read(ByteBuffer dst) {
+		@Override
+      public int read(ByteBuffer dst) {
 			int n = Math.min(dst.remaining(), data.length - position);
 			if (n == 0)
 				return -1;
@@ -206,27 +207,33 @@ public class InMemoryRepository extends DfsRepository {
 			return n;
 		}
 
-		public void close() {
+		@Override
+      public void close() {
 			open = false;
 		}
 
-		public boolean isOpen() {
+		@Override
+      public boolean isOpen() {
 			return open;
 		}
 
-		public long position() {
+		@Override
+      public long position() {
 			return position;
 		}
 
-		public void position(long newPosition) {
+		@Override
+      public void position(long newPosition) {
 			position = (int) newPosition;
 		}
 
-		public long size() {
+		@Override
+      public long size() {
 			return data.length;
 		}
 
-		public int blockSize() {
+		@Override
+      public int blockSize() {
 			return 0;
 		}
 	}

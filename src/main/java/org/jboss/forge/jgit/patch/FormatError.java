@@ -41,10 +41,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.patch;
+package org.jboss.forge.jgit.patch;
 
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /** An error in a patch script */
 public class FormatError {

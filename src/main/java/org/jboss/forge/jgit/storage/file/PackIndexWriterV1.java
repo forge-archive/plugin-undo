@@ -42,14 +42,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.transport.PackedObjectInfo;
-import org.eclipse.jgit.util.NB;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.storage.file.PackIndexV1;
+import org.jboss.forge.jgit.storage.file.PackIndexWriter;
+import org.jboss.forge.jgit.transport.PackedObjectInfo;
+import org.jboss.forge.jgit.util.NB;
 
 /**
  * Creates the version 1 (old style) pack table of contents files.

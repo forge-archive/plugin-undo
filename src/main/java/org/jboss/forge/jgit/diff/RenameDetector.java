@@ -41,10 +41,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
 
-import static org.eclipse.jgit.diff.DiffEntry.Side.NEW;
-import static org.eclipse.jgit.diff.DiffEntry.Side.OLD;
+import static org.jboss.forge.jgit.diff.DiffEntry.Side.NEW;
+import static org.jboss.forge.jgit.diff.DiffEntry.Side.OLD;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,15 +55,20 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
-import org.eclipse.jgit.diff.DiffEntry.ChangeType;
-import org.eclipse.jgit.diff.SimilarityIndex.TableFullException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.diff.ContentSource;
+import org.jboss.forge.jgit.diff.DiffConfig;
+import org.jboss.forge.jgit.diff.DiffEntry;
+import org.jboss.forge.jgit.diff.SimilarityIndex;
+import org.jboss.forge.jgit.diff.SimilarityRenameDetector;
+import org.jboss.forge.jgit.diff.DiffEntry.ChangeType;
+import org.jboss.forge.jgit.diff.SimilarityIndex.TableFullException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Repository;
 
 /** Detect and resolve object renames. */
 public class RenameDetector {

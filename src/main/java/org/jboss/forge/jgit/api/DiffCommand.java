@@ -40,32 +40,34 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
-import static org.eclipse.jgit.lib.Constants.HEAD;
+import static org.jboss.forge.jgit.lib.Constants.HEAD;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.api.errors.NoHeadException;
-import org.eclipse.jgit.diff.DiffEntry;
-import org.eclipse.jgit.diff.DiffFormatter;
-import org.eclipse.jgit.dircache.DirCacheIterator;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.treewalk.AbstractTreeIterator;
-import org.eclipse.jgit.treewalk.CanonicalTreeParser;
-import org.eclipse.jgit.treewalk.FileTreeIterator;
-import org.eclipse.jgit.treewalk.filter.TreeFilter;
-import org.eclipse.jgit.util.io.NullOutputStream;
+import org.jboss.forge.jgit.api.DiffCommand;
+import org.jboss.forge.jgit.api.GitCommand;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.api.errors.NoHeadException;
+import org.jboss.forge.jgit.diff.DiffEntry;
+import org.jboss.forge.jgit.diff.DiffFormatter;
+import org.jboss.forge.jgit.dircache.DirCacheIterator;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.treewalk.CanonicalTreeParser;
+import org.jboss.forge.jgit.treewalk.FileTreeIterator;
+import org.jboss.forge.jgit.treewalk.filter.TreeFilter;
+import org.jboss.forge.jgit.util.io.NullOutputStream;
 
 /**
  * Show changes between commits, commit and working tree, etc.

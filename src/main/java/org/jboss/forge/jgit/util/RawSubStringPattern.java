@@ -42,10 +42,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.util.RawCharSequence;
+import org.jboss.forge.jgit.util.StringUtils;
 
 /**
  * Searches text using only substring search.

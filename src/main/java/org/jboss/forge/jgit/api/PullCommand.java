@@ -41,32 +41,40 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.api.RebaseCommand.Operation;
-import org.eclipse.jgit.api.errors.CanceledException;
-import org.eclipse.jgit.api.errors.DetachedHeadException;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidConfigurationException;
-import org.eclipse.jgit.api.errors.InvalidRemoteException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.api.errors.NoHeadException;
-import org.eclipse.jgit.api.errors.RefNotFoundException;
-import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.ConfigConstants;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.RepositoryState;
-import org.eclipse.jgit.transport.FetchResult;
+import org.jboss.forge.jgit.api.FetchCommand;
+import org.jboss.forge.jgit.api.MergeCommand;
+import org.jboss.forge.jgit.api.MergeResult;
+import org.jboss.forge.jgit.api.PullCommand;
+import org.jboss.forge.jgit.api.PullResult;
+import org.jboss.forge.jgit.api.RebaseCommand;
+import org.jboss.forge.jgit.api.RebaseResult;
+import org.jboss.forge.jgit.api.TransportCommand;
+import org.jboss.forge.jgit.api.RebaseCommand.Operation;
+import org.jboss.forge.jgit.api.errors.CanceledException;
+import org.jboss.forge.jgit.api.errors.DetachedHeadException;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.InvalidConfigurationException;
+import org.jboss.forge.jgit.api.errors.InvalidRemoteException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.api.errors.NoHeadException;
+import org.jboss.forge.jgit.api.errors.RefNotFoundException;
+import org.jboss.forge.jgit.api.errors.WrongRepositoryStateException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.ConfigConstants;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.RepositoryState;
+import org.jboss.forge.jgit.transport.FetchResult;
 
 /**
  * The Pull command
@@ -112,14 +120,14 @@ public class PullCommand extends TransportCommand<PullCommand, PullResult> {
 	 * @throws CanceledException
 	 * @throws RefNotFoundException
 	 * @throws NoHeadException
-	 * @throws org.eclipse.jgit.api.errors.TransportException
+	 * @throws org.jboss.forge.jgit.api.errors.TransportException
 	 * @throws GitAPIException
 	 */
 	public PullResult call() throws GitAPIException,
 			WrongRepositoryStateException, InvalidConfigurationException,
 			DetachedHeadException, InvalidRemoteException, CanceledException,
 			RefNotFoundException, NoHeadException,
-			org.eclipse.jgit.api.errors.TransportException {
+			org.jboss.forge.jgit.api.errors.TransportException {
 		checkCallable();
 
 		monitor.beginTask(JGitText.get().pullTaskName, 2);

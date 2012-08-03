@@ -41,17 +41,22 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
 
 import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.StoredObjectRepresentationNotAvailableException;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.StoredObjectRepresentationNotAvailableException;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.storage.pack.CachedPack;
+import org.jboss.forge.jgit.storage.pack.ObjectToPack;
+import org.jboss.forge.jgit.storage.pack.PackOutputStream;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.storage.pack.StoredObjectRepresentation;
 
 /**
  * Extension of {@link ObjectReader} that supports reusing objects in packs.

@@ -41,12 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.text.MessageFormat;
 import java.util.Collection;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.util.StringUtils;
 
 /** Miscellaneous string comparison utility methods. */
 public final class StringUtils {

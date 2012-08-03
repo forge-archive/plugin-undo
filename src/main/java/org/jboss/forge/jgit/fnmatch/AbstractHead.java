@@ -42,11 +42,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.fnmatch;
+package org.jboss.forge.jgit.fnmatch;
 
 import java.util.List;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.fnmatch.FileNameMatcher;
+import org.jboss.forge.jgit.fnmatch.Head;
+import org.jboss.forge.jgit.internal.JGitText;
 
 abstract class AbstractHead implements Head {
 	private List<Head> newHeads = null;

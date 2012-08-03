@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -58,36 +58,36 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.CompoundException;
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.lib.ObjectChecker;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.DateRevQueue;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevFlag;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevTag;
-import org.eclipse.jgit.revwalk.RevTree;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.storage.file.ObjectDirectory;
-import org.eclipse.jgit.storage.file.PackIndex;
-import org.eclipse.jgit.storage.file.PackLock;
-import org.eclipse.jgit.storage.file.UnpackedObject;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.util.FileUtils;
+import org.jboss.forge.jgit.errors.CompoundException;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.ObjectChecker;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.revwalk.DateRevQueue;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevFlag;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevTag;
+import org.jboss.forge.jgit.revwalk.RevTree;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.storage.file.ObjectDirectory;
+import org.jboss.forge.jgit.storage.file.PackIndex;
+import org.jboss.forge.jgit.storage.file.PackLock;
+import org.jboss.forge.jgit.storage.file.UnpackedObject;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.util.FileUtils;
 
 /**
  * Generic fetch support for dumb transport protocols.
@@ -220,7 +220,8 @@ class WalkFetchConnection extends BaseFetchConnection {
 		workQueue = new LinkedList<ObjectId>();
 	}
 
-	public boolean didFetchTestConnectivity() {
+	@Override
+   public boolean didFetchTestConnectivity() {
 		return true;
 	}
 
@@ -239,11 +240,13 @@ class WalkFetchConnection extends BaseFetchConnection {
 		}
 	}
 
-	public Collection<PackLock> getPackLocks() {
+	@Override
+   public Collection<PackLock> getPackLocks() {
 		return packLocks;
 	}
 
-	public void setPackLockMessage(final String message) {
+	@Override
+   public void setPackLockMessage(final String message) {
 		lockMessage = message;
 	}
 

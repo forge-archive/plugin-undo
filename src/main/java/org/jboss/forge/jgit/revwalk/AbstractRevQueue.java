@@ -41,7 +41,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
+
 
 abstract class AbstractRevQueue extends Generator {
 	static final AbstractRevQueue EMPTY_QUEUE = new AlwaysEmptyQueue();
@@ -107,7 +108,8 @@ abstract class AbstractRevQueue extends Generator {
 	 *
 	 * @return the first commit of this queue.
 	 */
-	public abstract RevCommit next();
+	@Override
+   public abstract RevCommit next();
 
 	/** Remove all entries from this queue. */
 	public abstract void clear();

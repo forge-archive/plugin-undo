@@ -40,12 +40,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.text.MessageFormat;
 import java.util.Date;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.util.SystemReader;
 
 /**
  * Formatter to format timestamps relative to the current time using time units

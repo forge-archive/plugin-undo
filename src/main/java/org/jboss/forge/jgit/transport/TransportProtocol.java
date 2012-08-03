@@ -41,16 +41,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Repository;
 
 /**
  * Describes a way to connect to another Git repository.
@@ -80,7 +80,7 @@ import org.eclipse.jgit.lib.Repository;
  * <p>
  * Applications may automatically register additional protocols by filling in
  * the names of their TransportProtocol defining classes using the services file
- * {@code META-INF/services/org.eclipse.jgit.transport.Transport}. For each
+ * {@code META-INF/services/org.jboss.forge.jgit.transport.Transport}. For each
  * class name listed in the services file, any static fields of type
  * {@code TransportProtocol} will be automatically registered. For the above
  * example the string {@code com.example.my_transport.MyTransport} should be

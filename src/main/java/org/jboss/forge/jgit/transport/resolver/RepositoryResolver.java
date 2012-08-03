@@ -41,11 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport.resolver;
+package org.jboss.forge.jgit.transport.resolver;
 
-import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.transport.ServiceMayNotContinueException;
+import org.jboss.forge.jgit.errors.RepositoryNotFoundException;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.transport.ServiceMayNotContinueException;
+import org.jboss.forge.jgit.transport.resolver.RepositoryResolver;
+import org.jboss.forge.jgit.transport.resolver.ServiceNotAuthorizedException;
+import org.jboss.forge.jgit.transport.resolver.ServiceNotEnabledException;
 
 /**
  * Locate a Git {@link Repository} by name from the URL.

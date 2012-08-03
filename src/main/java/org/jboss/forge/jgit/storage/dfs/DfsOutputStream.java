@@ -41,11 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+
+import org.jboss.forge.jgit.storage.dfs.DfsObjDatabase;
+import org.jboss.forge.jgit.storage.dfs.DfsPackDescription;
 
 /**
  * Output stream to create a file on the DFS.

@@ -40,7 +40,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,18 +48,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.blame.BlameGenerator;
-import org.eclipse.jgit.blame.BlameResult;
-import org.eclipse.jgit.diff.DiffAlgorithm;
-import org.eclipse.jgit.diff.RawText;
-import org.eclipse.jgit.diff.RawTextComparator;
-import org.eclipse.jgit.dircache.DirCache;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.api.BlameCommand;
+import org.jboss.forge.jgit.api.GitCommand;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.blame.BlameGenerator;
+import org.jboss.forge.jgit.blame.BlameResult;
+import org.jboss.forge.jgit.diff.DiffAlgorithm;
+import org.jboss.forge.jgit.diff.RawText;
+import org.jboss.forge.jgit.diff.RawTextComparator;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.Repository;
 
 /**
  * Blame command for building a {@link BlameResult} for a file path.

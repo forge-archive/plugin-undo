@@ -41,9 +41,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.File;
+
+import org.jboss.forge.jgit.storage.file.FileSnapshot;
 
 /**
  * Caches when a file was last read, making it possible to detect future edits.

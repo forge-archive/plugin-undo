@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -61,17 +61,17 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdRef;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Ref.Storage;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.SymbolicRef;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdRef;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Ref.Storage;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.SymbolicRef;
 
 /**
  * Transport over the non-Git aware Amazon S3 protocol.
@@ -101,24 +101,29 @@ public class TransportAmazonS3 extends HttpTransport implements WalkTransport {
 	static final String S3_SCHEME = "amazon-s3";
 
 	static final TransportProtocol PROTO_S3 = new TransportProtocol() {
-		public String getName() {
+		@Override
+      public String getName() {
 			return "Amazon S3";
 		}
 
-		public Set<String> getSchemes() {
+		@Override
+      public Set<String> getSchemes() {
 			return Collections.singleton(S3_SCHEME);
 		}
 
-		public Set<URIishField> getRequiredFields() {
+		@Override
+      public Set<URIishField> getRequiredFields() {
 			return Collections.unmodifiableSet(EnumSet.of(URIishField.USER,
 					URIishField.HOST, URIishField.PATH));
 		}
 
-		public Set<URIishField> getOptionalFields() {
+		@Override
+      public Set<URIishField> getOptionalFields() {
 			return Collections.unmodifiableSet(EnumSet.of(URIishField.PASS));
 		}
 
-		public Transport open(URIish uri, Repository local, String remoteName)
+		@Override
+      public Transport open(URIish uri, Repository local, String remoteName)
 				throws NotSupportedException {
 			return new TransportAmazonS3(local, uri);
 		}

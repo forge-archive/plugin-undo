@@ -41,11 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.Collection;
 
-import org.eclipse.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.transport.PreUploadHook;
+import org.jboss.forge.jgit.transport.ServiceMayNotContinueException;
+import org.jboss.forge.jgit.transport.UploadPack;
 
 /**
  * Hook invoked by {@link UploadPack} before during critical phases.

@@ -40,7 +40,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.ignore;
+package org.jboss.forge.jgit.ignore;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -50,7 +50,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.Constants;
 
 /**
  * Represents a bundle of ignore rules inherited from a base directory.

@@ -41,9 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.Collection;
+
+import org.jboss.forge.jgit.transport.PostReceiveHook;
+import org.jboss.forge.jgit.transport.ReceiveCommand;
+import org.jboss.forge.jgit.transport.ReceivePack;
 
 /**
  * Hook invoked by {@link ReceivePack} after all updates are executed.

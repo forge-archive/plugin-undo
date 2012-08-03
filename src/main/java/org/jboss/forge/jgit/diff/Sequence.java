@@ -42,7 +42,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
+
+import org.jboss.forge.jgit.diff.Edit;
+import org.jboss.forge.jgit.diff.EditList;
+import org.jboss.forge.jgit.diff.SequenceComparator;
 
 /**
  * Arbitrary sequence of elements.

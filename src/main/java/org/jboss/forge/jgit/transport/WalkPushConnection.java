@@ -41,9 +41,9 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
-import static org.eclipse.jgit.transport.WalkRemoteObjectDatabase.ROOT_DIR;
+import static org.jboss.forge.jgit.transport.WalkRemoteObjectDatabase.ROOT_DIR;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -56,20 +56,27 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdRef;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Ref.Storage;
-import org.eclipse.jgit.lib.RefWriter;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.pack.PackWriter;
-import org.eclipse.jgit.transport.RemoteRefUpdate.Status;
-import org.eclipse.jgit.util.io.SafeBufferedOutputStream;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdRef;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefWriter;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.Ref.Storage;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.transport.BaseConnection;
+import org.jboss.forge.jgit.transport.PushConnection;
+import org.jboss.forge.jgit.transport.RemoteRefUpdate;
+import org.jboss.forge.jgit.transport.Transport;
+import org.jboss.forge.jgit.transport.URIish;
+import org.jboss.forge.jgit.transport.WalkRemoteObjectDatabase;
+import org.jboss.forge.jgit.transport.WalkTransport;
+import org.jboss.forge.jgit.transport.RemoteRefUpdate.Status;
+import org.jboss.forge.jgit.util.io.SafeBufferedOutputStream;
 
 /**
  * Generic push support for dumb transport protocols.

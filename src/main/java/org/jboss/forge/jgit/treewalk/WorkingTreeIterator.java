@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.treewalk;
+package org.jboss.forge.jgit.treewalk;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -61,24 +61,24 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
-import org.eclipse.jgit.diff.RawText;
-import org.eclipse.jgit.dircache.DirCache;
-import org.eclipse.jgit.dircache.DirCacheEntry;
-import org.eclipse.jgit.dircache.DirCacheIterator;
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.NoWorkTreeException;
-import org.eclipse.jgit.ignore.IgnoreNode;
-import org.eclipse.jgit.ignore.IgnoreRule;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.CoreConfig;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.submodule.SubmoduleWalk;
-import org.eclipse.jgit.util.FS;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.io.EolCanonicalizingInputStream;
+import org.jboss.forge.jgit.diff.RawText;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.dircache.DirCacheEntry;
+import org.jboss.forge.jgit.dircache.DirCacheIterator;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.NoWorkTreeException;
+import org.jboss.forge.jgit.ignore.IgnoreNode;
+import org.jboss.forge.jgit.ignore.IgnoreRule;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.CoreConfig;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.submodule.SubmoduleWalk;
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.io.EolCanonicalizingInputStream;
 
 /**
  * Walks a working directory tree as part of a {@link TreeWalk}.
@@ -592,7 +592,8 @@ public abstract class WorkingTreeIterator extends AbstractTreeIterator {
 	}
 
 	private static final Comparator<Entry> ENTRY_CMP = new Comparator<Entry>() {
-		public int compare(final Entry o1, final Entry o2) {
+		@Override
+      public int compare(final Entry o1, final Entry o2) {
 			final byte[] a = o1.encodedName;
 			final byte[] b = o2.encodedName;
 			final int aLen = o1.encodedNameLen;
@@ -928,7 +929,8 @@ public abstract class WorkingTreeIterator extends AbstractTreeIterator {
 				b.get(encodedName = new byte[encodedNameLen]);
 		}
 
-		public String toString() {
+		@Override
+      public String toString() {
 			return getMode().toString() + " " + getName();
 		}
 

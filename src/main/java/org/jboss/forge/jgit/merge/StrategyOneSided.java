@@ -42,12 +42,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.merge;
+package org.jboss.forge.jgit.merge;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.Repository;
 
 /**
  * Trivial merge strategy to make the resulting tree exactly match an input.

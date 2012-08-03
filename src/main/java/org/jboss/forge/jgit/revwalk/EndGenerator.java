@@ -41,7 +41,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
+
+import org.jboss.forge.jgit.revwalk.EndGenerator;
+import org.jboss.forge.jgit.revwalk.Generator;
+import org.jboss.forge.jgit.revwalk.RevCommit;
 
 class EndGenerator extends Generator {
 	static final EndGenerator INSTANCE = new EndGenerator();

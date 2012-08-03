@@ -43,17 +43,36 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.revwalk.filter.AndRevFilter;
-import org.eclipse.jgit.revwalk.filter.RevFilter;
-import org.eclipse.jgit.treewalk.filter.TreeFilter;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.revwalk.AbstractRevQueue;
+import org.jboss.forge.jgit.revwalk.BoundaryGenerator;
+import org.jboss.forge.jgit.revwalk.DateRevQueue;
+import org.jboss.forge.jgit.revwalk.DelayRevQueue;
+import org.jboss.forge.jgit.revwalk.DepthGenerator;
+import org.jboss.forge.jgit.revwalk.DepthWalk;
+import org.jboss.forge.jgit.revwalk.FIFORevQueue;
+import org.jboss.forge.jgit.revwalk.FixUninterestingGenerator;
+import org.jboss.forge.jgit.revwalk.Generator;
+import org.jboss.forge.jgit.revwalk.LIFORevQueue;
+import org.jboss.forge.jgit.revwalk.MergeBaseGenerator;
+import org.jboss.forge.jgit.revwalk.ObjectWalk;
+import org.jboss.forge.jgit.revwalk.PendingGenerator;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevSort;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.revwalk.RewriteGenerator;
+import org.jboss.forge.jgit.revwalk.RewriteTreeFilter;
+import org.jboss.forge.jgit.revwalk.TopoSortGenerator;
+import org.jboss.forge.jgit.revwalk.filter.AndRevFilter;
+import org.jboss.forge.jgit.revwalk.filter.RevFilter;
+import org.jboss.forge.jgit.treewalk.filter.TreeFilter;
 
 /**
  * Initial RevWalk generator that bootstraps a new walk.

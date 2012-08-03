@@ -41,7 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
+
+import org.jboss.forge.jgit.diff.Edit;
+import org.jboss.forge.jgit.diff.EditList;
+import org.jboss.forge.jgit.diff.Sequence;
+import org.jboss.forge.jgit.diff.Subsequence;
+import org.jboss.forge.jgit.diff.SubsequenceComparator;
 
 /**
  * Wraps a {@link Sequence} to have a narrower range of elements.

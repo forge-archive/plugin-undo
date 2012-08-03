@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -52,10 +52,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.util.io.SafeBufferedOutputStream;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.util.io.SafeBufferedOutputStream;
 
 /**
  * A fully buffered output stream.
@@ -313,7 +313,8 @@ public abstract class TemporaryBuffer extends OutputStream {
 		overflow.write(last.buffer, 0, last.count);
 	}
 
-	public void close() throws IOException {
+	@Override
+   public void close() throws IOException {
 		if (overflow != null) {
 			try {
 				overflow.close();
@@ -407,19 +408,22 @@ public abstract class TemporaryBuffer extends OutputStream {
 			this.directory = directory;
 		}
 
-		protected OutputStream overflow() throws IOException {
+		@Override
+      protected OutputStream overflow() throws IOException {
 			onDiskFile = File.createTempFile("jgit_", ".buf", directory);
 			return new FileOutputStream(onDiskFile);
 		}
 
-		public long length() {
+		@Override
+      public long length() {
 			if (onDiskFile == null) {
 				return super.length();
 			}
 			return onDiskFile.length();
 		}
 
-		public byte[] toByteArray() throws IOException {
+		@Override
+      public byte[] toByteArray() throws IOException {
 			if (onDiskFile == null) {
 				return super.toByteArray();
 			}
@@ -437,7 +441,8 @@ public abstract class TemporaryBuffer extends OutputStream {
 			return out;
 		}
 
-		public void writeTo(final OutputStream os, ProgressMonitor pm)
+		@Override
+      public void writeTo(final OutputStream os, ProgressMonitor pm)
 				throws IOException {
 			if (onDiskFile == null) {
 				super.writeTo(os, pm);

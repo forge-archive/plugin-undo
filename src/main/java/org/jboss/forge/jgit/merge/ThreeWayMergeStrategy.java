@@ -41,9 +41,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.merge;
+package org.jboss.forge.jgit.merge;
 
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.merge.MergeStrategy;
+import org.jboss.forge.jgit.merge.ThreeWayMerger;
 
 /** A merge strategy to merge 2 trees, using a common base ancestor tree. */
 public abstract class ThreeWayMergeStrategy extends MergeStrategy {

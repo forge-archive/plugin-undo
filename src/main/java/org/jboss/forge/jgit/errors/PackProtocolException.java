@@ -43,9 +43,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.errors;
+package org.jboss.forge.jgit.errors;
 
-import org.eclipse.jgit.transport.URIish;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.transport.URIish;
 
 /**
  * Indicates a protocol error has occurred while fetching/pushing objects.

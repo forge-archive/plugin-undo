@@ -40,7 +40,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.treewalk.filter;
+package org.jboss.forge.jgit.treewalk.filter;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -48,12 +48,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.jgit.dircache.DirCacheIterator;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.WorkingTreeIterator;
+import org.jboss.forge.jgit.dircache.DirCacheIterator;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.WorkingTreeIterator;
+import org.jboss.forge.jgit.treewalk.filter.TreeFilter;
 
 /**
  * A performance optimized variant of {@link TreeFilter#ANY_DIFF} which should
@@ -71,7 +72,7 @@ import org.eclipse.jgit.treewalk.WorkingTreeIterator;
  * <p>
  * If no difference is found then we have to compare index and working-tree as
  * the last step. By making use of
- * {@link WorkingTreeIterator#isModified(org.eclipse.jgit.dircache.DirCacheEntry, boolean)}
+ * {@link WorkingTreeIterator#isModified(org.jboss.forge.jgit.dircache.DirCacheEntry, boolean)}
  * we can avoid the computation of the content id if the file is not dirty.
  * <p>
  * Instances of this filter should not be used for multiple {@link TreeWalk}s.

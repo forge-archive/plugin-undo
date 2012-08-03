@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,15 +53,15 @@ import java.text.MessageFormat;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.NB;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.NB;
 
 /**
  * Access path to locate objects by {@link ObjectId} in a {@link PackFile}.
@@ -177,7 +177,8 @@ public abstract class PackIndex implements Iterable<PackIndex.MutableEntry> {
 	 *
 	 * @return iterator over pack index entries
 	 */
-	public abstract Iterator<MutableEntry> iterator();
+	@Override
+   public abstract Iterator<MutableEntry> iterator();
 
 	/**
 	 * Obtain the total number of objects described by this index.
@@ -346,7 +347,8 @@ public abstract class PackIndex implements Iterable<PackIndex.MutableEntry> {
 
 		protected abstract MutableEntry initEntry();
 
-		public boolean hasNext() {
+		@Override
+      public boolean hasNext() {
 			return returnedNumber < getObjectCount();
 		}
 
@@ -354,9 +356,11 @@ public abstract class PackIndex implements Iterable<PackIndex.MutableEntry> {
 		 * Implementation must update {@link #returnedNumber} before returning
 		 * element.
 		 */
-		public abstract MutableEntry next();
+		@Override
+      public abstract MutableEntry next();
 
-		public void remove() {
+		@Override
+      public void remove() {
 			throw new UnsupportedOperationException();
 		}
 	}

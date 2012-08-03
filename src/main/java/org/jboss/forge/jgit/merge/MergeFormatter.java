@@ -41,15 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.merge;
+package org.jboss.forge.jgit.merge;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jgit.diff.RawText;
-import org.eclipse.jgit.merge.MergeChunk.ConflictState;
+import org.jboss.forge.jgit.diff.RawText;
+import org.jboss.forge.jgit.merge.MergeChunk.ConflictState;
 
 /**
  * A class to convert merge results into a Git conformant textual presentation

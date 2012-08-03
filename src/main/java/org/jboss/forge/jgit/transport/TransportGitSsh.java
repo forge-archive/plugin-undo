@@ -44,7 +44,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -57,17 +57,17 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.NoRemoteRepositoryException;
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.util.QuotedString;
-import org.eclipse.jgit.util.SystemReader;
-import org.eclipse.jgit.util.io.MessageWriter;
-import org.eclipse.jgit.util.io.StreamCopyThread;
-import org.eclipse.jgit.util.FS;
+import org.jboss.forge.jgit.errors.NoRemoteRepositoryException;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.QuotedString;
+import org.jboss.forge.jgit.util.SystemReader;
+import org.jboss.forge.jgit.util.io.MessageWriter;
+import org.jboss.forge.jgit.util.io.StreamCopyThread;
 
 /**
  * Transport through an SSH tunnel.
@@ -88,25 +88,30 @@ public class TransportGitSsh extends SshTransport implements PackTransport {
 				.unmodifiableSet(new LinkedHashSet<String>(Arrays
 						.asList(schemeNames)));
 
-		public String getName() {
+		@Override
+      public String getName() {
 			return JGitText.get().transportProtoSSH;
 		}
 
-		public Set<String> getSchemes() {
+		@Override
+      public Set<String> getSchemes() {
 			return schemeSet;
 		}
 
-		public Set<URIishField> getRequiredFields() {
+		@Override
+      public Set<URIishField> getRequiredFields() {
 			return Collections.unmodifiableSet(EnumSet.of(URIishField.HOST,
 					URIishField.PATH));
 		}
 
-		public Set<URIishField> getOptionalFields() {
+		@Override
+      public Set<URIishField> getOptionalFields() {
 			return Collections.unmodifiableSet(EnumSet.of(URIishField.USER,
 					URIishField.PASS, URIishField.PORT));
 		}
 
-		public int getDefaultPort() {
+		@Override
+      public int getDefaultPort() {
 			return 22;
 		}
 
@@ -122,7 +127,8 @@ public class TransportGitSsh extends SshTransport implements PackTransport {
 			return super.canHandle(uri, local, remoteName);
 		}
 
-		public Transport open(URIish uri, Repository local, String remoteName)
+		@Override
+      public Transport open(URIish uri, Repository local, String remoteName)
 				throws NotSupportedException {
 			return new TransportGitSsh(local, uri);
 		}
@@ -199,7 +205,8 @@ public class TransportGitSsh extends SshTransport implements PackTransport {
 	}
 
 	private class ExtSession implements RemoteSession {
-		public Process exec(String command, int timeout)
+		@Override
+      public Process exec(String command, int timeout)
 				throws TransportException {
 			String ssh = SystemReader.getInstance().getenv("GIT_SSH");
 			boolean putty = ssh.toLowerCase().contains("plink");
@@ -232,7 +239,8 @@ public class TransportGitSsh extends SshTransport implements PackTransport {
 			}
 		}
 
-		public void disconnect() {
+		@Override
+      public void disconnect() {
 			// Nothing to do
 		}
 	}

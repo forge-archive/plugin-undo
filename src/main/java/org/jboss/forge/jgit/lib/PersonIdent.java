@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -51,7 +51,10 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import org.eclipse.jgit.util.SystemReader;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.UserConfig;
+import org.jboss.forge.jgit.util.SystemReader;
 
 /**
  * A combination of a person identity and time in Git.

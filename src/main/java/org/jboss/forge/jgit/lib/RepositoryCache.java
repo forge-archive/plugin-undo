@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,11 +51,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.eclipse.jgit.storage.file.FileRepository;
-import org.eclipse.jgit.util.FS;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.errors.RepositoryNotFoundException;
+import org.jboss.forge.jgit.storage.file.FileRepository;
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /** Cache of active {@link Repository} instances. */
 public class RepositoryCache {
@@ -317,7 +317,8 @@ public class RepositoryCache {
 			return path;
 		}
 
-		public Repository open(final boolean mustExist) throws IOException {
+		@Override
+      public Repository open(final boolean mustExist) throws IOException {
 			if (mustExist && !isGitRepository(path, fs))
 				throw new RepositoryNotFoundException(path);
 			return new FileRepository(path);

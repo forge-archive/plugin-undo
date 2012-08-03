@@ -41,12 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util.io;
+package org.jboss.forge.jgit.util.io;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.util.io.DisabledOutputStream;
 
 /** An OutputStream which always throws IllegalStateExeption during write. */
 public final class DisabledOutputStream extends OutputStream {

@@ -42,12 +42,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.errors;
+package org.jboss.forge.jgit.errors;
+
+import org.jboss.forge.jgit.errors.StopWalkException;
 
 /**
  * Stops the driver loop of walker and finish with current results.
  *
- * @see org.eclipse.jgit.revwalk.filter.RevFilter
+ * @see org.jboss.forge.jgit.revwalk.filter.RevFilter
  */
 public class StopWalkException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

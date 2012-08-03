@@ -44,7 +44,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -55,10 +55,19 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.transport.BundleFetchConnection;
+import org.jboss.forge.jgit.transport.FetchConnection;
+import org.jboss.forge.jgit.transport.PushConnection;
+import org.jboss.forge.jgit.transport.Transport;
+import org.jboss.forge.jgit.transport.TransportBundle;
+import org.jboss.forge.jgit.transport.TransportBundleFile;
+import org.jboss.forge.jgit.transport.TransportLocal;
+import org.jboss.forge.jgit.transport.TransportProtocol;
+import org.jboss.forge.jgit.transport.URIish;
 
 class TransportBundleFile extends Transport implements TransportBundle {
 	static final TransportProtocol PROTO_BUNDLE = new TransportProtocol() {

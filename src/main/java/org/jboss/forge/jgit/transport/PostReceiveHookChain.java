@@ -41,10 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.Collection;
 import java.util.List;
+
+import org.jboss.forge.jgit.transport.PostReceiveHook;
+import org.jboss.forge.jgit.transport.PostReceiveHookChain;
+import org.jboss.forge.jgit.transport.ReceiveCommand;
+import org.jboss.forge.jgit.transport.ReceivePack;
 
 /**
  * {@link PostReceiveHook} that delegates to a list of other hooks.

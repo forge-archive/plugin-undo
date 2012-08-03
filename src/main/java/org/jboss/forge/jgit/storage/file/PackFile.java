@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.EOFException;
 import java.io.File;
@@ -61,23 +61,23 @@ import java.util.zip.CRC32;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.PackInvalidException;
-import org.eclipse.jgit.errors.PackMismatchException;
-import org.eclipse.jgit.errors.StoredObjectRepresentationNotAvailableException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.storage.pack.BinaryDelta;
-import org.eclipse.jgit.storage.pack.ObjectToPack;
-import org.eclipse.jgit.storage.pack.PackOutputStream;
-import org.eclipse.jgit.util.LongList;
-import org.eclipse.jgit.util.NB;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.PackInvalidException;
+import org.jboss.forge.jgit.errors.PackMismatchException;
+import org.jboss.forge.jgit.errors.StoredObjectRepresentationNotAvailableException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.storage.pack.BinaryDelta;
+import org.jboss.forge.jgit.storage.pack.ObjectToPack;
+import org.jboss.forge.jgit.storage.pack.PackOutputStream;
+import org.jboss.forge.jgit.util.LongList;
+import org.jboss.forge.jgit.util.NB;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /**
  * A Git version 2 pack file representation. A pack file contains Git objects in
@@ -87,7 +87,8 @@ import org.eclipse.jgit.util.RawParseUtils;
 public class PackFile implements Iterable<PackIndex.MutableEntry> {
 	/** Sorts PackFiles to be most recently created to least recently created. */
 	public static final Comparator<PackFile> SORT = new Comparator<PackFile>() {
-		public int compare(final PackFile a, final PackFile b) {
+		@Override
+      public int compare(final PackFile a, final PackFile b) {
 			return b.packLastModified - a.packLastModified;
 		}
 	};
@@ -276,7 +277,8 @@ public class PackFile implements Iterable<PackIndex.MutableEntry> {
 	 *
 	 * @see PackIndex#iterator()
 	 */
-	public Iterator<PackIndex.MutableEntry> iterator() {
+	@Override
+   public Iterator<PackIndex.MutableEntry> iterator() {
 		try {
 			return idx().iterator();
 		} catch (IOException e) {

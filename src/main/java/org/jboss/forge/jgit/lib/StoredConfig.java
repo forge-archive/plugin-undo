@@ -41,11 +41,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.ConfigInvalidException;
+import org.jboss.forge.jgit.errors.ConfigInvalidException;
+import org.jboss.forge.jgit.lib.Config;
 
 /**
  * Persistent configuration that can be stored and loaded from a location.

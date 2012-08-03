@@ -41,22 +41,22 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.blame;
+package org.jboss.forge.jgit.blame;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.blame.ReverseWalk.ReverseCommit;
-import org.eclipse.jgit.diff.Edit;
-import org.eclipse.jgit.diff.EditList;
-import org.eclipse.jgit.diff.RawText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.PersonIdent;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevFlag;
-import org.eclipse.jgit.treewalk.filter.PathFilter;
+import org.jboss.forge.jgit.blame.ReverseWalk.ReverseCommit;
+import org.jboss.forge.jgit.diff.Edit;
+import org.jboss.forge.jgit.diff.EditList;
+import org.jboss.forge.jgit.diff.RawText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevFlag;
+import org.jboss.forge.jgit.treewalk.filter.PathFilter;
 
 /**
  * A source that may have supplied some (or all) of the result file.

@@ -41,7 +41,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 /**
  * Constants for use with the Configuration classes: section names,

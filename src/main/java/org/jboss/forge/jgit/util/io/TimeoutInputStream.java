@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util.io;
+package org.jboss.forge.jgit.util.io;
 
 import java.io.FilterInputStream;
 import java.io.IOException;
@@ -49,7 +49,8 @@ import java.io.InputStream;
 import java.io.InterruptedIOException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.util.io.InterruptTimer;
 
 /** InputStream with a configurable timeout. */
 public class TimeoutInputStream extends FilterInputStream {

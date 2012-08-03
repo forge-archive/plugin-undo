@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.fnmatch;
+package org.jboss.forge.jgit.fnmatch;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,8 +51,16 @@ import java.util.ListIterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.jgit.errors.InvalidPatternException;
-import org.eclipse.jgit.errors.NoClosingBracketException;
+import org.jboss.forge.jgit.errors.InvalidPatternException;
+import org.jboss.forge.jgit.errors.NoClosingBracketException;
+import org.jboss.forge.jgit.fnmatch.AbstractHead;
+import org.jboss.forge.jgit.fnmatch.CharacterHead;
+import org.jboss.forge.jgit.fnmatch.FileNameMatcher;
+import org.jboss.forge.jgit.fnmatch.GroupHead;
+import org.jboss.forge.jgit.fnmatch.Head;
+import org.jboss.forge.jgit.fnmatch.LastHead;
+import org.jboss.forge.jgit.fnmatch.RestrictedWildCardHead;
+import org.jboss.forge.jgit.fnmatch.WildCardHead;
 
 /**
  * This class can be used to match filenames against fnmatch like patterns. It

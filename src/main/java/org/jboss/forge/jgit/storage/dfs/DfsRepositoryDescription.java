@@ -41,7 +41,9 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
+
+import org.jboss.forge.jgit.storage.dfs.DfsRepositoryDescription;
 
 /** A description of a Git repository on a DFS. */
 public class DfsRepositoryDescription {

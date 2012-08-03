@@ -41,7 +41,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,36 +49,41 @@ import java.text.MessageFormat;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.jgit.api.CheckoutResult.Status;
-import org.eclipse.jgit.api.errors.CheckoutConflictException;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRefNameException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.api.errors.RefAlreadyExistsException;
-import org.eclipse.jgit.api.errors.RefNotFoundException;
-import org.eclipse.jgit.dircache.DirCache;
-import org.eclipse.jgit.dircache.DirCacheCheckout;
-import org.eclipse.jgit.dircache.DirCacheEditor;
-import org.eclipse.jgit.dircache.DirCacheEditor.PathEdit;
-import org.eclipse.jgit.dircache.DirCacheEntry;
-import org.eclipse.jgit.dircache.DirCacheIterator;
-import org.eclipse.jgit.errors.AmbiguousObjectException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.RefUpdate.Result;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevTree;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
-import org.eclipse.jgit.util.FileUtils;
+import org.jboss.forge.jgit.api.CheckoutCommand;
+import org.jboss.forge.jgit.api.CheckoutResult;
+import org.jboss.forge.jgit.api.CreateBranchCommand;
+import org.jboss.forge.jgit.api.Git;
+import org.jboss.forge.jgit.api.GitCommand;
+import org.jboss.forge.jgit.api.CheckoutResult.Status;
+import org.jboss.forge.jgit.api.errors.CheckoutConflictException;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.InvalidRefNameException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.api.errors.RefAlreadyExistsException;
+import org.jboss.forge.jgit.api.errors.RefNotFoundException;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.dircache.DirCacheCheckout;
+import org.jboss.forge.jgit.dircache.DirCacheEditor;
+import org.jboss.forge.jgit.dircache.DirCacheEntry;
+import org.jboss.forge.jgit.dircache.DirCacheIterator;
+import org.jboss.forge.jgit.dircache.DirCacheEditor.PathEdit;
+import org.jboss.forge.jgit.errors.AmbiguousObjectException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.RefUpdate.Result;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevTree;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.filter.PathFilterGroup;
+import org.jboss.forge.jgit.util.FileUtils;
 
 /**
  * Checkout a branch to the working tree
@@ -172,7 +177,7 @@ public class CheckoutCommand extends GitCommand<Ref> {
 				dco.setFailOnConflict(true);
 				try {
 					dco.checkout();
-				} catch (org.eclipse.jgit.errors.CheckoutConflictException e) {
+				} catch (org.jboss.forge.jgit.errors.CheckoutConflictException e) {
 					status = new CheckoutResult(Status.CONFLICTS,
 							dco.getConflicts());
 					throw new CheckoutConflictException(dco.getConflicts(), e);

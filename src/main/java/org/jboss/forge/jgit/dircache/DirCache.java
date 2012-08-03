@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.dircache;
+package org.jboss.forge.jgit.dircache;
 
 import java.io.BufferedInputStream;
 import java.io.EOFException;
@@ -62,27 +62,33 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.LockFailedException;
-import org.eclipse.jgit.errors.UnmergedPathException;
-import org.eclipse.jgit.events.IndexChangedEvent;
-import org.eclipse.jgit.events.IndexChangedListener;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.file.FileSnapshot;
-import org.eclipse.jgit.storage.file.LockFile;
-import org.eclipse.jgit.treewalk.FileTreeIterator;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
-import org.eclipse.jgit.util.FS;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.MutableInteger;
-import org.eclipse.jgit.util.NB;
-import org.eclipse.jgit.util.TemporaryBuffer;
-import org.eclipse.jgit.util.io.SafeBufferedOutputStream;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.dircache.DirCacheBuilder;
+import org.jboss.forge.jgit.dircache.DirCacheEditor;
+import org.jboss.forge.jgit.dircache.DirCacheEntry;
+import org.jboss.forge.jgit.dircache.DirCacheIterator;
+import org.jboss.forge.jgit.dircache.DirCacheTree;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.LockFailedException;
+import org.jboss.forge.jgit.errors.UnmergedPathException;
+import org.jboss.forge.jgit.events.IndexChangedEvent;
+import org.jboss.forge.jgit.events.IndexChangedListener;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.storage.file.FileSnapshot;
+import org.jboss.forge.jgit.storage.file.LockFile;
+import org.jboss.forge.jgit.treewalk.FileTreeIterator;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.filter.PathFilterGroup;
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.MutableInteger;
+import org.jboss.forge.jgit.util.NB;
+import org.jboss.forge.jgit.util.TemporaryBuffer;
+import org.jboss.forge.jgit.util.io.SafeBufferedOutputStream;
 
 /**
  * Support for the Git dircache (aka index file).

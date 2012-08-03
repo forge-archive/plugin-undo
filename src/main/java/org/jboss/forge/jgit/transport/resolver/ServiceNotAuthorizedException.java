@@ -41,9 +41,9 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport.resolver;
+package org.jboss.forge.jgit.transport.resolver;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
 
 /** Indicates the request service is not authorized for current user. */
 public class ServiceNotAuthorizedException extends Exception {

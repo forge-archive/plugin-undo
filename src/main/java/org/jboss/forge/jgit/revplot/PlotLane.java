@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revplot;
+package org.jboss.forge.jgit.revplot;
 
 import java.io.Serializable;
 

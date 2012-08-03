@@ -41,7 +41,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,11 +51,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
 
 /**
  * Used to obtain a list of branches.
@@ -89,7 +89,8 @@ public class ListBranchCommand extends GitCommand<List<Ref>> {
 		super(repo);
 	}
 
-	public List<Ref> call() throws GitAPIException {
+	@Override
+   public List<Ref> call() throws GitAPIException {
 		checkCallable();
 		Map<String, Ref> refList;
 		try {
@@ -109,7 +110,8 @@ public class ListBranchCommand extends GitCommand<List<Ref>> {
 		List<Ref> resultRefs = new ArrayList<Ref>();
 		resultRefs.addAll(refList.values());
 		Collections.sort(resultRefs, new Comparator<Ref>() {
-			public int compare(Ref o1, Ref o2) {
+			@Override
+         public int compare(Ref o1, Ref o2) {
 				return o1.getName().compareTo(o2.getName());
 			}
 		});

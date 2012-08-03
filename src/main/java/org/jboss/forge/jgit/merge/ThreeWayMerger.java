@@ -41,16 +41,17 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.merge;
+package org.jboss.forge.jgit.merge;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.RevTree;
-import org.eclipse.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.merge.Merger;
+import org.jboss.forge.jgit.revwalk.RevTree;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
 
 /** A merge of 2 trees, using a common base ancestor tree. */
 public abstract class ThreeWayMerger extends Merger {

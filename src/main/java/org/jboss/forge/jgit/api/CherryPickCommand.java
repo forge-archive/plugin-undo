@@ -40,36 +40,40 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.api.errors.MultipleParentsNotAllowedException;
-import org.eclipse.jgit.api.errors.NoHeadException;
-import org.eclipse.jgit.api.errors.NoMessageException;
-import org.eclipse.jgit.api.errors.UnmergedPathsException;
-import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
-import org.eclipse.jgit.dircache.DirCacheCheckout;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdRef;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Ref.Storage;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.merge.MergeMessageFormatter;
-import org.eclipse.jgit.merge.MergeStrategy;
-import org.eclipse.jgit.merge.ResolveMerger;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.treewalk.FileTreeIterator;
+import org.jboss.forge.jgit.api.CherryPickCommand;
+import org.jboss.forge.jgit.api.CherryPickResult;
+import org.jboss.forge.jgit.api.Git;
+import org.jboss.forge.jgit.api.GitCommand;
+import org.jboss.forge.jgit.api.errors.ConcurrentRefUpdateException;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.api.errors.MultipleParentsNotAllowedException;
+import org.jboss.forge.jgit.api.errors.NoHeadException;
+import org.jboss.forge.jgit.api.errors.NoMessageException;
+import org.jboss.forge.jgit.api.errors.UnmergedPathsException;
+import org.jboss.forge.jgit.api.errors.WrongRepositoryStateException;
+import org.jboss.forge.jgit.dircache.DirCacheCheckout;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdRef;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.Ref.Storage;
+import org.jboss.forge.jgit.merge.MergeMessageFormatter;
+import org.jboss.forge.jgit.merge.MergeStrategy;
+import org.jboss.forge.jgit.merge.ResolveMerger;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.treewalk.FileTreeIterator;
 
 /**
  * A class used to execute a {@code cherry-pick} command. It has setters for all

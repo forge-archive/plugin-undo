@@ -41,18 +41,18 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.lib.ObjectIdRef;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.SymbolicRef;
-import org.eclipse.jgit.lib.Ref.Storage;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevTag;
-import org.eclipse.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.lib.ObjectIdRef;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Ref.Storage;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.SymbolicRef;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevTag;
+import org.jboss.forge.jgit.revwalk.RevWalk;
 
 final class DfsRefUpdate extends RefUpdate {
 	private final DfsRefDatabase refdb;

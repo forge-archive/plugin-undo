@@ -43,16 +43,17 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
-import static org.eclipse.jgit.lib.Constants.R_HEADS;
-import static org.eclipse.jgit.lib.Constants.R_REMOTES;
-import static org.eclipse.jgit.lib.Constants.R_TAGS;
+import static org.jboss.forge.jgit.lib.Constants.R_HEADS;
+import static org.jboss.forge.jgit.lib.Constants.R_REMOTES;
+import static org.jboss.forge.jgit.lib.Constants.R_TAGS;
 
 import java.io.IOException;
 import java.io.Writer;
 
-import org.eclipse.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.transport.URIish;
 
 class FetchHeadRecord {
 	ObjectId newValue;

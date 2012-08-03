@@ -40,7 +40,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.net.URISyntaxException;
 import java.text.MessageFormat;
@@ -49,18 +49,20 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRemoteException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.transport.FetchConnection;
-import org.eclipse.jgit.transport.RefSpec;
-import org.eclipse.jgit.transport.Transport;
+import org.jboss.forge.jgit.api.LsRemoteCommand;
+import org.jboss.forge.jgit.api.TransportCommand;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.InvalidRemoteException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.transport.FetchConnection;
+import org.jboss.forge.jgit.transport.RefSpec;
+import org.jboss.forge.jgit.transport.Transport;
 
 /**
  * The ls-remote command
@@ -144,12 +146,12 @@ public class LsRemoteCommand extends
 	 * @return a collection of references in the remote repository
 	 * @throws InvalidRemoteException
 	 *             when called with an invalid remote uri
-	 * @throws org.eclipse.jgit.api.errors.TransportException
+	 * @throws org.jboss.forge.jgit.api.errors.TransportException
 	 *             for errors that occurs during transport
 	 */
 	public Collection<Ref> call() throws GitAPIException,
 			InvalidRemoteException,
-			org.eclipse.jgit.api.errors.TransportException {
+			org.jboss.forge.jgit.api.errors.TransportException {
 		checkCallable();
 
 		Transport transport = null;
@@ -187,7 +189,7 @@ public class LsRemoteCommand extends
 					JGitText.get().exceptionCaughtDuringExecutionOfLsRemoteCommand,
 					e);
 		} catch (TransportException e) {
-			throw new org.eclipse.jgit.api.errors.TransportException(
+			throw new org.jboss.forge.jgit.api.errors.TransportException(
 					e.getMessage(),
 					e);
 		} finally {

@@ -41,7 +41,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
+
 
 /**
  * Simple Map<long,Object> helper for {@link PackParser}.

@@ -44,7 +44,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -56,10 +56,11 @@ import java.util.BitSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.util.RawParseUtils;
-import org.eclipse.jgit.util.StringUtils;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.transport.URIish;
+import org.jboss.forge.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.util.StringUtils;
 
 /**
  * This URI like construct used for referencing Git archives over the net, as

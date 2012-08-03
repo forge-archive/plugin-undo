@@ -42,11 +42,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
-import static org.eclipse.jgit.lib.Constants.OBJECT_ID_LENGTH;
-import static org.eclipse.jgit.lib.Constants.OBJ_BLOB;
-import static org.eclipse.jgit.lib.Constants.OBJ_TREE;
+import static org.jboss.forge.jgit.lib.Constants.OBJECT_ID_LENGTH;
+import static org.jboss.forge.jgit.lib.Constants.OBJ_BLOB;
+import static org.jboss.forge.jgit.lib.Constants.OBJ_TREE;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
@@ -65,30 +65,30 @@ import java.util.concurrent.ExecutionException;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.StoredObjectRepresentationNotAvailableException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.AsyncObjectLoaderQueue;
-import org.eclipse.jgit.lib.AsyncObjectSizeQueue;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.InflaterCache;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.revwalk.ObjectWalk;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.storage.pack.CachedPack;
-import org.eclipse.jgit.storage.pack.ObjectReuseAsIs;
-import org.eclipse.jgit.storage.pack.ObjectToPack;
-import org.eclipse.jgit.storage.pack.PackOutputStream;
-import org.eclipse.jgit.storage.pack.PackWriter;
-import org.eclipse.jgit.util.BlockList;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.StoredObjectRepresentationNotAvailableException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.AsyncObjectLoaderQueue;
+import org.jboss.forge.jgit.lib.AsyncObjectSizeQueue;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.InflaterCache;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.revwalk.ObjectWalk;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.storage.pack.CachedPack;
+import org.jboss.forge.jgit.storage.pack.ObjectReuseAsIs;
+import org.jboss.forge.jgit.storage.pack.ObjectToPack;
+import org.jboss.forge.jgit.storage.pack.PackOutputStream;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.util.BlockList;
 
 /**
  * Reader to access repository content through.

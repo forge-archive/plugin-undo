@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -58,11 +58,11 @@ import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.util.io.SafeBufferedOutputStream;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.util.io.SafeBufferedOutputStream;
 
 /**
  * Transport through a git-daemon waiting for anonymous TCP connections.
@@ -75,28 +75,34 @@ class TransportGitAnon extends TcpTransport implements PackTransport {
 	static final int GIT_PORT = Daemon.DEFAULT_PORT;
 
 	static final TransportProtocol PROTO_GIT = new TransportProtocol() {
-		public String getName() {
+		@Override
+      public String getName() {
 			return JGitText.get().transportProtoGitAnon;
 		}
 
-		public Set<String> getSchemes() {
+		@Override
+      public Set<String> getSchemes() {
 			return Collections.singleton("git"); //$NON-NLS-1$
 		}
 
-		public Set<URIishField> getRequiredFields() {
+		@Override
+      public Set<URIishField> getRequiredFields() {
 			return Collections.unmodifiableSet(EnumSet.of(URIishField.HOST,
 					URIishField.PATH));
 		}
 
-		public Set<URIishField> getOptionalFields() {
+		@Override
+      public Set<URIishField> getOptionalFields() {
 			return Collections.unmodifiableSet(EnumSet.of(URIishField.PORT));
 		}
 
-		public int getDefaultPort() {
+		@Override
+      public int getDefaultPort() {
 			return GIT_PORT;
 		}
 
-		public Transport open(URIish uri, Repository local, String remoteName)
+		@Override
+      public Transport open(URIish uri, Repository local, String remoteName)
 				throws NotSupportedException {
 			return new TransportGitAnon(local, uri);
 		}

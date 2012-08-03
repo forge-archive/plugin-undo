@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -53,13 +53,13 @@ import java.util.List;
 import java.util.zip.CRC32;
 import java.util.zip.Deflater;
 
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.storage.file.PackIndex;
-import org.eclipse.jgit.storage.file.PackLock;
-import org.eclipse.jgit.transport.PackParser;
-import org.eclipse.jgit.transport.PackedObjectInfo;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.storage.file.PackIndex;
+import org.jboss.forge.jgit.storage.file.PackLock;
+import org.jboss.forge.jgit.transport.PackParser;
+import org.jboss.forge.jgit.transport.PackedObjectInfo;
 
 /** Parses a pack stream into the DFS, by creating a new pack and index. */
 public class DfsPackParser extends PackParser {

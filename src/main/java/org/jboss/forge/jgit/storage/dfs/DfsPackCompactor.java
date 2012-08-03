@@ -41,9 +41,9 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
-import static org.eclipse.jgit.storage.dfs.DfsObjDatabase.PackSource.COMPACT;
+import static org.jboss.forge.jgit.storage.dfs.DfsObjDatabase.PackSource.COMPACT;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -51,20 +51,20 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.revwalk.RevFlag;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.storage.file.PackIndex;
-import org.eclipse.jgit.storage.pack.PackConfig;
-import org.eclipse.jgit.storage.pack.PackWriter;
-import org.eclipse.jgit.util.BlockList;
-import org.eclipse.jgit.util.io.CountingOutputStream;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.revwalk.RevFlag;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.storage.file.PackIndex;
+import org.jboss.forge.jgit.storage.pack.PackConfig;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.util.BlockList;
+import org.jboss.forge.jgit.util.io.CountingOutputStream;
 
 /**
  * Combine several pack files into one pack.
@@ -232,7 +232,8 @@ public class DfsPackCompactor {
 		// older packs, allowing the PackWriter to be handed newer objects
 		// first and older objects last.
 		Collections.sort(srcPacks, new Comparator<DfsPackFile>() {
-			public int compare(DfsPackFile a, DfsPackFile b) {
+			@Override
+         public int compare(DfsPackFile a, DfsPackFile b) {
 				return a.getPackDescription().compareTo(b.getPackDescription());
 			}
 		});
@@ -257,7 +258,8 @@ public class DfsPackCompactor {
 			// ordering without additional logic, like unpacking commits and
 			// walking a commit queue.
 			Collections.sort(want, new Comparator<ObjectIdWithOffset>() {
-				public int compare(ObjectIdWithOffset a, ObjectIdWithOffset b) {
+				@Override
+            public int compare(ObjectIdWithOffset a, ObjectIdWithOffset b) {
 					return Long.signum(a.offset - b.offset);
 				}
 			});

@@ -41,16 +41,18 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk.filter;
+package org.jboss.forge.jgit.revwalk.filter;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.util.RawCharSequence;
-import org.eclipse.jgit.util.RawSubStringPattern;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.revwalk.filter.PatternMatchRevFilter;
+import org.jboss.forge.jgit.revwalk.filter.RevFilter;
+import org.jboss.forge.jgit.util.RawCharSequence;
+import org.jboss.forge.jgit.util.RawSubStringPattern;
 
 /** Abstract filter that searches text using only substring search. */
 public abstract class SubStringRevFilter extends RevFilter {

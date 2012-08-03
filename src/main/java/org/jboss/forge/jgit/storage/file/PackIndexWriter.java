@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
@@ -51,12 +51,16 @@ import java.security.DigestOutputStream;
 import java.text.MessageFormat;
 import java.util.List;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.transport.PackedObjectInfo;
-import org.eclipse.jgit.util.NB;
-import org.eclipse.jgit.util.io.SafeBufferedOutputStream;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.storage.file.PackFile;
+import org.jboss.forge.jgit.storage.file.PackIndexWriter;
+import org.jboss.forge.jgit.storage.file.PackIndexWriterV1;
+import org.jboss.forge.jgit.storage.file.PackIndexWriterV2;
+import org.jboss.forge.jgit.transport.PackedObjectInfo;
+import org.jboss.forge.jgit.util.NB;
+import org.jboss.forge.jgit.util.io.SafeBufferedOutputStream;
 
 /**
  * Creates a table of contents to support random access by {@link PackFile}.

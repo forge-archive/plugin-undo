@@ -41,11 +41,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.util.Arrays;
 
-import org.eclipse.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.Constants;
 
 /** Utility functions related to quoted string handling. */
 public abstract class QuotedString {

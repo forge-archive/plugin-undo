@@ -43,13 +43,17 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
-import org.eclipse.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.revwalk.RevObject;
 
 /**
  * Mutable builder to construct an annotated tag recording a project state.
@@ -57,9 +61,9 @@ import org.eclipse.jgit.revwalk.RevObject;
  * Applications should use this object when they need to manually construct a
  * tag and want precise control over its fields.
  *
- * To read a tag object, construct a {@link org.eclipse.jgit.revwalk.RevWalk}
- * and obtain a {@link org.eclipse.jgit.revwalk.RevTag} instance by calling
- * {@link org.eclipse.jgit.revwalk.RevWalk#parseTag(AnyObjectId)}.
+ * To read a tag object, construct a {@link org.jboss.forge.jgit.revwalk.RevWalk}
+ * and obtain a {@link org.jboss.forge.jgit.revwalk.RevTag} instance by calling
+ * {@link org.jboss.forge.jgit.revwalk.RevWalk#parseTag(AnyObjectId)}.
  */
 public class TagBuilder {
 	private ObjectId object;

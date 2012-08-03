@@ -42,13 +42,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
 
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.util.IntList;
-import org.eclipse.jgit.util.LongList;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.util.IntList;
+import org.jboss.forge.jgit.util.LongList;
 
 /**
  * Diff algorithm, based on "An O(ND) Difference Algorithm and its
@@ -440,26 +440,31 @@ if (k < beginK || k > endK)
 		}
 
 		class ForwardEditPaths extends EditPaths {
-			final int snake(int k, int x) {
+			@Override
+         final int snake(int k, int x) {
 				for (; x < endA && k + x < endB; x++)
 					if (!cmp.equals(a, x, b, k + x))
 						break;
 				return x;
 			}
 
-			final int getLeft(final int x) {
+			@Override
+         final int getLeft(final int x) {
 				return x;
 			}
 
-			final int getRight(final int x) {
+			@Override
+         final int getRight(final int x) {
 				return x + 1;
 			}
 
-			final boolean isBetter(final int left, final int right) {
+			@Override
+         final boolean isBetter(final int left, final int right) {
 				return left > right;
 			}
 
-			final void adjustMinMaxK(final int k, final int x) {
+			@Override
+         final void adjustMinMaxK(final int k, final int x) {
 				if (x >= endA || k + x >= endB) {
 					if (k > backward.middleK)
 						maxK = k;
@@ -468,7 +473,8 @@ if (k < beginK || k > endK)
 				}
 			}
 
-			final boolean meets(int d, int k, int x, long snake) {
+			@Override
+         final boolean meets(int d, int k, int x, long snake) {
 				if (k < backward.beginK || k > backward.endK)
 					return false;
 				// TODO: move out of loop
@@ -482,26 +488,31 @@ if (k < beginK || k > endK)
 		}
 
 		class BackwardEditPaths extends EditPaths {
-			final int snake(int k, int x) {
+			@Override
+         final int snake(int k, int x) {
 				for (; x > beginA && k + x > beginB; x--)
 					if (!cmp.equals(a, x - 1, b, k + x - 1))
 						break;
 				return x;
 			}
 
-			final int getLeft(final int x) {
+			@Override
+         final int getLeft(final int x) {
 				return x - 1;
 			}
 
-			final int getRight(final int x) {
+			@Override
+         final int getRight(final int x) {
 				return x;
 			}
 
-			final boolean isBetter(final int left, final int right) {
+			@Override
+         final boolean isBetter(final int left, final int right) {
 				return left < right;
 			}
 
-			final void adjustMinMaxK(final int k, final int x) {
+			@Override
+         final void adjustMinMaxK(final int k, final int x) {
 				if (x <= beginA || k + x <= beginB) {
 					if (k > forward.middleK)
 						maxK = k;
@@ -510,7 +521,8 @@ if (k < beginK || k > endK)
 				}
 			}
 
-			final boolean meets(int d, int k, int x, long snake) {
+			@Override
+         final boolean meets(int d, int k, int x, long snake) {
 				if (k < forward.beginK || k > forward.endK)
 					return false;
 				// TODO: move out of loop

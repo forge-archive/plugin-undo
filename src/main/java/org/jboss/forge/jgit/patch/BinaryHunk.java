@@ -42,12 +42,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.patch;
+package org.jboss.forge.jgit.patch;
 
-import static org.eclipse.jgit.lib.Constants.encodeASCII;
-import static org.eclipse.jgit.util.RawParseUtils.match;
-import static org.eclipse.jgit.util.RawParseUtils.nextLF;
-import static org.eclipse.jgit.util.RawParseUtils.parseBase10;
+import static org.jboss.forge.jgit.lib.Constants.encodeASCII;
+import static org.jboss.forge.jgit.util.RawParseUtils.match;
+import static org.jboss.forge.jgit.util.RawParseUtils.nextLF;
+import static org.jboss.forge.jgit.util.RawParseUtils.parseBase10;
 
 /** Part of a "GIT binary patch" to describe the pre-image or post-image */
 public class BinaryHunk {

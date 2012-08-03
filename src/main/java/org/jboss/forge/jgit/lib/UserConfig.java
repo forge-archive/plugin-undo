@@ -43,10 +43,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
-import org.eclipse.jgit.lib.Config.SectionParser;
-import org.eclipse.jgit.util.SystemReader;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.UserConfig;
+import org.jboss.forge.jgit.lib.Config.SectionParser;
+import org.jboss.forge.jgit.util.SystemReader;
 
 /** The standard "user" configuration parameters. */
 public class UserConfig {

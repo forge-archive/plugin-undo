@@ -40,18 +40,21 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.errors.NoWorkTreeException;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.IndexDiff;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.treewalk.FileTreeIterator;
-import org.eclipse.jgit.treewalk.WorkingTreeIterator;
+import org.jboss.forge.jgit.api.GitCommand;
+import org.jboss.forge.jgit.api.Status;
+import org.jboss.forge.jgit.api.StatusCommand;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.errors.NoWorkTreeException;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.IndexDiff;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.treewalk.FileTreeIterator;
+import org.jboss.forge.jgit.treewalk.WorkingTreeIterator;
 
 /**
  * A class used to execute a {@code Status} command. It has setters for all

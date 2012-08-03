@@ -44,7 +44,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
+
+import org.jboss.forge.jgit.transport.PackTransport;
+import org.jboss.forge.jgit.transport.WalkFetchConnection;
 
 /**
  * Marker interface for an object transport walking transport.

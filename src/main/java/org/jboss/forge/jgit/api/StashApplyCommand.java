@@ -40,40 +40,40 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRefNameException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.api.errors.NoHeadException;
-import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
-import org.eclipse.jgit.dircache.DirCache;
-import org.eclipse.jgit.dircache.DirCacheCheckout;
-import org.eclipse.jgit.dircache.DirCacheEditor;
-import org.eclipse.jgit.dircache.DirCacheEditor.DeletePath;
-import org.eclipse.jgit.dircache.DirCacheEditor.PathEdit;
-import org.eclipse.jgit.dircache.DirCacheEntry;
-import org.eclipse.jgit.dircache.DirCacheIterator;
-import org.eclipse.jgit.errors.CheckoutConflictException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.RepositoryState;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevTree;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.treewalk.AbstractTreeIterator;
-import org.eclipse.jgit.treewalk.CanonicalTreeParser;
-import org.eclipse.jgit.treewalk.FileTreeIterator;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.filter.TreeFilter;
-import org.eclipse.jgit.util.FileUtils;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.InvalidRefNameException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.api.errors.NoHeadException;
+import org.jboss.forge.jgit.api.errors.WrongRepositoryStateException;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.dircache.DirCacheCheckout;
+import org.jboss.forge.jgit.dircache.DirCacheEditor;
+import org.jboss.forge.jgit.dircache.DirCacheEditor.DeletePath;
+import org.jboss.forge.jgit.dircache.DirCacheEditor.PathEdit;
+import org.jboss.forge.jgit.dircache.DirCacheEntry;
+import org.jboss.forge.jgit.dircache.DirCacheIterator;
+import org.jboss.forge.jgit.errors.CheckoutConflictException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.RepositoryState;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevTree;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.treewalk.CanonicalTreeParser;
+import org.jboss.forge.jgit.treewalk.FileTreeIterator;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.filter.TreeFilter;
+import org.jboss.forge.jgit.util.FileUtils;
 
 /**
  * Command class to apply a stashed commit.
@@ -269,7 +269,8 @@ public class StashApplyCommand extends GitCommand<ObjectId> {
 				final DirCacheEntry updatedEntry = entry;
 				editor.add(new PathEdit(path) {
 
-					public void apply(DirCacheEntry ent) {
+					@Override
+               public void apply(DirCacheEntry ent) {
 						ent.copyMetaData(updatedEntry);
 					}
 				});
@@ -299,7 +300,8 @@ public class StashApplyCommand extends GitCommand<ObjectId> {
 	 * @throws GitAPIException
 	 * @throws WrongRepositoryStateException
 	 */
-	public ObjectId call() throws GitAPIException,
+	@Override
+   public ObjectId call() throws GitAPIException,
 			WrongRepositoryStateException {
 		checkCallable();
 

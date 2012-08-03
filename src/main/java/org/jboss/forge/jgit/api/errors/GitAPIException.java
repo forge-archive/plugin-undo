@@ -35,11 +35,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api.errors;
+package org.jboss.forge.jgit.api.errors;
 
 /**
  * Superclass of all exceptions thrown by the API classes in
- * {@code org.eclipse.jgit.api}
+ * {@code org.jboss.forge.jgit.api}
  *
  */
 public abstract class GitAPIException extends Exception {

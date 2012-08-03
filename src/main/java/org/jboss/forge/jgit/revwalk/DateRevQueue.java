@@ -41,12 +41,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
 
 /** A queue of commits sorted by commit time order. */
 public class DateRevQueue extends AbstractRevQueue {
@@ -69,7 +69,8 @@ public class DateRevQueue extends AbstractRevQueue {
 		}
 	}
 
-	public void add(final RevCommit c) {
+	@Override
+   public void add(final RevCommit c) {
 		Entry q = head;
 		final long when = c.commitTime;
 		final Entry n = newEntry(c);
@@ -87,7 +88,8 @@ public class DateRevQueue extends AbstractRevQueue {
 		}
 	}
 
-	public RevCommit next() {
+	@Override
+   public RevCommit next() {
 		final Entry q = head;
 		if (q == null)
 			return null;
@@ -105,12 +107,14 @@ public class DateRevQueue extends AbstractRevQueue {
 		return head != null ? head.commit : null;
 	}
 
-	public void clear() {
+	@Override
+   public void clear() {
 		head = null;
 		free = null;
 	}
 
-	boolean everbodyHasFlag(final int f) {
+	@Override
+   boolean everbodyHasFlag(final int f) {
 		for (Entry q = head; q != null; q = q.next) {
 			if ((q.commit.flags & f) == 0)
 				return false;
@@ -118,7 +122,8 @@ public class DateRevQueue extends AbstractRevQueue {
 		return true;
 	}
 
-	boolean anybodyHasFlag(final int f) {
+	@Override
+   boolean anybodyHasFlag(final int f) {
 		for (Entry q = head; q != null; q = q.next) {
 			if ((q.commit.flags & f) != 0)
 				return true;
@@ -131,7 +136,8 @@ public class DateRevQueue extends AbstractRevQueue {
 		return outputType | SORT_COMMIT_TIME_DESC;
 	}
 
-	public String toString() {
+	@Override
+   public String toString() {
 		final StringBuilder s = new StringBuilder();
 		for (Entry q = head; q != null; q = q.next)
 			describe(s, q.commit);

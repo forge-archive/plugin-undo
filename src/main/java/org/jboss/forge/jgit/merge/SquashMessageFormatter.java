@@ -40,15 +40,15 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.merge;
+package org.jboss.forge.jgit.merge;
 
 import java.util.List;
 
-import org.eclipse.jgit.lib.PersonIdent;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.util.GitDateFormatter;
-import org.eclipse.jgit.util.GitDateFormatter.Format;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.util.GitDateFormatter;
+import org.jboss.forge.jgit.util.GitDateFormatter.Format;
 
 /**
  * Formatter for constructing the commit message for a squashed commit.

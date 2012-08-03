@@ -42,17 +42,20 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
-import static org.eclipse.jgit.util.RawParseUtils.match;
-import static org.eclipse.jgit.util.RawParseUtils.nextLF;
-import static org.eclipse.jgit.util.RawParseUtils.parseBase10;
+import static org.jboss.forge.jgit.util.RawParseUtils.match;
+import static org.jboss.forge.jgit.util.RawParseUtils.nextLF;
+import static org.jboss.forge.jgit.util.RawParseUtils.parseBase10;
 
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.util.MutableInteger;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.util.MutableInteger;
 
 /**
  * Verifies that an object is formatted correctly.

@@ -42,15 +42,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
-import static org.eclipse.jgit.lib.Constants.encode;
+import static org.jboss.forge.jgit.lib.Constants.encode;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.Repository;
 
 /** Updates any reference stored by {@link RefDirectory}. */
 class RefDirectoryUpdate extends RefUpdate {

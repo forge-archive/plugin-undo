@@ -46,7 +46,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -57,9 +57,9 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.util.FS;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.util.FS;
 
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
@@ -75,7 +75,7 @@ import com.jcraft.jsch.UserInfo;
  * used by C Git.
  * <p>
  * The factory does not provide UI behavior. Override the method
- * {@link #configure(org.eclipse.jgit.transport.OpenSshConfig.Host, Session)}
+ * {@link #configure(org.jboss.forge.jgit.transport.OpenSshConfig.Host, Session)}
  * to supply appropriate {@link UserInfo} to the session.
  */
 public abstract class JschConfigSessionFactory extends SshSessionFactory {

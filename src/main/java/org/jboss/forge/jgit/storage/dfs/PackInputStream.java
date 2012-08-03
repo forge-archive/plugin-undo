@@ -41,10 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import org.jboss.forge.jgit.storage.dfs.DfsPackFile;
+import org.jboss.forge.jgit.storage.dfs.DfsReader;
 
 final class PackInputStream extends InputStream {
 	private final DfsReader ctx;

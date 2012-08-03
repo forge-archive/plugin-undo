@@ -41,9 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.diff.Edit;
+import org.jboss.forge.jgit.diff.HashedSequence;
+import org.jboss.forge.jgit.diff.HashedSequenceComparator;
+import org.jboss.forge.jgit.diff.HistogramDiff;
+import org.jboss.forge.jgit.diff.Sequence;
+import org.jboss.forge.jgit.internal.JGitText;
 
 /**
  * Support {@link HistogramDiff} by computing occurrence counts of elements.

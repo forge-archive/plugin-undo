@@ -42,18 +42,18 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
 
-import static org.eclipse.jgit.diff.DiffEntry.ChangeType.ADD;
-import static org.eclipse.jgit.diff.DiffEntry.ChangeType.COPY;
-import static org.eclipse.jgit.diff.DiffEntry.ChangeType.DELETE;
-import static org.eclipse.jgit.diff.DiffEntry.ChangeType.MODIFY;
-import static org.eclipse.jgit.diff.DiffEntry.ChangeType.RENAME;
-import static org.eclipse.jgit.diff.DiffEntry.Side.NEW;
-import static org.eclipse.jgit.diff.DiffEntry.Side.OLD;
-import static org.eclipse.jgit.lib.Constants.encode;
-import static org.eclipse.jgit.lib.Constants.encodeASCII;
-import static org.eclipse.jgit.lib.FileMode.GITLINK;
+import static org.jboss.forge.jgit.diff.DiffEntry.ChangeType.ADD;
+import static org.jboss.forge.jgit.diff.DiffEntry.ChangeType.COPY;
+import static org.jboss.forge.jgit.diff.DiffEntry.ChangeType.DELETE;
+import static org.jboss.forge.jgit.diff.DiffEntry.ChangeType.MODIFY;
+import static org.jboss.forge.jgit.diff.DiffEntry.ChangeType.RENAME;
+import static org.jboss.forge.jgit.diff.DiffEntry.Side.NEW;
+import static org.jboss.forge.jgit.diff.DiffEntry.Side.OLD;
+import static org.jboss.forge.jgit.lib.Constants.encode;
+import static org.jboss.forge.jgit.lib.Constants.encodeASCII;
+import static org.jboss.forge.jgit.lib.FileMode.GITLINK;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -62,42 +62,42 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.jgit.diff.DiffAlgorithm.SupportedAlgorithm;
-import org.eclipse.jgit.diff.DiffEntry.ChangeType;
-import org.eclipse.jgit.dircache.DirCacheIterator;
-import org.eclipse.jgit.errors.AmbiguousObjectException;
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.LargeObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.ConfigConstants;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.patch.FileHeader;
-import org.eclipse.jgit.patch.FileHeader.PatchType;
-import org.eclipse.jgit.patch.HunkHeader;
-import org.eclipse.jgit.revwalk.FollowFilter;
-import org.eclipse.jgit.revwalk.RevTree;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.storage.pack.PackConfig;
-import org.eclipse.jgit.treewalk.AbstractTreeIterator;
-import org.eclipse.jgit.treewalk.CanonicalTreeParser;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.WorkingTreeIterator;
-import org.eclipse.jgit.treewalk.filter.AndTreeFilter;
-import org.eclipse.jgit.treewalk.filter.IndexDiffFilter;
-import org.eclipse.jgit.treewalk.filter.NotIgnoredFilter;
-import org.eclipse.jgit.treewalk.filter.PathFilter;
-import org.eclipse.jgit.treewalk.filter.TreeFilter;
-import org.eclipse.jgit.util.QuotedString;
-import org.eclipse.jgit.util.io.DisabledOutputStream;
+import org.jboss.forge.jgit.diff.DiffAlgorithm.SupportedAlgorithm;
+import org.jboss.forge.jgit.diff.DiffEntry.ChangeType;
+import org.jboss.forge.jgit.dircache.DirCacheIterator;
+import org.jboss.forge.jgit.errors.AmbiguousObjectException;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.LargeObjectException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.ConfigConstants;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.patch.FileHeader;
+import org.jboss.forge.jgit.patch.FileHeader.PatchType;
+import org.jboss.forge.jgit.patch.HunkHeader;
+import org.jboss.forge.jgit.revwalk.FollowFilter;
+import org.jboss.forge.jgit.revwalk.RevTree;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.storage.pack.PackConfig;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.treewalk.CanonicalTreeParser;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.WorkingTreeIterator;
+import org.jboss.forge.jgit.treewalk.filter.AndTreeFilter;
+import org.jboss.forge.jgit.treewalk.filter.IndexDiffFilter;
+import org.jboss.forge.jgit.treewalk.filter.NotIgnoredFilter;
+import org.jboss.forge.jgit.treewalk.filter.PathFilter;
+import org.jboss.forge.jgit.treewalk.filter.TreeFilter;
+import org.jboss.forge.jgit.util.QuotedString;
+import org.jboss.forge.jgit.util.io.DisabledOutputStream;
 
 /**
  * Format a Git style patch script.
@@ -299,7 +299,7 @@ public class DiffFormatter {
 
 	/**
 	 * Get the prefix applied in front of new file paths.
-	 * 
+	 *
 	 * @return the prefix
 	 * @since 2.0
 	 */

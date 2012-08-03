@@ -41,7 +41,9 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
+
+import org.jboss.forge.jgit.util.RawCharSequence;
 
 /**
  * A rough character sequence around a raw byte buffer.

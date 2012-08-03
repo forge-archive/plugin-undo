@@ -41,19 +41,20 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.merge;
+package org.jboss.forge.jgit.merge;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jgit.diff.DiffAlgorithm;
-import org.eclipse.jgit.diff.Edit;
-import org.eclipse.jgit.diff.EditList;
-import org.eclipse.jgit.diff.HistogramDiff;
-import org.eclipse.jgit.diff.Sequence;
-import org.eclipse.jgit.diff.SequenceComparator;
-import org.eclipse.jgit.merge.MergeChunk.ConflictState;
+import org.jboss.forge.jgit.diff.DiffAlgorithm;
+import org.jboss.forge.jgit.diff.Edit;
+import org.jboss.forge.jgit.diff.EditList;
+import org.jboss.forge.jgit.diff.HistogramDiff;
+import org.jboss.forge.jgit.diff.Sequence;
+import org.jboss.forge.jgit.diff.SequenceComparator;
+import org.jboss.forge.jgit.merge.MergeResult;
+import org.jboss.forge.jgit.merge.MergeChunk.ConflictState;
 
 /**
  * Provides the merge algorithm which does a three-way merge on content provided

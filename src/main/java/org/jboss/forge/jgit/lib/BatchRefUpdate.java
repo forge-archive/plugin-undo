@@ -42,10 +42,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
-import static org.eclipse.jgit.transport.ReceiveCommand.Result.NOT_ATTEMPTED;
-import static org.eclipse.jgit.transport.ReceiveCommand.Result.REJECTED_OTHER_REASON;
+import static org.jboss.forge.jgit.transport.ReceiveCommand.Result.NOT_ATTEMPTED;
+import static org.jboss.forge.jgit.transport.ReceiveCommand.Result.REJECTED_OTHER_REASON;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -55,9 +55,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.transport.ReceiveCommand;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.RefDatabase;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.transport.ReceiveCommand;
 
 /**
  * Batch of reference updates to be applied to a repository.

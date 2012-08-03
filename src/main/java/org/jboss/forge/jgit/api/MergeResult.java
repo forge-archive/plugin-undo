@@ -41,19 +41,19 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.merge.MergeChunk;
-import org.eclipse.jgit.merge.MergeChunk.ConflictState;
-import org.eclipse.jgit.merge.MergeStrategy;
-import org.eclipse.jgit.merge.ResolveMerger;
-import org.eclipse.jgit.merge.ResolveMerger.MergeFailureReason;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.merge.MergeChunk;
+import org.jboss.forge.jgit.merge.MergeChunk.ConflictState;
+import org.jboss.forge.jgit.merge.MergeStrategy;
+import org.jboss.forge.jgit.merge.ResolveMerger;
+import org.jboss.forge.jgit.merge.ResolveMerger.MergeFailureReason;
 
 /**
  * Encapsulates the result of a {@link MergeCommand}.
@@ -208,7 +208,7 @@ public class MergeResult {
 	public MergeResult(ObjectId newHead, ObjectId base,
 			ObjectId[] mergedCommits, MergeStatus mergeStatus,
 			MergeStrategy mergeStrategy,
-			Map<String, org.eclipse.jgit.merge.MergeResult<?>> lowLevelResults) {
+			Map<String, org.jboss.forge.jgit.merge.MergeResult<?>> lowLevelResults) {
 		this(newHead, base, mergedCommits, mergeStatus, mergeStrategy,
 				lowLevelResults, null);
 	}
@@ -234,7 +234,7 @@ public class MergeResult {
 	public MergeResult(ObjectId newHead, ObjectId base,
 			ObjectId[] mergedCommits, MergeStatus mergeStatus,
 			MergeStrategy mergeStrategy,
-			Map<String, org.eclipse.jgit.merge.MergeResult<?>> lowLevelResults,
+			Map<String, org.jboss.forge.jgit.merge.MergeResult<?>> lowLevelResults,
 			String description) {
 		this(newHead, base, mergedCommits, mergeStatus, mergeStrategy,
 				lowLevelResults, null, description);
@@ -265,7 +265,7 @@ public class MergeResult {
 	public MergeResult(ObjectId newHead, ObjectId base,
 			ObjectId[] mergedCommits, MergeStatus mergeStatus,
 			MergeStrategy mergeStrategy,
-			Map<String, org.eclipse.jgit.merge.MergeResult<?>> lowLevelResults,
+			Map<String, org.jboss.forge.jgit.merge.MergeResult<?>> lowLevelResults,
 			Map<String, MergeFailureReason> failingPaths, String description) {
 		this.newHead = newHead;
 		this.mergedCommits = mergedCommits;
@@ -275,7 +275,7 @@ public class MergeResult {
 		this.description = description;
 		this.failingPaths = failingPaths;
 		if (lowLevelResults != null)
-			for (Map.Entry<String, org.eclipse.jgit.merge.MergeResult<?>> result : lowLevelResults
+			for (Map.Entry<String, org.jboss.forge.jgit.merge.MergeResult<?>> result : lowLevelResults
 					.entrySet())
 				addConflict(result.getKey(), result.getValue());
 	}
@@ -350,7 +350,7 @@ public class MergeResult {
 	 * @param path
 	 * @param lowLevelResult
 	 */
-	public void addConflict(String path, org.eclipse.jgit.merge.MergeResult<?> lowLevelResult) {
+	public void addConflict(String path, org.jboss.forge.jgit.merge.MergeResult<?> lowLevelResult) {
 		if (!lowLevelResult.containsConflicts())
 			return;
 		if (conflicts == null)

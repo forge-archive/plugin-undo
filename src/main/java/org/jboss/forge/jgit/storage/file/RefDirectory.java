@@ -44,18 +44,18 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
-import static org.eclipse.jgit.lib.Constants.CHARSET;
-import static org.eclipse.jgit.lib.Constants.HEAD;
-import static org.eclipse.jgit.lib.Constants.OBJECT_ID_STRING_LENGTH;
-import static org.eclipse.jgit.lib.Constants.PACKED_REFS;
-import static org.eclipse.jgit.lib.Constants.R_HEADS;
-import static org.eclipse.jgit.lib.Constants.R_REFS;
-import static org.eclipse.jgit.lib.Constants.R_TAGS;
-import static org.eclipse.jgit.lib.Ref.Storage.LOOSE;
-import static org.eclipse.jgit.lib.Ref.Storage.NEW;
-import static org.eclipse.jgit.lib.Ref.Storage.PACKED;
+import static org.jboss.forge.jgit.lib.Constants.CHARSET;
+import static org.jboss.forge.jgit.lib.Constants.HEAD;
+import static org.jboss.forge.jgit.lib.Constants.OBJECT_ID_STRING_LENGTH;
+import static org.jboss.forge.jgit.lib.Constants.PACKED_REFS;
+import static org.jboss.forge.jgit.lib.Constants.R_HEADS;
+import static org.jboss.forge.jgit.lib.Constants.R_REFS;
+import static org.jboss.forge.jgit.lib.Constants.R_TAGS;
+import static org.jboss.forge.jgit.lib.Ref.Storage.LOOSE;
+import static org.jboss.forge.jgit.lib.Ref.Storage.NEW;
+import static org.jboss.forge.jgit.lib.Ref.Storage.PACKED;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -73,30 +73,30 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.eclipse.jgit.errors.LockFailedException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.ObjectWritingException;
-import org.eclipse.jgit.events.RefsChangedEvent;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdRef;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefComparator;
-import org.eclipse.jgit.lib.RefDatabase;
-import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.RefWriter;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.SymbolicRef;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevTag;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.util.FS;
-import org.eclipse.jgit.util.FileUtils;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.RawParseUtils;
-import org.eclipse.jgit.util.RefList;
-import org.eclipse.jgit.util.RefMap;
+import org.jboss.forge.jgit.errors.LockFailedException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.ObjectWritingException;
+import org.jboss.forge.jgit.events.RefsChangedEvent;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdRef;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefComparator;
+import org.jboss.forge.jgit.lib.RefDatabase;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.RefWriter;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.SymbolicRef;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevTag;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.FileUtils;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.util.RefList;
+import org.jboss.forge.jgit.util.RefMap;
 
 /**
  * Traditional file system based {@link RefDatabase}.
@@ -187,7 +187,8 @@ public class RefDirectory extends RefDatabase {
 		return logWriter;
 	}
 
-	public void create() throws IOException {
+	@Override
+   public void create() throws IOException {
 		FileUtils.mkdir(refsDir);
 		FileUtils.mkdir(new File(refsDir, R_HEADS.substring(R_REFS.length())));
 		FileUtils.mkdir(new File(refsDir, R_TAGS.substring(R_REFS.length())));
@@ -498,7 +499,8 @@ public class RefDirectory extends RefDatabase {
 		fireRefsChanged();
 	}
 
-	public RefDirectoryUpdate newUpdate(String name, boolean detach)
+	@Override
+   public RefDirectoryUpdate newUpdate(String name, boolean detach)
 			throws IOException {
 		boolean detachingSymbolicRef = false;
 		final RefList<Ref> packed = getPackedRefs();
@@ -1047,11 +1049,13 @@ public class RefDirectory extends RefDatabase {
 			this.snapShot = snapshot;
 		}
 
-		public FileSnapshot getSnapShot() {
+		@Override
+      public FileSnapshot getSnapShot() {
 			return snapShot;
 		}
 
-		public LooseRef peel(ObjectIdRef newLeaf) {
+		@Override
+      public LooseRef peel(ObjectIdRef newLeaf) {
 			return this;
 		}
 	}
@@ -1065,11 +1069,13 @@ public class RefDirectory extends RefDatabase {
 			this.snapShot = snapshot;
 		}
 
-		public FileSnapshot getSnapShot() {
+		@Override
+      public FileSnapshot getSnapShot() {
 			return snapShot;
 		}
 
-		public LooseRef peel(ObjectIdRef newLeaf) {
+		@Override
+      public LooseRef peel(ObjectIdRef newLeaf) {
 			return this;
 		}
 	}
@@ -1083,11 +1089,13 @@ public class RefDirectory extends RefDatabase {
 			this.snapShot = snapShot;
 		}
 
-		public FileSnapshot getSnapShot() {
+		@Override
+      public FileSnapshot getSnapShot() {
 			return snapShot;
 		}
 
-		public LooseRef peel(ObjectIdRef newLeaf) {
+		@Override
+      public LooseRef peel(ObjectIdRef newLeaf) {
 			if (newLeaf.getPeeledObjectId() != null)
 				return new LoosePeeledTag(snapShot, getName(),
 						getObjectId(), newLeaf.getPeeledObjectId());
@@ -1106,11 +1114,13 @@ public class RefDirectory extends RefDatabase {
 			this.snapShot = snapshot;
 		}
 
-		public FileSnapshot getSnapShot() {
+		@Override
+      public FileSnapshot getSnapShot() {
 			return snapShot;
 		}
 
-		public LooseRef peel(ObjectIdRef newLeaf) {
+		@Override
+      public LooseRef peel(ObjectIdRef newLeaf) {
 			// We should never try to peel the symbolic references.
 			throw new UnsupportedOperationException();
 		}

@@ -41,7 +41,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
+
 
 /**
  * Compares two {@link Sequence}s to create an {@link EditList} of changes.

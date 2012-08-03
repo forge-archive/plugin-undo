@@ -49,7 +49,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -58,13 +58,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.eclipse.jgit.errors.ConfigInvalidException;
-import org.eclipse.jgit.events.ConfigChangedEvent;
-import org.eclipse.jgit.events.ConfigChangedListener;
-import org.eclipse.jgit.events.ListenerHandle;
-import org.eclipse.jgit.events.ListenerList;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.util.StringUtils;
+import org.jboss.forge.jgit.errors.ConfigInvalidException;
+import org.jboss.forge.jgit.events.ConfigChangedEvent;
+import org.jboss.forge.jgit.events.ConfigChangedListener;
+import org.jboss.forge.jgit.events.ListenerHandle;
+import org.jboss.forge.jgit.events.ListenerList;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.util.StringUtils;
 
 
 /**

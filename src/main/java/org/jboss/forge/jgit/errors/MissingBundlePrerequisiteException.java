@@ -42,13 +42,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.errors;
+package org.jboss.forge.jgit.errors;
 
 import java.util.Map;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.transport.URIish;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.transport.URIish;
 
 /**
  * Indicates a base/common object was required, but is not found.

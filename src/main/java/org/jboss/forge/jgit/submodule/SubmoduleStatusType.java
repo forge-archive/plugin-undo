@@ -40,7 +40,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.submodule;
+package org.jboss.forge.jgit.submodule;
 
 /**
  * Enumeration of different statuses that a submodule can be in

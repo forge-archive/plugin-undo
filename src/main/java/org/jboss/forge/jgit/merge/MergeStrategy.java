@@ -42,13 +42,19 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.merge;
+package org.jboss.forge.jgit.merge;
 
 import java.text.MessageFormat;
 import java.util.HashMap;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.merge.MergeStrategy;
+import org.jboss.forge.jgit.merge.Merger;
+import org.jboss.forge.jgit.merge.StrategyOneSided;
+import org.jboss.forge.jgit.merge.StrategyResolve;
+import org.jboss.forge.jgit.merge.StrategySimpleTwoWayInCore;
+import org.jboss.forge.jgit.merge.ThreeWayMergeStrategy;
 
 /**
  * A method of combining two or more trees together to form an output tree.

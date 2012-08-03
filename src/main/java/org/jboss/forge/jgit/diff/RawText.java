@@ -42,16 +42,18 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.IntList;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.diff.RawText;
+import org.jboss.forge.jgit.diff.Sequence;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.IntList;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /**
  * A Sequence supporting UNIX formatted text in byte[] format.

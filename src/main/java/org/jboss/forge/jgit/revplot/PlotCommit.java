@@ -41,11 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revplot;
+package org.jboss.forge.jgit.revplot;
 
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.revplot.PlotCommit;
+import org.jboss.forge.jgit.revplot.PlotCommitList;
+import org.jboss.forge.jgit.revplot.PlotLane;
+import org.jboss.forge.jgit.revwalk.RevCommit;
 
 /**
  * A commit reference to a commit in the DAG.

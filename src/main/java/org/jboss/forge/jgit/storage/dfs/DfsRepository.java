@@ -41,17 +41,22 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.StoredConfig;
-import org.eclipse.jgit.storage.file.ReflogReader;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.StoredConfig;
+import org.jboss.forge.jgit.storage.dfs.DfsConfig;
+import org.jboss.forge.jgit.storage.dfs.DfsObjDatabase;
+import org.jboss.forge.jgit.storage.dfs.DfsRefDatabase;
+import org.jboss.forge.jgit.storage.dfs.DfsRepositoryBuilder;
+import org.jboss.forge.jgit.storage.dfs.DfsRepositoryDescription;
+import org.jboss.forge.jgit.storage.file.ReflogReader;
 
 /** A Git repository on a DFS. */
 public abstract class DfsRepository extends Repository {

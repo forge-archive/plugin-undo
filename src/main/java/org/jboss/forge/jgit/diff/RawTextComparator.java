@@ -42,13 +42,17 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
 
-import static org.eclipse.jgit.util.RawCharUtil.isWhitespace;
-import static org.eclipse.jgit.util.RawCharUtil.trimLeadingWhitespace;
-import static org.eclipse.jgit.util.RawCharUtil.trimTrailingWhitespace;
+import static org.jboss.forge.jgit.util.RawCharUtil.isWhitespace;
+import static org.jboss.forge.jgit.util.RawCharUtil.trimLeadingWhitespace;
+import static org.jboss.forge.jgit.util.RawCharUtil.trimTrailingWhitespace;
 
-import org.eclipse.jgit.util.IntList;
+import org.jboss.forge.jgit.diff.Edit;
+import org.jboss.forge.jgit.diff.RawText;
+import org.jboss.forge.jgit.diff.RawTextComparator;
+import org.jboss.forge.jgit.diff.SequenceComparator;
+import org.jboss.forge.jgit.util.IntList;
 
 /** Equivalence function for {@link RawText}. */
 public abstract class RawTextComparator extends SequenceComparator<RawText> {

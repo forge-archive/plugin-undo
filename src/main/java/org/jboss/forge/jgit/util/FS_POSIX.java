@@ -40,7 +40,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -49,6 +49,9 @@ import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.SystemReader;
 
 abstract class FS_POSIX extends FS {
 	@Override

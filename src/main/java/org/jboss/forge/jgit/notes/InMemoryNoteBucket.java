@@ -41,7 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.notes;
+package org.jboss.forge.jgit.notes;
+
+import org.jboss.forge.jgit.notes.InMemoryNoteBucket;
+import org.jboss.forge.jgit.notes.NonNoteEntry;
+import org.jboss.forge.jgit.notes.Note;
+import org.jboss.forge.jgit.notes.NoteBucket;
+import org.jboss.forge.jgit.notes.NoteParser;
 
 /** A note bucket that has been loaded into the process. */
 abstract class InMemoryNoteBucket extends NoteBucket {

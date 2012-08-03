@@ -41,12 +41,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.ConfigInvalidException;
-import org.eclipse.jgit.lib.StoredConfig;
+import org.jboss.forge.jgit.errors.ConfigInvalidException;
+import org.jboss.forge.jgit.lib.StoredConfig;
 
 final class DfsConfig extends StoredConfig {
 	@Override

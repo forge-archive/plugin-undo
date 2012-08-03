@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -55,24 +55,33 @@ import java.util.List;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.StoredObjectRepresentationNotAvailableException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.InflaterCache;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.storage.pack.CachedPack;
-import org.eclipse.jgit.storage.pack.ObjectReuseAsIs;
-import org.eclipse.jgit.storage.pack.ObjectToPack;
-import org.eclipse.jgit.storage.pack.PackOutputStream;
-import org.eclipse.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.StoredObjectRepresentationNotAvailableException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.InflaterCache;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.storage.file.ByteArrayWindow;
+import org.jboss.forge.jgit.storage.file.ByteWindow;
+import org.jboss.forge.jgit.storage.file.DeltaBaseCache;
+import org.jboss.forge.jgit.storage.file.FileObjectDatabase;
+import org.jboss.forge.jgit.storage.file.LocalCachedPack;
+import org.jboss.forge.jgit.storage.file.LocalObjectToPack;
+import org.jboss.forge.jgit.storage.file.PackFile;
+import org.jboss.forge.jgit.storage.file.WindowCache;
+import org.jboss.forge.jgit.storage.file.WindowCursor;
+import org.jboss.forge.jgit.storage.pack.CachedPack;
+import org.jboss.forge.jgit.storage.pack.ObjectReuseAsIs;
+import org.jboss.forge.jgit.storage.pack.ObjectToPack;
+import org.jboss.forge.jgit.storage.pack.PackOutputStream;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
 
 /** Active handle to a ByteWindow. */
 final class WindowCursor extends ObjectReader implements ObjectReuseAsIs {

@@ -40,37 +40,37 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import org.eclipse.jgit.api.errors.CheckoutConflictException;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.dircache.DirCache;
-import org.eclipse.jgit.dircache.DirCacheCheckout;
-import org.eclipse.jgit.dircache.DirCacheEditor;
-import org.eclipse.jgit.dircache.DirCacheEditor.DeletePath;
-import org.eclipse.jgit.dircache.DirCacheEditor.PathEdit;
-import org.eclipse.jgit.dircache.DirCacheEntry;
-import org.eclipse.jgit.dircache.DirCacheIterator;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.RepositoryState;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.treewalk.AbstractTreeIterator;
-import org.eclipse.jgit.treewalk.CanonicalTreeParser;
-import org.eclipse.jgit.treewalk.TreeWalk;
-import org.eclipse.jgit.treewalk.filter.PathFilterGroup;
+import org.jboss.forge.jgit.api.errors.CheckoutConflictException;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.dircache.DirCache;
+import org.jboss.forge.jgit.dircache.DirCacheCheckout;
+import org.jboss.forge.jgit.dircache.DirCacheEditor;
+import org.jboss.forge.jgit.dircache.DirCacheEditor.DeletePath;
+import org.jboss.forge.jgit.dircache.DirCacheEditor.PathEdit;
+import org.jboss.forge.jgit.dircache.DirCacheEntry;
+import org.jboss.forge.jgit.dircache.DirCacheIterator;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.RepositoryState;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.treewalk.CanonicalTreeParser;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.filter.PathFilterGroup;
 
 /**
  * A class used to execute a {@code Reset} command. It has setters for all
@@ -138,7 +138,8 @@ public class ResetCommand extends GitCommand<Ref> {
 	 * @return the Ref after reset
 	 * @throws GitAPIException
 	 */
-	public Ref call() throws GitAPIException, CheckoutConflictException {
+	@Override
+   public Ref call() throws GitAPIException, CheckoutConflictException {
 		checkCallable();
 
 		Ref r;
@@ -379,7 +380,7 @@ public class ResetCommand extends GitCommand<Ref> {
 			checkout.setFailOnConflict(false);
 			try {
 				checkout.checkout();
-			} catch (org.eclipse.jgit.errors.CheckoutConflictException cce) {
+			} catch (org.jboss.forge.jgit.errors.CheckoutConflictException cce) {
 				throw new CheckoutConflictException(checkout.getConflicts(),
 						cce);
 			}

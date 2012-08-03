@@ -44,7 +44,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -52,7 +52,9 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import org.eclipse.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.transport.TrackingRefUpdate;
+import org.jboss.forge.jgit.transport.URIish;
 
 /**
  * Class holding result of operation on remote repository. This includes refs

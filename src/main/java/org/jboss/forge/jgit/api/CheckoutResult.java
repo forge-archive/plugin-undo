@@ -40,10 +40,14 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.jboss.forge.jgit.api.CheckoutCommand;
+import org.jboss.forge.jgit.api.CheckoutResult;
+import org.jboss.forge.jgit.api.Status;
 
 /**
  * Encapsulates the result of a {@link CheckoutCommand}

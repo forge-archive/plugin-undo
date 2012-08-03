@@ -41,9 +41,9 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
-import org.eclipse.jgit.transport.Transport;
+import org.jboss.forge.jgit.transport.Transport;
 
 /**
  * Receives a callback allowing type-specific configuration to be set

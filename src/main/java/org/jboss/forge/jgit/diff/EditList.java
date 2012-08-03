@@ -41,9 +41,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
 
 import java.util.ArrayList;
+
+import org.jboss.forge.jgit.diff.Edit;
+import org.jboss.forge.jgit.diff.EditList;
 
 /** Specialized list of {@link Edit}s in a document. */
 public class EditList extends ArrayList<Edit> {

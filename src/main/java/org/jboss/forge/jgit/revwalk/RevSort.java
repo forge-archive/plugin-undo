@@ -42,7 +42,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
+
+import org.jboss.forge.jgit.revwalk.ObjectWalk;
+import org.jboss.forge.jgit.revwalk.RevWalk;
 
 /** Sorting strategies supported by {@link RevWalk} and {@link ObjectWalk}. */
 public enum RevSort {

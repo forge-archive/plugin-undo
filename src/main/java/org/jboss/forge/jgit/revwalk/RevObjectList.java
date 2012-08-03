@@ -43,12 +43,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
 import java.text.MessageFormat;
 import java.util.AbstractList;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
 
 /**
  * An ordered list of {@link RevObject} subclasses.
@@ -78,7 +78,8 @@ public class RevObjectList<E extends RevObject> extends AbstractList<E> {
 		// Initialized above.
 	}
 
-	public void add(final int index, final E element) {
+	@Override
+   public void add(final int index, final E element) {
 		if (index != size)
 			throw new UnsupportedOperationException(MessageFormat.format(
 					JGitText.get().unsupportedOperationNotAddAtEnd,
@@ -87,7 +88,8 @@ public class RevObjectList<E extends RevObject> extends AbstractList<E> {
 		size++;
 	}
 
-	public E set(int index, E element) {
+	@Override
+   public E set(int index, E element) {
 		Block s = contents;
 		while (index >> s.shift >= BLOCK_SIZE) {
 			s = new Block(s.shift + BLOCK_SHIFT);
@@ -106,7 +108,8 @@ public class RevObjectList<E extends RevObject> extends AbstractList<E> {
 		return (E) old;
 	}
 
-	public E get(int index) {
+	@Override
+   public E get(int index) {
 		Block s = contents;
 		if (index >> s.shift >= 1024)
 			return null;
@@ -118,7 +121,8 @@ public class RevObjectList<E extends RevObject> extends AbstractList<E> {
 		return s != null ? (E) s.contents[index] : null;
 	}
 
-	public int size() {
+	@Override
+   public int size() {
 		return size;
 	}
 

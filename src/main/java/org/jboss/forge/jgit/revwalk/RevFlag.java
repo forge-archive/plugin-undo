@@ -41,11 +41,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
 
 /**
  * Application level mark bit for {@link RevObject}s.
@@ -87,7 +87,8 @@ public class RevFlag {
 		return walker;
 	}
 
-	public String toString() {
+	@Override
+   public String toString() {
 		return name;
 	}
 

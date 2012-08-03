@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,16 +53,22 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketAddress;
 
-import org.eclipse.jgit.errors.RepositoryNotFoundException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.PersonIdent;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.pack.PackConfig;
-import org.eclipse.jgit.transport.resolver.ReceivePackFactory;
-import org.eclipse.jgit.transport.resolver.RepositoryResolver;
-import org.eclipse.jgit.transport.resolver.ServiceNotAuthorizedException;
-import org.eclipse.jgit.transport.resolver.ServiceNotEnabledException;
-import org.eclipse.jgit.transport.resolver.UploadPackFactory;
+import org.jboss.forge.jgit.errors.RepositoryNotFoundException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.storage.pack.PackConfig;
+import org.jboss.forge.jgit.transport.Daemon;
+import org.jboss.forge.jgit.transport.DaemonClient;
+import org.jboss.forge.jgit.transport.DaemonService;
+import org.jboss.forge.jgit.transport.ReceivePack;
+import org.jboss.forge.jgit.transport.ServiceMayNotContinueException;
+import org.jboss.forge.jgit.transport.UploadPack;
+import org.jboss.forge.jgit.transport.resolver.ReceivePackFactory;
+import org.jboss.forge.jgit.transport.resolver.RepositoryResolver;
+import org.jboss.forge.jgit.transport.resolver.ServiceNotAuthorizedException;
+import org.jboss.forge.jgit.transport.resolver.ServiceNotEnabledException;
+import org.jboss.forge.jgit.transport.resolver.UploadPackFactory;
 
 /** Basic daemon for the anonymous <code>git://</code> transport protocol. */
 public class Daemon {

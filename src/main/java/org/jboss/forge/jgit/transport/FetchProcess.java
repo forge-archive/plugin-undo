@@ -42,12 +42,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
-import static org.eclipse.jgit.transport.ReceiveCommand.Result.NOT_ATTEMPTED;
-import static org.eclipse.jgit.transport.ReceiveCommand.Result.OK;
-import static org.eclipse.jgit.transport.ReceiveCommand.Result.REJECTED_NONFASTFORWARD;
-import static org.eclipse.jgit.transport.ReceiveCommand.Type.UPDATE_NONFASTFORWARD;
+import static org.jboss.forge.jgit.transport.ReceiveCommand.Result.NOT_ATTEMPTED;
+import static org.jboss.forge.jgit.transport.ReceiveCommand.Result.OK;
+import static org.jboss.forge.jgit.transport.ReceiveCommand.Result.REJECTED_NONFASTFORWARD;
+import static org.jboss.forge.jgit.transport.ReceiveCommand.Type.UPDATE_NONFASTFORWARD;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,21 +64,29 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.BatchRefUpdate;
-import org.eclipse.jgit.lib.BatchingProgressMonitor;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefDatabase;
-import org.eclipse.jgit.revwalk.ObjectWalk;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.storage.file.LockFile;
-import org.eclipse.jgit.storage.file.PackLock;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.BatchRefUpdate;
+import org.jboss.forge.jgit.lib.BatchingProgressMonitor;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefDatabase;
+import org.jboss.forge.jgit.revwalk.ObjectWalk;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.storage.file.LockFile;
+import org.jboss.forge.jgit.storage.file.PackLock;
+import org.jboss.forge.jgit.transport.FetchConnection;
+import org.jboss.forge.jgit.transport.FetchHeadRecord;
+import org.jboss.forge.jgit.transport.FetchResult;
+import org.jboss.forge.jgit.transport.ReceiveCommand;
+import org.jboss.forge.jgit.transport.RefSpec;
+import org.jboss.forge.jgit.transport.TagOpt;
+import org.jboss.forge.jgit.transport.TrackingRefUpdate;
+import org.jboss.forge.jgit.transport.Transport;
 
 class FetchProcess {
 	/** Transport we will fetch over. */

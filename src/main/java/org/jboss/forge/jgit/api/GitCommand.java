@@ -35,17 +35,18 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.text.MessageFormat;
 import java.util.concurrent.Callable;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.api.GitCommand;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Repository;
 
 /**
- * Common superclass of all commands in the package {@code org.eclipse.jgit.api}
+ * Common superclass of all commands in the package {@code org.jboss.forge.jgit.api}
  * <p>
  * This class ensures that all commands fulfill the {@link Callable} interface.
  * It also has a property {@link #repo} holding a reference to the git

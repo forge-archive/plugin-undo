@@ -43,12 +43,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.eclipse.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.Constants;
 
 /**
  * Write Git style pkt-line formatting to an output stream.

@@ -40,15 +40,20 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.transport.AdvertiseRefsHook;
+import org.jboss.forge.jgit.transport.BaseReceivePack;
+import org.jboss.forge.jgit.transport.ReceivePack;
+import org.jboss.forge.jgit.transport.ServiceMayNotContinueException;
+import org.jboss.forge.jgit.transport.UploadPack;
 
 /**
  * Implementation of {@link AdvertiseRefsHook} that advertises the same refs for

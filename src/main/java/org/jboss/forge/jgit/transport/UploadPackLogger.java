@@ -41,9 +41,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
-import org.eclipse.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.transport.UploadPack;
+import org.jboss.forge.jgit.transport.UploadPackLogger;
 
 /**
  * Logs activity that occurred within {@link UploadPack}.

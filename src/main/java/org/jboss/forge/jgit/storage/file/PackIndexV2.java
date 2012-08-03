@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,14 +50,14 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.NB;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.NB;
 
 /** Support for the pack index v2 format. */
 class PackIndexV2 extends PackIndex {
@@ -289,14 +289,16 @@ class PackIndexV2 extends PackIndex {
 		@Override
 		protected MutableEntry initEntry() {
 			return new MutableEntry() {
-				protected void ensureId() {
+				@Override
+            protected void ensureId() {
 					idBuffer.fromRaw(names[levelOne], levelTwo
 							- Constants.OBJECT_ID_LENGTH / 4);
 				}
 			};
 		}
 
-		public MutableEntry next() {
+		@Override
+      public MutableEntry next() {
 			for (; levelOne < names.length; levelOne++) {
 				if (levelTwo < names[levelOne].length) {
 					int idx = levelTwo / (Constants.OBJECT_ID_LENGTH / 4) * 4;

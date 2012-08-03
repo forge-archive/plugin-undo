@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.util.AbstractList;
 import java.util.Arrays;
@@ -309,11 +309,13 @@ public class BlockList<T> extends AbstractList<T> {
 
 		private T[] block = directory[0];
 
-		public boolean hasNext() {
+		@Override
+      public boolean hasNext() {
 			return index < size;
 		}
 
-		public T next() {
+		@Override
+      public T next() {
 			if (size <= index)
 				throw new NoSuchElementException();
 
@@ -329,7 +331,8 @@ public class BlockList<T> extends AbstractList<T> {
 			return res;
 		}
 
-		public void remove() {
+		@Override
+      public void remove() {
 			if (index == 0)
 				throw new IllegalStateException();
 

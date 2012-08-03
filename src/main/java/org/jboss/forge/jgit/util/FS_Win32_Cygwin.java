@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.io.File;
 import java.security.AccessController;
@@ -49,6 +49,10 @@ import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.FS_Win32;
+import org.jboss.forge.jgit.util.FS_Win32_Cygwin;
 
 class FS_Win32_Cygwin extends FS_Win32 {
 	private static String cygpath;

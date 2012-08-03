@@ -40,13 +40,16 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.util.Map;
 
-import org.eclipse.jgit.merge.ResolveMerger;
-import org.eclipse.jgit.merge.ResolveMerger.MergeFailureReason;
-import org.eclipse.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.api.RebaseCommand;
+import org.jboss.forge.jgit.api.RebaseResult;
+import org.jboss.forge.jgit.api.Status;
+import org.jboss.forge.jgit.merge.ResolveMerger;
+import org.jboss.forge.jgit.merge.ResolveMerger.MergeFailureReason;
+import org.jboss.forge.jgit.revwalk.RevCommit;
 
 /**
  * The result of a {@link RebaseCommand} execution

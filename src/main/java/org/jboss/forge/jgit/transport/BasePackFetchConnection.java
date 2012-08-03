@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -53,29 +53,29 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.PackProtocolException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Config.SectionParser;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevCommitList;
-import org.eclipse.jgit.revwalk.RevFlag;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevSort;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.revwalk.filter.CommitTimeRevFilter;
-import org.eclipse.jgit.revwalk.filter.RevFilter;
-import org.eclipse.jgit.storage.file.PackLock;
-import org.eclipse.jgit.transport.PacketLineIn.AckNackResult;
-import org.eclipse.jgit.util.TemporaryBuffer;
+import org.jboss.forge.jgit.errors.PackProtocolException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.Config.SectionParser;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevCommitList;
+import org.jboss.forge.jgit.revwalk.RevFlag;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevSort;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.revwalk.filter.CommitTimeRevFilter;
+import org.jboss.forge.jgit.revwalk.filter.RevFilter;
+import org.jboss.forge.jgit.storage.file.PackLock;
+import org.jboss.forge.jgit.transport.PacketLineIn.AckNackResult;
+import org.jboss.forge.jgit.util.TemporaryBuffer;
 
 /**
  * Fetch implementation using the native Git pack transfer service.
@@ -250,7 +250,8 @@ public abstract class BasePackFetchConnection extends BasePackConnection
 
 	private static class FetchConfig {
 		static final SectionParser<FetchConfig> KEY = new SectionParser<FetchConfig>() {
-			public FetchConfig parse(final Config cfg) {
+			@Override
+         public FetchConfig parse(final Config cfg) {
 				return new FetchConfig(cfg);
 			}
 		};
@@ -262,26 +263,31 @@ public abstract class BasePackFetchConnection extends BasePackConnection
 		}
 	}
 
-	public final void fetch(final ProgressMonitor monitor,
+	@Override
+   public final void fetch(final ProgressMonitor monitor,
 			final Collection<Ref> want, final Set<ObjectId> have)
 			throws TransportException {
 		markStartedOperation();
 		doFetch(monitor, want, have);
 	}
 
-	public boolean didFetchIncludeTags() {
+	@Override
+   public boolean didFetchIncludeTags() {
 		return false;
 	}
 
-	public boolean didFetchTestConnectivity() {
+	@Override
+   public boolean didFetchTestConnectivity() {
 		return false;
 	}
 
-	public void setPackLockMessage(final String message) {
+	@Override
+   public void setPackLockMessage(final String message) {
 		lockMessage = message;
 	}
 
-	public Collection<PackLock> getPackLocks() {
+	@Override
+   public Collection<PackLock> getPackLocks() {
 		if (packLock != null)
 			return Collections.singleton(packLock);
 		return Collections.<PackLock> emptyList();

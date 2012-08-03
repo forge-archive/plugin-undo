@@ -41,15 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
-import static org.eclipse.jgit.transport.BasePackPushConnection.CAPABILITY_DELETE_REFS;
-import static org.eclipse.jgit.transport.BasePackPushConnection.CAPABILITY_OFS_DELTA;
-import static org.eclipse.jgit.transport.BasePackPushConnection.CAPABILITY_REPORT_STATUS;
-import static org.eclipse.jgit.transport.BasePackPushConnection.CAPABILITY_SIDE_BAND_64K;
-import static org.eclipse.jgit.transport.SideBandOutputStream.CH_DATA;
-import static org.eclipse.jgit.transport.SideBandOutputStream.CH_PROGRESS;
-import static org.eclipse.jgit.transport.SideBandOutputStream.MAX_BUF;
+import static org.jboss.forge.jgit.transport.BasePackPushConnection.CAPABILITY_DELETE_REFS;
+import static org.jboss.forge.jgit.transport.BasePackPushConnection.CAPABILITY_OFS_DELTA;
+import static org.jboss.forge.jgit.transport.BasePackPushConnection.CAPABILITY_REPORT_STATUS;
+import static org.jboss.forge.jgit.transport.BasePackPushConnection.CAPABILITY_SIDE_BAND_64K;
+import static org.jboss.forge.jgit.transport.SideBandOutputStream.CH_DATA;
+import static org.jboss.forge.jgit.transport.SideBandOutputStream.CH_PROGRESS;
+import static org.jboss.forge.jgit.transport.SideBandOutputStream.MAX_BUF;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -64,34 +64,34 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.PackProtocolException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.BatchRefUpdate;
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.Config.SectionParser;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdSubclassMap;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.lib.PersonIdent;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.revwalk.ObjectWalk;
-import org.eclipse.jgit.revwalk.RevBlob;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevFlag;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevSort;
-import org.eclipse.jgit.revwalk.RevTree;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.storage.file.PackLock;
-import org.eclipse.jgit.transport.ReceiveCommand.Result;
-import org.eclipse.jgit.util.io.InterruptTimer;
-import org.eclipse.jgit.util.io.TimeoutInputStream;
-import org.eclipse.jgit.util.io.TimeoutOutputStream;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.PackProtocolException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.BatchRefUpdate;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.Config.SectionParser;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdSubclassMap;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.revwalk.ObjectWalk;
+import org.jboss.forge.jgit.revwalk.RevBlob;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevFlag;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevSort;
+import org.jboss.forge.jgit.revwalk.RevTree;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.storage.file.PackLock;
+import org.jboss.forge.jgit.transport.ReceiveCommand.Result;
+import org.jboss.forge.jgit.util.io.InterruptTimer;
+import org.jboss.forge.jgit.util.io.TimeoutInputStream;
+import org.jboss.forge.jgit.util.io.TimeoutOutputStream;
 
 /**
  * Base implementation of the side of a push connection that receives objects.
@@ -262,7 +262,8 @@ public abstract class BaseReceivePack {
 	/** Configuration for receive operations. */
 	protected static class ReceiveConfig {
 		static final SectionParser<ReceiveConfig> KEY = new SectionParser<ReceiveConfig>() {
-			public ReceiveConfig parse(final Config cfg) {
+			@Override
+         public ReceiveConfig parse(final Config cfg) {
 				return new ReceiveConfig(cfg);
 			}
 		};

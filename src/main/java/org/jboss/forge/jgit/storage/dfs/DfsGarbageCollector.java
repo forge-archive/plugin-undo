@@ -41,10 +41,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
-import static org.eclipse.jgit.storage.dfs.DfsObjDatabase.PackSource.GC;
-import static org.eclipse.jgit.storage.dfs.DfsObjDatabase.PackSource.UNREACHABLE_GARBAGE;
+import static org.jboss.forge.jgit.storage.dfs.DfsObjDatabase.PackSource.GC;
+import static org.jboss.forge.jgit.storage.dfs.DfsObjDatabase.PackSource.UNREACHABLE_GARBAGE;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,18 +55,27 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.storage.dfs.DfsObjDatabase.PackSource;
-import org.eclipse.jgit.storage.file.PackIndex;
-import org.eclipse.jgit.storage.pack.PackConfig;
-import org.eclipse.jgit.storage.pack.PackWriter;
-import org.eclipse.jgit.util.io.CountingOutputStream;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.storage.dfs.DfsBlockCache;
+import org.jboss.forge.jgit.storage.dfs.DfsGarbageCollector;
+import org.jboss.forge.jgit.storage.dfs.DfsObjDatabase;
+import org.jboss.forge.jgit.storage.dfs.DfsOutputStream;
+import org.jboss.forge.jgit.storage.dfs.DfsPackDescription;
+import org.jboss.forge.jgit.storage.dfs.DfsPackFile;
+import org.jboss.forge.jgit.storage.dfs.DfsReader;
+import org.jboss.forge.jgit.storage.dfs.DfsRefDatabase;
+import org.jboss.forge.jgit.storage.dfs.DfsRepository;
+import org.jboss.forge.jgit.storage.dfs.DfsObjDatabase.PackSource;
+import org.jboss.forge.jgit.storage.file.PackIndex;
+import org.jboss.forge.jgit.storage.pack.PackConfig;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.util.io.CountingOutputStream;
 
 /** Repack and garbage collect a repository. */
 public class DfsGarbageCollector {

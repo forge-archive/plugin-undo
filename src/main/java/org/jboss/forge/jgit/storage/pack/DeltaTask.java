@@ -41,12 +41,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
 
 import java.util.concurrent.Callable;
 
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.ThreadSafeProgressMonitor;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.ThreadSafeProgressMonitor;
+import org.jboss.forge.jgit.storage.pack.DeltaCache;
+import org.jboss.forge.jgit.storage.pack.DeltaWindow;
+import org.jboss.forge.jgit.storage.pack.ObjectToPack;
+import org.jboss.forge.jgit.storage.pack.PackConfig;
 
 final class DeltaTask implements Callable<Object> {
 	private final PackConfig config;

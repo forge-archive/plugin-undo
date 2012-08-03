@@ -45,7 +45,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -58,16 +58,16 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.NoRemoteRepositoryException;
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.RepositoryCache;
-import org.eclipse.jgit.storage.file.FileRepository;
-import org.eclipse.jgit.util.io.MessageWriter;
-import org.eclipse.jgit.util.io.SafeBufferedOutputStream;
-import org.eclipse.jgit.util.io.StreamCopyThread;
+import org.jboss.forge.jgit.errors.NoRemoteRepositoryException;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.RepositoryCache;
+import org.jboss.forge.jgit.storage.file.FileRepository;
+import org.jboss.forge.jgit.util.io.MessageWriter;
+import org.jboss.forge.jgit.util.io.SafeBufferedOutputStream;
+import org.jboss.forge.jgit.util.io.StreamCopyThread;
 
 /**
  * Transport to access a local directory as though it were a remote peer.
@@ -99,7 +99,8 @@ class TransportLocal extends Transport implements PackTransport {
 			return JGitText.get().transportProtoLocal;
 		}
 
-		public Set<String> getSchemes() {
+		@Override
+      public Set<String> getSchemes() {
 			return Collections.singleton("file"); //$NON-NLS-1$
 		}
 
@@ -231,7 +232,8 @@ class TransportLocal extends Transport implements PackTransport {
 			}
 
 			worker = new Thread("JGit-Upload-Pack") {
-				public void run() {
+				@Override
+            public void run() {
 					try {
 						final UploadPack rp = createUploadPack(dst);
 						rp.upload(out_r, in_w, null);
@@ -363,7 +365,8 @@ class TransportLocal extends Transport implements PackTransport {
 			}
 
 			worker = new Thread("JGit-Receive-Pack") {
-				public void run() {
+				@Override
+            public void run() {
 					try {
 						final ReceivePack rp = createReceivePack(dst);
 						rp.receive(out_r, in_w, System.err);

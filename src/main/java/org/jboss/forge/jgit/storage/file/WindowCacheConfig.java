@@ -41,10 +41,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.storage.pack.PackConfig;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.storage.file.DeltaBaseCache;
+import org.jboss.forge.jgit.storage.file.WindowCache;
+import org.jboss.forge.jgit.storage.pack.PackConfig;
 
 /** Configuration parameters for {@link WindowCache}. */
 public class WindowCacheConfig {
@@ -174,7 +176,7 @@ public class WindowCacheConfig {
 	 *            new byte limit for objects that must be streamed. Objects
 	 *            smaller than this size can be obtained as a contiguous byte
 	 *            array, while objects bigger than this size require using an
-	 *            {@link org.eclipse.jgit.lib.ObjectStream}.
+	 *            {@link org.jboss.forge.jgit.lib.ObjectStream}.
 	 */
 	public void setStreamFileThreshold(final int newLimit) {
 		streamFileThreshold = newLimit;

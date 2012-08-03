@@ -41,12 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-import org.eclipse.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.storage.pack.BinaryDelta;
 
 /** Encodes an instruction stream for {@link BinaryDelta}. */
 public class DeltaEncoder {

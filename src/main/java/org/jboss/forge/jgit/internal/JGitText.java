@@ -41,10 +41,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.internal;
+package org.jboss.forge.jgit.internal;
 
-import org.eclipse.jgit.nls.NLS;
-import org.eclipse.jgit.nls.TranslationBundle;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.nls.NLS;
+import org.jboss.forge.jgit.nls.TranslationBundle;
 
 /**
  * Translation bundle for JGit core

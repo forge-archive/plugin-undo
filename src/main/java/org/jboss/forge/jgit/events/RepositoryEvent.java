@@ -42,9 +42,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.events;
+package org.jboss.forge.jgit.events;
 
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.events.RepositoryEvent;
+import org.jboss.forge.jgit.events.RepositoryListener;
+import org.jboss.forge.jgit.lib.Repository;
 
 /**
  * Describes a modification made to a repository.

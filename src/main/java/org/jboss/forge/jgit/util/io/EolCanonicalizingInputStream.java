@@ -41,12 +41,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util.io;
+package org.jboss.forge.jgit.util.io;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.eclipse.jgit.diff.RawText;
+import org.jboss.forge.jgit.diff.RawText;
 
 /**
  * An input stream which canonicalizes EOLs bytes on the fly to '\n'.

@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -51,16 +51,23 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.NoRemoteRepositoryException;
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.PackProtocolException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.storage.pack.PackWriter;
-import org.eclipse.jgit.transport.RemoteRefUpdate.Status;
+import org.jboss.forge.jgit.errors.NoRemoteRepositoryException;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.PackProtocolException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.transport.BasePackConnection;
+import org.jboss.forge.jgit.transport.PackTransport;
+import org.jboss.forge.jgit.transport.PacketLineIn;
+import org.jboss.forge.jgit.transport.PushConnection;
+import org.jboss.forge.jgit.transport.RemoteRefUpdate;
+import org.jboss.forge.jgit.transport.SideBandInputStream;
+import org.jboss.forge.jgit.transport.Transport;
+import org.jboss.forge.jgit.transport.RemoteRefUpdate.Status;
 
 /**
  * Push implementation using the native Git pack transfer service.

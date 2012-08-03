@@ -41,11 +41,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.Config.SectionParser;
-import org.eclipse.jgit.lib.CoreConfig;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.CoreConfig;
+import org.jboss.forge.jgit.lib.Config.SectionParser;
+import org.jboss.forge.jgit.storage.file.WriteConfig;
 
 class WriteConfig {
 	/** Key for {@link Config#get(SectionParser)}. */

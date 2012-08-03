@@ -41,10 +41,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revplot;
+package org.jboss.forge.jgit.revplot;
 
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.revwalk.RevFlag;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.revplot.PlotCommit;
+import org.jboss.forge.jgit.revplot.PlotLane;
+import org.jboss.forge.jgit.revwalk.RevFlag;
 
 /**
  * Basic commit graph renderer for graphical user interfaces.

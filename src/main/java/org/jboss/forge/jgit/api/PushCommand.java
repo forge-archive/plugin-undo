@@ -40,7 +40,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -50,22 +50,24 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRemoteException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.transport.PushResult;
-import org.eclipse.jgit.transport.RefSpec;
-import org.eclipse.jgit.transport.RemoteConfig;
-import org.eclipse.jgit.transport.RemoteRefUpdate;
-import org.eclipse.jgit.transport.Transport;
+import org.jboss.forge.jgit.api.PushCommand;
+import org.jboss.forge.jgit.api.TransportCommand;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.InvalidRemoteException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.transport.PushResult;
+import org.jboss.forge.jgit.transport.RefSpec;
+import org.jboss.forge.jgit.transport.RemoteConfig;
+import org.jboss.forge.jgit.transport.RemoteRefUpdate;
+import org.jboss.forge.jgit.transport.Transport;
 
 /**
  * A class used to execute a {@code Push} command. It has setters for all
@@ -109,13 +111,13 @@ public class PushCommand extends
 	 * @return an iteration over {@link PushResult} objects
 	 * @throws InvalidRemoteException
 	 *             when called with an invalid remote uri
-	 * @throws org.eclipse.jgit.api.errors.TransportException
+	 * @throws org.jboss.forge.jgit.api.errors.TransportException
 	 *             when an error occurs with the transport
 	 * @throws GitAPIException
 	 */
 	public Iterable<PushResult> call() throws GitAPIException,
 			InvalidRemoteException,
-			org.eclipse.jgit.api.errors.TransportException {
+			org.jboss.forge.jgit.api.errors.TransportException {
 		checkCallable();
 
 		ArrayList<PushResult> pushResults = new ArrayList<PushResult>(3);
@@ -154,7 +156,7 @@ public class PushCommand extends
 					pushResults.add(result);
 
 				} catch (TransportException e) {
-					throw new org.eclipse.jgit.api.errors.TransportException(
+					throw new org.jboss.forge.jgit.api.errors.TransportException(
 							e.getMessage(), e);
 				} finally {
 					transport.close();
@@ -165,7 +167,7 @@ public class PushCommand extends
 			throw new InvalidRemoteException(MessageFormat.format(
 					JGitText.get().invalidRemote, remote));
 		} catch (TransportException e) {
-			throw new org.eclipse.jgit.api.errors.TransportException(
+			throw new org.jboss.forge.jgit.api.errors.TransportException(
 					e.getMessage(), e);
 		} catch (NotSupportedException e) {
 			throw new JGitInternalException(

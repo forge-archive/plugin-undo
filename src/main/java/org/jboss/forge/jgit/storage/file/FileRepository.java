@@ -44,7 +44,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,23 +52,29 @@ import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.ConfigInvalidException;
-import org.eclipse.jgit.events.ConfigChangedEvent;
-import org.eclipse.jgit.events.ConfigChangedListener;
-import org.eclipse.jgit.events.IndexChangedEvent;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.BaseRepositoryBuilder;
-import org.eclipse.jgit.lib.ConfigConstants;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefDatabase;
-import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.file.FileObjectDatabase.AlternateHandle;
-import org.eclipse.jgit.storage.file.FileObjectDatabase.AlternateRepository;
-import org.eclipse.jgit.util.FileUtils;
-import org.eclipse.jgit.util.SystemReader;
+import org.jboss.forge.jgit.errors.ConfigInvalidException;
+import org.jboss.forge.jgit.events.ConfigChangedEvent;
+import org.jboss.forge.jgit.events.ConfigChangedListener;
+import org.jboss.forge.jgit.events.IndexChangedEvent;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.BaseRepositoryBuilder;
+import org.jboss.forge.jgit.lib.ConfigConstants;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefDatabase;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.storage.file.FileBasedConfig;
+import org.jboss.forge.jgit.storage.file.FileRepositoryBuilder;
+import org.jboss.forge.jgit.storage.file.FileSnapshot;
+import org.jboss.forge.jgit.storage.file.ObjectDirectory;
+import org.jboss.forge.jgit.storage.file.RefDirectory;
+import org.jboss.forge.jgit.storage.file.ReflogReader;
+import org.jboss.forge.jgit.storage.file.FileObjectDatabase.AlternateHandle;
+import org.jboss.forge.jgit.storage.file.FileObjectDatabase.AlternateRepository;
+import org.jboss.forge.jgit.util.FileUtils;
+import org.jboss.forge.jgit.util.SystemReader;
 
 /**
  * Represents a Git repository. A repository holds all objects and refs used for

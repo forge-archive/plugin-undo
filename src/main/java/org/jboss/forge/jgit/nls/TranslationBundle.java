@@ -41,15 +41,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.nls;
+package org.jboss.forge.jgit.nls;
 
 import java.lang.reflect.Field;
 import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import org.eclipse.jgit.errors.TranslationBundleLoadingException;
-import org.eclipse.jgit.errors.TranslationStringMissingException;
+import org.jboss.forge.jgit.errors.TranslationBundleLoadingException;
+import org.jboss.forge.jgit.errors.TranslationStringMissingException;
+import org.jboss.forge.jgit.nls.NLS;
 
 /**
  * Base class for all translation bundles that provides injection of translated

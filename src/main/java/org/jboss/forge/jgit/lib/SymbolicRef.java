@@ -41,7 +41,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
+
 
 /**
  * A reference that indirectly points at another {@link Ref}.
@@ -67,38 +68,46 @@ public class SymbolicRef implements Ref {
 		this.target = target;
 	}
 
-	public String getName() {
+	@Override
+   public String getName() {
 		return name;
 	}
 
-	public boolean isSymbolic() {
+	@Override
+   public boolean isSymbolic() {
 		return true;
 	}
 
-	public Ref getLeaf() {
+	@Override
+   public Ref getLeaf() {
 		Ref dst = getTarget();
 		while (dst.isSymbolic())
 			dst = dst.getTarget();
 		return dst;
 	}
 
-	public Ref getTarget() {
+	@Override
+   public Ref getTarget() {
 		return target;
 	}
 
-	public ObjectId getObjectId() {
+	@Override
+   public ObjectId getObjectId() {
 		return getLeaf().getObjectId();
 	}
 
-	public Storage getStorage() {
+	@Override
+   public Storage getStorage() {
 		return Storage.LOOSE;
 	}
 
-	public ObjectId getPeeledObjectId() {
+	@Override
+   public ObjectId getPeeledObjectId() {
 		return getLeaf().getPeeledObjectId();
 	}
 
-	public boolean isPeeled() {
+	@Override
+   public boolean isPeeled() {
 		return getLeaf().isPeeled();
 	}
 

@@ -41,9 +41,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
 
-import org.eclipse.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
 
 /**
  * An object representation {@link PackWriter} can consider for packing.

@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util.io;
+package org.jboss.forge.jgit.util.io;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -49,9 +49,9 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.transport.BaseConnection;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.transport.BaseConnection;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /**
  * Combines messages from an OutputStream (hopefully in UTF-8) and a Writer.

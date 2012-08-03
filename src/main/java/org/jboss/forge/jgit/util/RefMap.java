@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.util.AbstractMap;
 import java.util.AbstractSet;
@@ -50,10 +50,10 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefComparator;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefComparator;
 
 /**
  * Specialized Map to present a {@code RefDatabase} namespace.
@@ -304,13 +304,15 @@ public class RefMap extends AbstractMap<String, Ref> {
 			}
 		}
 
-		public boolean hasNext() {
+		@Override
+      public boolean hasNext() {
 			if (next == null)
 				next = peek();
 			return next != null;
 		}
 
-		public Entry<String, Ref> next() {
+		@Override
+      public Entry<String, Ref> next() {
 			if (hasNext()) {
 				Entry<String, Ref> r = next;
 				next = peek();
@@ -367,7 +369,8 @@ public class RefMap extends AbstractMap<String, Ref> {
 			return null;
 		}
 
-		public void remove() {
+		@Override
+      public void remove() {
 			throw new UnsupportedOperationException();
 		}
 	}
@@ -379,15 +382,18 @@ public class RefMap extends AbstractMap<String, Ref> {
 			this.ref = ref;
 		}
 
-		public String getKey() {
+		@Override
+      public String getKey() {
 			return toMapKey(ref);
 		}
 
-		public Ref getValue() {
+		@Override
+      public Ref getValue() {
 			return ref;
 		}
 
-		public Ref setValue(Ref value) {
+		@Override
+      public Ref setValue(Ref value) {
 			Ref prior = put(getKey(), value);
 			ref = value;
 			return prior;

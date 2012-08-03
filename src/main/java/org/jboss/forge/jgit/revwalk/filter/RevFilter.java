@@ -41,16 +41,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk.filter;
+package org.jboss.forge.jgit.revwalk.filter;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.StopWalkException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.StopWalkException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevWalk;
 
 /**
  * Selects interesting revisions during walking.
@@ -254,7 +254,8 @@ public abstract class RevFilter {
 	 *
 	 * @return another copy of this filter, suitable for another thread.
 	 */
-	public abstract RevFilter clone();
+	@Override
+   public abstract RevFilter clone();
 
 	@Override
 	public String toString() {

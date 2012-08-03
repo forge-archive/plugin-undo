@@ -41,19 +41,22 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.patch;
+package org.jboss.forge.jgit.patch;
 
-import static org.eclipse.jgit.lib.Constants.encodeASCII;
-import static org.eclipse.jgit.util.RawParseUtils.match;
-import static org.eclipse.jgit.util.RawParseUtils.nextLF;
+import static org.jboss.forge.jgit.lib.Constants.encodeASCII;
+import static org.jboss.forge.jgit.util.RawParseUtils.match;
+import static org.jboss.forge.jgit.util.RawParseUtils.nextLF;
 
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.patch.CombinedHunkHeader;
+import org.jboss.forge.jgit.patch.FileHeader;
+import org.jboss.forge.jgit.patch.HunkHeader;
 
 /**
  * A file in the Git "diff --cc" or "diff --combined" format.

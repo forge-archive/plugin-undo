@@ -41,27 +41,27 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
 
-import static org.eclipse.jgit.lib.Constants.OBJ_BLOB;
-import static org.eclipse.jgit.lib.Constants.OBJ_TREE;
+import static org.jboss.forge.jgit.lib.Constants.OBJ_BLOB;
+import static org.jboss.forge.jgit.lib.Constants.OBJ_TREE;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdOwnerMap;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.revwalk.RevTree;
-import org.eclipse.jgit.treewalk.CanonicalTreeParser;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdOwnerMap;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.revwalk.RevTree;
+import org.jboss.forge.jgit.treewalk.CanonicalTreeParser;
 
 class BaseSearch {
 	private static final int M_BLOB = FileMode.REGULAR_FILE.getBits();

@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -61,24 +61,24 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.eclipse.jgit.errors.PackMismatchException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectDatabase;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.RepositoryCache;
-import org.eclipse.jgit.lib.RepositoryCache.FileKey;
-import org.eclipse.jgit.storage.pack.CachedPack;
-import org.eclipse.jgit.storage.pack.ObjectToPack;
-import org.eclipse.jgit.storage.pack.PackWriter;
-import org.eclipse.jgit.util.FS;
-import org.eclipse.jgit.util.FileUtils;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.errors.PackMismatchException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectDatabase;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.RepositoryCache;
+import org.jboss.forge.jgit.lib.RepositoryCache.FileKey;
+import org.jboss.forge.jgit.storage.pack.CachedPack;
+import org.jboss.forge.jgit.storage.pack.ObjectToPack;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.FileUtils;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /**
  * Traditional file system based {@link ObjectDatabase}.
@@ -169,7 +169,8 @@ public class ObjectDirectory extends FileObjectDatabase {
 	/**
 	 * @return the location of the <code>objects</code> directory.
 	 */
-	public final File getDirectory() {
+	@Override
+   public final File getDirectory() {
 		return objects;
 	}
 
@@ -324,7 +325,8 @@ public class ObjectDirectory extends FileObjectDatabase {
 	 *             index file could not be opened, read, or is not recognized as
 	 *             a Git pack file index.
 	 */
-	public PackFile openPack(final File pack, final File idx)
+	@Override
+   public PackFile openPack(final File pack, final File idx)
 			throws IOException {
 		final String p = pack.getName();
 		final String i = idx.getName();
@@ -348,7 +350,8 @@ public class ObjectDirectory extends FileObjectDatabase {
 		return "ObjectDirectory[" + getDirectory() + "]";
 	}
 
-	boolean hasObject1(final AnyObjectId objectId) {
+	@Override
+   boolean hasObject1(final AnyObjectId objectId) {
 		if (unpackedObjectCache.isUnpacked(objectId))
 			return true;
 		for (final PackFile p : packList.get().packs) {
@@ -368,7 +371,8 @@ public class ObjectDirectory extends FileObjectDatabase {
 		return false;
 	}
 
-	void resolve(Set<ObjectId> matches, AbbreviatedObjectId id)
+	@Override
+   void resolve(Set<ObjectId> matches, AbbreviatedObjectId id)
 			throws IOException {
 		// Go through the packs once. If we didn't find any resolutions
 		// scan for new packs and check once more.
@@ -422,7 +426,8 @@ public class ObjectDirectory extends FileObjectDatabase {
 		}
 	}
 
-	ObjectLoader openObject1(final WindowCursor curs,
+	@Override
+   ObjectLoader openObject1(final WindowCursor curs,
 			final AnyObjectId objectId) throws IOException {
 		if (unpackedObjectCache.isUnpacked(objectId)) {
 			ObjectLoader ldr = openObject2(curs, objectId.name(), objectId);
@@ -454,7 +459,8 @@ public class ObjectDirectory extends FileObjectDatabase {
 		}
 	}
 
-	long getObjectSize1(final WindowCursor curs, final AnyObjectId objectId)
+	@Override
+   long getObjectSize1(final WindowCursor curs, final AnyObjectId objectId)
 			throws IOException {
 		PackList pList = packList.get();
 		SEARCH: for (;;) {
@@ -522,11 +528,13 @@ public class ObjectDirectory extends FileObjectDatabase {
 			h.db.selectObjectRepresentation(packer, otp, curs);
 	}
 
-	boolean hasObject2(final String objectName) {
+	@Override
+   boolean hasObject2(final String objectName) {
 		return fileFor(objectName).exists();
 	}
 
-	ObjectLoader openObject2(final WindowCursor curs,
+	@Override
+   ObjectLoader openObject2(final WindowCursor curs,
 			final String objectName, final AnyObjectId objectId)
 			throws IOException {
 		try {
@@ -598,14 +606,16 @@ public class ObjectDirectory extends FileObjectDatabase {
 		return InsertLooseObjectResult.FAILURE;
 	}
 
-	boolean tryAgain1() {
+	@Override
+   boolean tryAgain1() {
 		final PackList old = packList.get();
 		if (old.snapshot.isModified(packDirectory))
 			return old != scanPacks(old);
 		return false;
 	}
 
-	Config getConfig() {
+	@Override
+   Config getConfig() {
 		return config;
 	}
 
@@ -778,7 +788,8 @@ public class ObjectDirectory extends FileObjectDatabase {
 		return nameSet;
 	}
 
-	AlternateHandle[] myAlternates() {
+	@Override
+   AlternateHandle[] myAlternates() {
 		AlternateHandle[] alt = alternates.get();
 		if (alt == null) {
 			synchronized (alternates) {
@@ -871,7 +882,8 @@ public class ObjectDirectory extends FileObjectDatabase {
 		return newCachedFileObjectDatabase();
 	}
 
-	FileObjectDatabase newCachedFileObjectDatabase() {
+	@Override
+   FileObjectDatabase newCachedFileObjectDatabase() {
 		return new CachedObjectDirectory(this);
 	}
 }

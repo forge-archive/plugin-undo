@@ -41,18 +41,18 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.patch;
+package org.jboss.forge.jgit.patch;
 
-import static org.eclipse.jgit.util.RawParseUtils.nextLF;
-import static org.eclipse.jgit.util.RawParseUtils.parseBase10;
+import static org.jboss.forge.jgit.util.RawParseUtils.nextLF;
+import static org.jboss.forge.jgit.util.RawParseUtils.parseBase10;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.util.MutableInteger;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.util.MutableInteger;
 
 /** Hunk header for a hunk appearing in a "diff --cc" style patch. */
 public class CombinedHunkHeader extends HunkHeader {
@@ -266,7 +266,8 @@ public class CombinedHunkHeader extends HunkHeader {
 		}
 	}
 
-	void extractFileLines(final StringBuilder sb, final String[] text,
+	@Override
+   void extractFileLines(final StringBuilder sb, final String[] text,
 			final int[] offsets) {
 		final byte[] buf = file.buf;
 		int ptr = startOffset;

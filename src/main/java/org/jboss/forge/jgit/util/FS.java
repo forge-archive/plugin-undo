@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -235,7 +235,8 @@ public abstract class FS {
 	protected File userHomeImpl() {
 		final String home = AccessController
 				.doPrivileged(new PrivilegedAction<String>() {
-					public String run() {
+					@Override
+               public String run() {
 						return System.getProperty("user.home");
 					}
 				});
@@ -291,7 +292,8 @@ public abstract class FS {
 			p.getOutputStream().close();
 			final AtomicBoolean gooblerFail = new AtomicBoolean(false);
 			Thread gobbler = new Thread() {
-				public void run() {
+				@Override
+            public void run() {
 					InputStream is = p.getErrorStream();
 					try {
 						int ch;

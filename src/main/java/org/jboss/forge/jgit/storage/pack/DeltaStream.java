@@ -43,15 +43,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
 
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.util.IO;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.util.IO;
 
 /**
  * Inflates a delta in an incremental way.

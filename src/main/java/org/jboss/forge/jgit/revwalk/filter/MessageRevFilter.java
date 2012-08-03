@@ -41,14 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk.filter;
+package org.jboss.forge.jgit.revwalk.filter;
 
 import java.util.regex.Pattern;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.util.RawCharSequence;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.util.RawCharSequence;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /** Matches only commits whose message matches the pattern. */
 public class MessageRevFilter {

@@ -41,11 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
+
+import org.jboss.forge.jgit.lib.ProgressMonitor;
 
 /**
  * Wrapper around the general {@link ProgressMonitor} to make it thread safe.

@@ -42,9 +42,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.fnmatch;
+package org.jboss.forge.jgit.fnmatch;
 
 import java.util.List;
+
+import org.jboss.forge.jgit.fnmatch.Head;
 
 interface Head {
 	/**

@@ -41,7 +41,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.File;
 import java.io.IOException;
@@ -49,11 +49,15 @@ import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.errors.NoWorkTreeException;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.util.FileUtils;
+import org.jboss.forge.jgit.api.CleanCommand;
+import org.jboss.forge.jgit.api.GitCommand;
+import org.jboss.forge.jgit.api.Status;
+import org.jboss.forge.jgit.api.StatusCommand;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.errors.NoWorkTreeException;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.util.FileUtils;
 
 /**
  * Remove untracked files from the working tree

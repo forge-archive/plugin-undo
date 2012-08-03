@@ -40,10 +40,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.ignore;
+package org.jboss.forge.jgit.ignore;
 
-import org.eclipse.jgit.errors.InvalidPatternException;
-import org.eclipse.jgit.fnmatch.FileNameMatcher;
+import org.jboss.forge.jgit.errors.InvalidPatternException;
+import org.jboss.forge.jgit.fnmatch.FileNameMatcher;
+import org.jboss.forge.jgit.ignore.IgnoreRule;
 
 /**
  * A single ignore rule corresponding to one line in a .gitignore or

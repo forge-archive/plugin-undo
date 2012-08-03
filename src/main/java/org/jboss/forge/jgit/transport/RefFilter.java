@@ -41,11 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.Map;
 
-import org.eclipse.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.transport.ReceivePack;
+import org.jboss.forge.jgit.transport.RefFilter;
+import org.jboss.forge.jgit.transport.UploadPack;
 
 /**
  * Filters the list of refs that are advertised to the client.

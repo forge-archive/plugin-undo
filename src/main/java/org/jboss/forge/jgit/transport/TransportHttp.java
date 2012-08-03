@@ -42,17 +42,17 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
-import static org.eclipse.jgit.util.HttpSupport.ENCODING_GZIP;
-import static org.eclipse.jgit.util.HttpSupport.HDR_ACCEPT;
-import static org.eclipse.jgit.util.HttpSupport.HDR_ACCEPT_ENCODING;
-import static org.eclipse.jgit.util.HttpSupport.HDR_CONTENT_ENCODING;
-import static org.eclipse.jgit.util.HttpSupport.HDR_CONTENT_TYPE;
-import static org.eclipse.jgit.util.HttpSupport.HDR_PRAGMA;
-import static org.eclipse.jgit.util.HttpSupport.HDR_USER_AGENT;
-import static org.eclipse.jgit.util.HttpSupport.METHOD_GET;
-import static org.eclipse.jgit.util.HttpSupport.METHOD_POST;
+import static org.jboss.forge.jgit.util.HttpSupport.ENCODING_GZIP;
+import static org.jboss.forge.jgit.util.HttpSupport.HDR_ACCEPT;
+import static org.jboss.forge.jgit.util.HttpSupport.HDR_ACCEPT_ENCODING;
+import static org.jboss.forge.jgit.util.HttpSupport.HDR_CONTENT_ENCODING;
+import static org.jboss.forge.jgit.util.HttpSupport.HDR_CONTENT_TYPE;
+import static org.jboss.forge.jgit.util.HttpSupport.HDR_PRAGMA;
+import static org.jboss.forge.jgit.util.HttpSupport.HDR_USER_AGENT;
+import static org.jboss.forge.jgit.util.HttpSupport.METHOD_GET;
+import static org.jboss.forge.jgit.util.HttpSupport.METHOD_POST;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -88,27 +88,27 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
-import org.eclipse.jgit.errors.NoRemoteRepositoryException;
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.PackProtocolException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.Config.SectionParser;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdRef;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.SymbolicRef;
-import org.eclipse.jgit.storage.file.RefDirectory;
-import org.eclipse.jgit.util.HttpSupport;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.RawParseUtils;
-import org.eclipse.jgit.util.TemporaryBuffer;
-import org.eclipse.jgit.util.io.DisabledOutputStream;
-import org.eclipse.jgit.util.io.UnionInputStream;
+import org.jboss.forge.jgit.errors.NoRemoteRepositoryException;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.PackProtocolException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.Config.SectionParser;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdRef;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.SymbolicRef;
+import org.jboss.forge.jgit.storage.file.RefDirectory;
+import org.jboss.forge.jgit.util.HttpSupport;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.util.TemporaryBuffer;
+import org.jboss.forge.jgit.util.io.DisabledOutputStream;
+import org.jboss.forge.jgit.util.io.UnionInputStream;
 
 /**
  * Transport over HTTP and FTP protocols.
@@ -141,62 +141,75 @@ public class TransportHttp extends HttpTransport implements WalkTransport,
 				.unmodifiableSet(new LinkedHashSet<String>(Arrays
 						.asList(schemeNames)));
 
-		public String getName() {
+		@Override
+      public String getName() {
 			return JGitText.get().transportProtoHTTP;
 		}
 
-		public Set<String> getSchemes() {
+		@Override
+      public Set<String> getSchemes() {
 			return schemeSet;
 		}
 
-		public Set<URIishField> getRequiredFields() {
+		@Override
+      public Set<URIishField> getRequiredFields() {
 			return Collections.unmodifiableSet(EnumSet.of(URIishField.HOST,
 					URIishField.PATH));
 		}
 
-		public Set<URIishField> getOptionalFields() {
+		@Override
+      public Set<URIishField> getOptionalFields() {
 			return Collections.unmodifiableSet(EnumSet.of(URIishField.USER,
 					URIishField.PASS, URIishField.PORT));
 		}
 
-		public int getDefaultPort() {
+		@Override
+      public int getDefaultPort() {
 			return 80;
 		}
 
-		public Transport open(URIish uri, Repository local, String remoteName)
+		@Override
+      public Transport open(URIish uri, Repository local, String remoteName)
 				throws NotSupportedException {
 			return new TransportHttp(local, uri);
 		}
 
-		public Transport open(URIish uri) throws NotSupportedException {
+		@Override
+      public Transport open(URIish uri) throws NotSupportedException {
 			return new TransportHttp(uri);
 		}
 	};
 
 	static final TransportProtocol PROTO_FTP = new TransportProtocol() {
-		public String getName() {
+		@Override
+      public String getName() {
 			return JGitText.get().transportProtoFTP;
 		}
 
-		public Set<String> getSchemes() {
+		@Override
+      public Set<String> getSchemes() {
 			return Collections.singleton("ftp"); //$NON-NLS-1$
 		}
 
-		public Set<URIishField> getRequiredFields() {
+		@Override
+      public Set<URIishField> getRequiredFields() {
 			return Collections.unmodifiableSet(EnumSet.of(URIishField.HOST,
 					URIishField.PATH));
 		}
 
-		public Set<URIishField> getOptionalFields() {
+		@Override
+      public Set<URIishField> getOptionalFields() {
 			return Collections.unmodifiableSet(EnumSet.of(URIishField.USER,
 					URIishField.PASS, URIishField.PORT));
 		}
 
-		public int getDefaultPort() {
+		@Override
+      public int getDefaultPort() {
 			return 21;
 		}
 
-		public Transport open(URIish uri, Repository local, String remoteName)
+		@Override
+      public Transport open(URIish uri, Repository local, String remoteName)
 				throws NotSupportedException {
 			return new TransportHttp(local, uri);
 		}
@@ -214,7 +227,8 @@ public class TransportHttp extends HttpTransport implements WalkTransport,
 	}
 
 	private static final Config.SectionParser<HttpConfig> HTTP_KEY = new SectionParser<HttpConfig>() {
-		public HttpConfig parse(final Config cfg) {
+		@Override
+      public HttpConfig parse(final Config cfg) {
 			return new HttpConfig(cfg);
 		}
 	};
@@ -759,7 +773,8 @@ public class TransportHttp extends HttpTransport implements WalkTransport,
 			readAdvertisedRefs();
 		}
 
-		protected void doPush(final ProgressMonitor monitor,
+		@Override
+      protected void doPush(final ProgressMonitor monitor,
 				final Map<String, RemoteRefUpdate> refUpdates)
 				throws TransportException {
 			final Service svc = new MultiRequestService(SVC_RECEIVE_PACK);
@@ -854,17 +869,20 @@ public class TransportHttp extends HttpTransport implements WalkTransport,
 		abstract void execute() throws IOException;
 
 		class HttpExecuteStream extends InputStream {
-			public int read() throws IOException {
+			@Override
+         public int read() throws IOException {
 				execute();
 				return -1;
 			}
 
-			public int read(byte[] b, int off, int len) throws IOException {
+			@Override
+         public int read(byte[] b, int off, int len) throws IOException {
 				execute();
 				return -1;
 			}
 
-			public long skip(long n) throws IOException {
+			@Override
+         public long skip(long n) throws IOException {
 				execute();
 				return 0;
 			}
@@ -964,15 +982,18 @@ public class TransportHttp extends HttpTransport implements WalkTransport,
 	}
 
 	private static class DummyX509TrustManager implements X509TrustManager {
-		public X509Certificate[] getAcceptedIssuers() {
+		@Override
+      public X509Certificate[] getAcceptedIssuers() {
 			return null;
 		}
 
-		public void checkClientTrusted(X509Certificate[] certs, String authType) {
+		@Override
+      public void checkClientTrusted(X509Certificate[] certs, String authType) {
 			// no check
 		}
 
-		public void checkServerTrusted(X509Certificate[] certs, String authType) {
+		@Override
+      public void checkServerTrusted(X509Certificate[] certs, String authType) {
 			// no check
 		}
 	}

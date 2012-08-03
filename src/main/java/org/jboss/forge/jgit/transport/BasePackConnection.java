@@ -44,7 +44,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -55,18 +55,26 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Set;
 
-import org.eclipse.jgit.errors.NoRemoteRepositoryException;
-import org.eclipse.jgit.errors.PackProtocolException;
-import org.eclipse.jgit.errors.RemoteRepositoryException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdRef;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.util.io.InterruptTimer;
-import org.eclipse.jgit.util.io.TimeoutInputStream;
-import org.eclipse.jgit.util.io.TimeoutOutputStream;
+import org.jboss.forge.jgit.errors.NoRemoteRepositoryException;
+import org.jboss.forge.jgit.errors.PackProtocolException;
+import org.jboss.forge.jgit.errors.RemoteRepositoryException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdRef;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.transport.BaseConnection;
+import org.jboss.forge.jgit.transport.BasePackFetchConnection;
+import org.jboss.forge.jgit.transport.BasePackPushConnection;
+import org.jboss.forge.jgit.transport.PackTransport;
+import org.jboss.forge.jgit.transport.PacketLineIn;
+import org.jboss.forge.jgit.transport.PacketLineOut;
+import org.jboss.forge.jgit.transport.Transport;
+import org.jboss.forge.jgit.transport.URIish;
+import org.jboss.forge.jgit.util.io.InterruptTimer;
+import org.jboss.forge.jgit.util.io.TimeoutInputStream;
+import org.jboss.forge.jgit.util.io.TimeoutOutputStream;
 
 /**
  * Base helper class for pack-based operations implementations. Provides partial

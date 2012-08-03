@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.BufferedInputStream;
 import java.io.EOFException;
@@ -56,24 +56,24 @@ import java.util.zip.CRC32;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.LargeObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.PackInvalidException;
-import org.eclipse.jgit.errors.StoredObjectRepresentationNotAvailableException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AbbreviatedObjectId;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.storage.file.PackIndex;
-import org.eclipse.jgit.storage.file.PackReverseIndex;
-import org.eclipse.jgit.storage.pack.BinaryDelta;
-import org.eclipse.jgit.storage.pack.PackOutputStream;
-import org.eclipse.jgit.storage.pack.StoredObjectRepresentation;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.LongList;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.LargeObjectException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.PackInvalidException;
+import org.jboss.forge.jgit.errors.StoredObjectRepresentationNotAvailableException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AbbreviatedObjectId;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.storage.file.PackIndex;
+import org.jboss.forge.jgit.storage.file.PackReverseIndex;
+import org.jboss.forge.jgit.storage.pack.BinaryDelta;
+import org.jboss.forge.jgit.storage.pack.PackOutputStream;
+import org.jboss.forge.jgit.storage.pack.StoredObjectRepresentation;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.LongList;
 
 /**
  * A Git version 2 pack file representation. A pack file contains Git objects in

@@ -41,15 +41,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
-import static org.eclipse.jgit.lib.ConfigConstants.CONFIG_CORE_SECTION;
-import static org.eclipse.jgit.lib.ConfigConstants.CONFIG_DFS_SECTION;
-import static org.eclipse.jgit.lib.ConfigConstants.CONFIG_KEY_DELTA_BASE_CACHE_LIMIT;
-import static org.eclipse.jgit.lib.ConfigConstants.CONFIG_KEY_STREAM_FILE_TRESHOLD;
+import static org.jboss.forge.jgit.lib.ConfigConstants.CONFIG_CORE_SECTION;
+import static org.jboss.forge.jgit.lib.ConfigConstants.CONFIG_DFS_SECTION;
+import static org.jboss.forge.jgit.lib.ConfigConstants.CONFIG_KEY_DELTA_BASE_CACHE_LIMIT;
+import static org.jboss.forge.jgit.lib.ConfigConstants.CONFIG_KEY_STREAM_FILE_TRESHOLD;
 
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.storage.pack.PackConfig;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.storage.dfs.DfsReaderOptions;
+import org.jboss.forge.jgit.storage.pack.PackConfig;
 
 /** Options controlling how objects are read from a DHT stored repository. */
 public class DfsReaderOptions {
@@ -96,7 +97,7 @@ public class DfsReaderOptions {
 	 *            new byte limit for objects that must be streamed. Objects
 	 *            smaller than this size can be obtained as a contiguous byte
 	 *            array, while objects bigger than this size require using an
-	 *            {@link org.eclipse.jgit.lib.ObjectStream}.
+	 *            {@link org.jboss.forge.jgit.lib.ObjectStream}.
 	 * @return {@code this}
 	 */
 	public DfsReaderOptions setStreamFileThreshold(final int newLimit) {

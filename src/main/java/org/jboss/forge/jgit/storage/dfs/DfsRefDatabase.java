@@ -41,9 +41,9 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
-import static org.eclipse.jgit.lib.Ref.Storage.NEW;
+import static org.jboss.forge.jgit.lib.Ref.Storage.NEW;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -51,17 +51,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.lib.ObjectIdRef;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefDatabase;
-import org.eclipse.jgit.lib.RefRename;
-import org.eclipse.jgit.lib.SymbolicRef;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevTag;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.util.RefList;
-import org.eclipse.jgit.util.RefMap;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.ObjectIdRef;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefDatabase;
+import org.jboss.forge.jgit.lib.RefRename;
+import org.jboss.forge.jgit.lib.SymbolicRef;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevTag;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.util.RefList;
+import org.jboss.forge.jgit.util.RefMap;
 
 /** */
 public abstract class DfsRefDatabase extends RefDatabase {
@@ -317,7 +317,7 @@ public abstract class DfsRefDatabase extends RefDatabase {
 	 * @param oldRef
 	 *            old value to compare to. If the reference is expected to not
 	 *            exist the old value has a storage of
-	 *            {@link org.eclipse.jgit.lib.Ref.Storage#NEW} and an ObjectId
+	 *            {@link org.jboss.forge.jgit.lib.Ref.Storage#NEW} and an ObjectId
 	 *            value of {@code null}.
 	 * @param newRef
 	 *            new reference to store.

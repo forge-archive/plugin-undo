@@ -43,12 +43,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.Collection;
 import java.util.Map;
 
-import org.eclipse.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.transport.Transport;
 
 /**
  * Represent connection for operation on a remote repository.

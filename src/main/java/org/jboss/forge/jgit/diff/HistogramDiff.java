@@ -41,7 +41,8 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.diff;
+package org.jboss.forge.jgit.diff;
+
 
 /**
  * An extended form of Bram Cohen's patience diff algorithm.
@@ -127,7 +128,8 @@ public class HistogramDiff extends LowLevelDiffAlgorithm {
 		maxChainLength = maxLen;
 	}
 
-	public <S extends Sequence> void diffNonCommon(EditList edits,
+	@Override
+   public <S extends Sequence> void diffNonCommon(EditList edits,
 			HashedSequenceComparator<S> cmp, HashedSequence<S> a,
 			HashedSequence<S> b, Edit region) {
 		new State<S>(edits, cmp, a, b).diffReplace(region);

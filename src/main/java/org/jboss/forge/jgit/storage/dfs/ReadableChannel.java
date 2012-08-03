@@ -41,10 +41,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.IOException;
 import java.nio.channels.ReadableByteChannel;
+
+import org.jboss.forge.jgit.storage.dfs.DfsBlockCache;
 
 /** Readable random access byte channel from a file. */
 public interface ReadableChannel extends ReadableByteChannel {

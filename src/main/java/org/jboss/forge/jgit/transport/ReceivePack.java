@@ -41,17 +41,17 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.eclipse.jgit.errors.UnpackException;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.transport.ReceiveCommand.Result;
-import org.eclipse.jgit.transport.RefAdvertiser.PacketLineOutRefAdvertiser;
+import org.jboss.forge.jgit.errors.UnpackException;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.transport.ReceiveCommand.Result;
+import org.jboss.forge.jgit.transport.RefAdvertiser.PacketLineOutRefAdvertiser;
 
 /**
  * Implements the server side of a push connection, receiving objects.
@@ -197,7 +197,8 @@ public class ReceivePack extends BaseReceivePack {
 			if (reportStatus) {
 				if (echoCommandFailures && msgOut != null) {
 					sendStatusReport(false, unpackError, new Reporter() {
-						void sendString(final String s) throws IOException {
+						@Override
+                  void sendString(final String s) throws IOException {
 							msgOut.write(Constants.encode(s + "\n"));
 						}
 					});
@@ -209,14 +210,16 @@ public class ReceivePack extends BaseReceivePack {
 					}
 				}
 				sendStatusReport(true, unpackError, new Reporter() {
-					void sendString(final String s) throws IOException {
+					@Override
+               void sendString(final String s) throws IOException {
 						pckOut.writeString(s + "\n");
 					}
 				});
 				pckOut.end();
 			} else if (msgOut != null) {
 				sendStatusReport(false, unpackError, new Reporter() {
-					void sendString(final String s) throws IOException {
+					@Override
+               void sendString(final String s) throws IOException {
 						msgOut.write(Constants.encode(s + "\n"));
 					}
 				});

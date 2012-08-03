@@ -42,10 +42,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.errors;
+package org.jboss.forge.jgit.errors;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.revwalk.RevWalk;
 
 /**
  * Indicates a checked exception was thrown inside of {@link RevWalk}.

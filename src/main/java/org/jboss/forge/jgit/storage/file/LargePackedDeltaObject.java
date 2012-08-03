@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -52,16 +52,22 @@ import java.util.zip.DataFormatException;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterInputStream;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.LargeObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.ObjectStream;
-import org.eclipse.jgit.storage.pack.BinaryDelta;
-import org.eclipse.jgit.storage.pack.DeltaStream;
-import org.eclipse.jgit.util.io.TeeInputStream;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.LargeObjectException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectStream;
+import org.jboss.forge.jgit.storage.file.FileObjectDatabase;
+import org.jboss.forge.jgit.storage.file.LargePackedDeltaObject;
+import org.jboss.forge.jgit.storage.file.ObjectDirectoryInserter;
+import org.jboss.forge.jgit.storage.file.PackFile;
+import org.jboss.forge.jgit.storage.file.PackInputStream;
+import org.jboss.forge.jgit.storage.file.WindowCursor;
+import org.jboss.forge.jgit.storage.pack.BinaryDelta;
+import org.jboss.forge.jgit.storage.pack.DeltaStream;
+import org.jboss.forge.jgit.util.io.TeeInputStream;
 
 class LargePackedDeltaObject extends ObjectLoader {
 	private static final long SIZE_UNKNOWN = -1;

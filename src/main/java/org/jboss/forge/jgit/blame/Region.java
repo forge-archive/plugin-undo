@@ -41,7 +41,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.blame;
+package org.jboss.forge.jgit.blame;
+
+import org.jboss.forge.jgit.blame.Candidate;
+import org.jboss.forge.jgit.blame.Region;
 
 /**
  * Region of the result that still needs to be computed.

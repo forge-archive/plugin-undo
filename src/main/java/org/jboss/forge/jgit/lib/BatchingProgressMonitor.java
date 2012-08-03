@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -67,7 +67,8 @@ public abstract class BatchingProgressMonitor implements ProgressMonitor {
 					private final ThreadFactory baseFactory = Executors
 							.defaultThreadFactory();
 
-					public Thread newThread(Runnable taskBody) {
+					@Override
+               public Thread newThread(Runnable taskBody) {
 						Thread thr = baseFactory.newThread(taskBody);
 						thr.setName("JGit-AlarmQueue");
 						thr.setDaemon(true);
@@ -112,30 +113,35 @@ public abstract class BatchingProgressMonitor implements ProgressMonitor {
 		delayStartUnit = unit;
 	}
 
-	public void start(int totalTasks) {
+	@Override
+   public void start(int totalTasks) {
 		// Ignore the number of tasks.
 	}
 
-	public void beginTask(String title, int work) {
+	@Override
+   public void beginTask(String title, int work) {
 		endTask();
 		task = new Task(title, work);
 		if (delayStartTime != 0)
 			task.delay(delayStartTime, delayStartUnit);
 	}
 
-	public void update(int completed) {
+	@Override
+   public void update(int completed) {
 		if (task != null)
 			task.update(this, completed);
 	}
 
-	public void endTask() {
+	@Override
+   public void endTask() {
 		if (task != null) {
 			task.end(this);
 			task = null;
 		}
 	}
 
-	public boolean isCancelled() {
+	@Override
+   public boolean isCancelled() {
 		return false;
 	}
 
@@ -222,7 +228,8 @@ public abstract class BatchingProgressMonitor implements ProgressMonitor {
 			timerFuture = alarmQueue.schedule(this, time, unit);
 		}
 
-		public void run() {
+		@Override
+      public void run() {
 			display = true;
 		}
 

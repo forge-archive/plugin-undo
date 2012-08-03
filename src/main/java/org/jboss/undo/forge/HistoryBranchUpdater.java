@@ -5,9 +5,9 @@ import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.errors.NoWorkTreeException;
+import org.jboss.forge.jgit.api.Git;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.errors.NoWorkTreeException;
 import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.Project;
 import org.jboss.forge.shell.Shell;

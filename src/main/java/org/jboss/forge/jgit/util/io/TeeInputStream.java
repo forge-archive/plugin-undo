@@ -41,13 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util.io;
+package org.jboss.forge.jgit.util.io;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import org.eclipse.jgit.util.TemporaryBuffer;
+import org.jboss.forge.jgit.util.TemporaryBuffer;
 
 /**
  * Input stream that copies data read to another output stream.

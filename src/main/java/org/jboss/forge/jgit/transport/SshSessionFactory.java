@@ -42,10 +42,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.util.FS;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.transport.CredentialsProvider;
+import org.jboss.forge.jgit.transport.DefaultSshSessionFactory;
+import org.jboss.forge.jgit.transport.RemoteSession;
+import org.jboss.forge.jgit.transport.SshSessionFactory;
+import org.jboss.forge.jgit.transport.URIish;
+import org.jboss.forge.jgit.util.FS;
 
 /**
  * Creates and destroys SSH connections to a remote system.

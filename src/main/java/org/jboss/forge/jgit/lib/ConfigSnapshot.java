@@ -48,11 +48,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
-import static org.eclipse.jgit.util.StringUtils.compareIgnoreCase;
-import static org.eclipse.jgit.util.StringUtils.compareWithCase;
-import static org.eclipse.jgit.util.StringUtils.toLowerCase;
+import static org.jboss.forge.jgit.util.StringUtils.compareIgnoreCase;
+import static org.jboss.forge.jgit.util.StringUtils.compareWithCase;
+import static org.jboss.forge.jgit.util.StringUtils.toLowerCase;
 
 import java.util.AbstractSet;
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.eclipse.jgit.util.StringUtils;
+import org.jboss.forge.jgit.util.StringUtils;
 
 class ConfigSnapshot {
 	final List<ConfigLine> entryList;
@@ -205,7 +205,8 @@ class ConfigSnapshot {
 	}
 
 	private static class LineComparator implements Comparator<ConfigLine> {
-		public int compare(ConfigLine a, ConfigLine b) {
+		@Override
+      public int compare(ConfigLine a, ConfigLine b) {
 			return compare2(
 					a.section, a.subsection, a.name,
 					b.section, b.subsection, b.name);
@@ -274,15 +275,18 @@ class ConfigSnapshot {
 		public Iterator<String> iterator() {
 			final Iterator<String> i = names.values().iterator();
 			return new Iterator<String>() {
-				public boolean hasNext() {
+				@Override
+            public boolean hasNext() {
 					return i.hasNext();
 				}
 
-				public String next() {
+				@Override
+            public String next() {
 					return i.next();
 				}
 
-				public void remove() {
+				@Override
+            public void remove() {
 					throw new UnsupportedOperationException();
 				}
 			};

@@ -40,11 +40,14 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.transport.CredentialsProvider;
-import org.eclipse.jgit.transport.Transport;
+import org.jboss.forge.jgit.api.GitCommand;
+import org.jboss.forge.jgit.api.TransportCommand;
+import org.jboss.forge.jgit.api.TransportConfigCallback;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.transport.CredentialsProvider;
+import org.jboss.forge.jgit.transport.Transport;
 
 /**
  * Base class for commands that use a {@link Transport} during execution.

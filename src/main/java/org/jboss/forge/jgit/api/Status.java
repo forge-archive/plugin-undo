@@ -40,12 +40,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.util.Collections;
 import java.util.Set;
 
-import org.eclipse.jgit.lib.IndexDiff;
+import org.jboss.forge.jgit.lib.IndexDiff;
 
 /**
  * A class telling where the working-tree, the index and the current HEAD differ

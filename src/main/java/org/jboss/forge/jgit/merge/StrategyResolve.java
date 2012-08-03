@@ -41,9 +41,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.merge;
+package org.jboss.forge.jgit.merge;
 
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.merge.ResolveMerger;
+import org.jboss.forge.jgit.merge.ThreeWayMergeStrategy;
+import org.jboss.forge.jgit.merge.ThreeWayMerger;
 
 /**
  * A three-way merge strategy performing a content-merge if necessary

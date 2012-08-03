@@ -43,21 +43,26 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.treewalk;
+package org.jboss.forge.jgit.treewalk;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 
-import org.eclipse.jgit.dircache.DirCacheCheckout;
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.FileMode;
-import org.eclipse.jgit.lib.MutableObjectId;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.treewalk.filter.TreeFilter;
+import org.jboss.forge.jgit.dircache.DirCacheCheckout;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.MutableObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.treewalk.AbstractTreeIterator;
+import org.jboss.forge.jgit.treewalk.CanonicalTreeParser;
+import org.jboss.forge.jgit.treewalk.EmptyTreeIterator;
+import org.jboss.forge.jgit.treewalk.NameConflictTreeWalk;
+import org.jboss.forge.jgit.treewalk.TreeWalk;
+import org.jboss.forge.jgit.treewalk.filter.TreeFilter;
 
 /**
  * Walks a Git tree (directory) in Git sort order.
@@ -105,7 +110,7 @@ public abstract class AbstractTreeIterator {
 	 * A numerical value from FileMode is usually faster for an iterator to
 	 * obtain from its data source so this is the preferred representation.
 	 *
-	 * @see org.eclipse.jgit.lib.FileMode
+	 * @see org.jboss.forge.jgit.lib.FileMode
 	 */
 	protected int mode;
 
@@ -633,7 +638,7 @@ public abstract class AbstractTreeIterator {
 	 * Indicates to the iterator that no more entries will be read.
 	 * <p>
 	 * This is only invoked by TreeWalk when the iteration is aborted early due
-	 * to a {@link org.eclipse.jgit.errors.StopWalkException} being thrown from
+	 * to a {@link org.jboss.forge.jgit.errors.StopWalkException} being thrown from
 	 * within a TreeFilter.
 	 */
 	public void stopWalk() {

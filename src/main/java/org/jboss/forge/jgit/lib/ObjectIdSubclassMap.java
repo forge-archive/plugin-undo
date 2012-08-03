@@ -43,10 +43,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdOwnerMap;
 
 /**
  * Fast, efficient map specifically for {@link ObjectId} subclasses.

@@ -41,7 +41,7 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -51,36 +51,40 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.jgit.api.MergeResult.MergeStatus;
-import org.eclipse.jgit.api.errors.CheckoutConflictException;
-import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidMergeHeadsException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.api.errors.NoHeadException;
-import org.eclipse.jgit.api.errors.NoMessageException;
-import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
-import org.eclipse.jgit.dircache.DirCacheCheckout;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdRef;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Ref.Storage;
-import org.eclipse.jgit.lib.RefUpdate;
-import org.eclipse.jgit.lib.RefUpdate.Result;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.merge.MergeMessageFormatter;
-import org.eclipse.jgit.merge.MergeStrategy;
-import org.eclipse.jgit.merge.Merger;
-import org.eclipse.jgit.merge.ResolveMerger;
-import org.eclipse.jgit.merge.ResolveMerger.MergeFailureReason;
-import org.eclipse.jgit.merge.SquashMessageFormatter;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevWalk;
-import org.eclipse.jgit.revwalk.RevWalkUtils;
-import org.eclipse.jgit.treewalk.FileTreeIterator;
+import org.jboss.forge.jgit.api.Git;
+import org.jboss.forge.jgit.api.GitCommand;
+import org.jboss.forge.jgit.api.MergeCommand;
+import org.jboss.forge.jgit.api.MergeResult;
+import org.jboss.forge.jgit.api.MergeResult.MergeStatus;
+import org.jboss.forge.jgit.api.errors.CheckoutConflictException;
+import org.jboss.forge.jgit.api.errors.ConcurrentRefUpdateException;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.InvalidMergeHeadsException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.api.errors.NoHeadException;
+import org.jboss.forge.jgit.api.errors.NoMessageException;
+import org.jboss.forge.jgit.api.errors.WrongRepositoryStateException;
+import org.jboss.forge.jgit.dircache.DirCacheCheckout;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdRef;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.Ref.Storage;
+import org.jboss.forge.jgit.lib.RefUpdate.Result;
+import org.jboss.forge.jgit.merge.MergeMessageFormatter;
+import org.jboss.forge.jgit.merge.MergeStrategy;
+import org.jboss.forge.jgit.merge.Merger;
+import org.jboss.forge.jgit.merge.ResolveMerger;
+import org.jboss.forge.jgit.merge.SquashMessageFormatter;
+import org.jboss.forge.jgit.merge.ResolveMerger.MergeFailureReason;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.jgit.revwalk.RevWalkUtils;
+import org.jboss.forge.jgit.treewalk.FileTreeIterator;
 
 /**
  * A class used to execute a {@code Merge} command. It has setters for all
@@ -225,7 +229,7 @@ public class MergeCommand extends GitCommand<MergeResult> {
 				}
 				Merger merger = mergeStrategy.newMerger(repo);
 				boolean noProblems;
-				Map<String, org.eclipse.jgit.merge.MergeResult<?>> lowLevelResults = null;
+				Map<String, org.jboss.forge.jgit.merge.MergeResult<?>> lowLevelResults = null;
 				Map<String, MergeFailureReason> failingPaths = null;
 				List<String> unmergedPaths = null;
 				if (merger instanceof ResolveMerger) {
@@ -290,7 +294,7 @@ public class MergeCommand extends GitCommand<MergeResult> {
 					}
 				}
 			}
-		} catch (org.eclipse.jgit.errors.CheckoutConflictException e) {
+		} catch (org.jboss.forge.jgit.errors.CheckoutConflictException e) {
 			List<String> conflicts = (dco == null) ? Collections
 					.<String> emptyList() : dco.getConflicts();
 			throw new CheckoutConflictException(conflicts, e);

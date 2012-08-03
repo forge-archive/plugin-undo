@@ -41,14 +41,16 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.merge;
+package org.jboss.forge.jgit.merge;
 
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jgit.diff.Sequence;
-import org.eclipse.jgit.merge.MergeChunk.ConflictState;
-import org.eclipse.jgit.util.IntList;
+import org.jboss.forge.jgit.diff.Sequence;
+import org.jboss.forge.jgit.merge.MergeChunk;
+import org.jboss.forge.jgit.merge.MergeResult;
+import org.jboss.forge.jgit.merge.MergeChunk.ConflictState;
+import org.jboss.forge.jgit.util.IntList;
 
 /**
  * The result of merging a number of {@link Sequence} objects. These sequences

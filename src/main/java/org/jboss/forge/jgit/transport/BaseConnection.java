@@ -44,7 +44,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.StringWriter;
 import java.io.Writer;
@@ -52,9 +52,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Ref;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.transport.BaseFetchConnection;
+import org.jboss.forge.jgit.transport.BasePackConnection;
+import org.jboss.forge.jgit.transport.Connection;
 
 /**
  * Base helper class for implementing operations connections.

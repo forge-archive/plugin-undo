@@ -40,19 +40,21 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Collection;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRefNameException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.storage.file.ReflogEntry;
-import org.eclipse.jgit.storage.file.ReflogReader;
+import org.jboss.forge.jgit.api.GitCommand;
+import org.jboss.forge.jgit.api.ReflogCommand;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.InvalidRefNameException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.storage.file.ReflogEntry;
+import org.jboss.forge.jgit.storage.file.ReflogReader;
 
 /**
  * The reflog command

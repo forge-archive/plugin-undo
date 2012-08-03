@@ -42,7 +42,9 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.fnmatch;
+package org.jboss.forge.jgit.fnmatch;
+
+import org.jboss.forge.jgit.fnmatch.AbstractHead;
 
 final class RestrictedWildCardHead extends AbstractHead {
 	private final char excludedCharacter;

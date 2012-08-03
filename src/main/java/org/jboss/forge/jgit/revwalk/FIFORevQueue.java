@@ -41,12 +41,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
 
 /** A queue of commits in FIFO order. */
 public class FIFORevQueue extends BlockRevQueue {
@@ -64,7 +64,8 @@ public class FIFORevQueue extends BlockRevQueue {
 		super(s);
 	}
 
-	public void add(final RevCommit c) {
+	@Override
+   public void add(final RevCommit c) {
 		Block b = tail;
 		if (b == null) {
 			b = free.newBlock();
@@ -107,7 +108,8 @@ public class FIFORevQueue extends BlockRevQueue {
 		head = b;
 	}
 
-	public RevCommit next() {
+	@Override
+   public RevCommit next() {
 		final Block b = head;
 		if (b == null)
 			return null;
@@ -122,13 +124,15 @@ public class FIFORevQueue extends BlockRevQueue {
 		return c;
 	}
 
-	public void clear() {
+	@Override
+   public void clear() {
 		head = null;
 		tail = null;
 		free.clear();
 	}
 
-	boolean everbodyHasFlag(final int f) {
+	@Override
+   boolean everbodyHasFlag(final int f) {
 		for (Block b = head; b != null; b = b.next) {
 			for (int i = b.headIndex; i < b.tailIndex; i++)
 				if ((b.commits[i].flags & f) == 0)
@@ -137,7 +141,8 @@ public class FIFORevQueue extends BlockRevQueue {
 		return true;
 	}
 
-	boolean anybodyHasFlag(final int f) {
+	@Override
+   boolean anybodyHasFlag(final int f) {
 		for (Block b = head; b != null; b = b.next) {
 			for (int i = b.headIndex; i < b.tailIndex; i++)
 				if ((b.commits[i].flags & f) != 0)
@@ -154,7 +159,8 @@ public class FIFORevQueue extends BlockRevQueue {
 		}
 	}
 
-	public String toString() {
+	@Override
+   public String toString() {
 		final StringBuilder s = new StringBuilder();
 		for (Block q = head; q != null; q = q.next) {
 			for (int i = q.headIndex; i < q.tailIndex; i++)

@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -79,14 +79,14 @@ import java.util.TreeMap;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.util.Base64;
-import org.eclipse.jgit.util.HttpSupport;
-import org.eclipse.jgit.util.StringUtils;
-import org.eclipse.jgit.util.TemporaryBuffer;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.util.Base64;
+import org.jboss.forge.jgit.util.HttpSupport;
+import org.jboss.forge.jgit.util.StringUtils;
+import org.jboss.forge.jgit.util.TemporaryBuffer;
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;

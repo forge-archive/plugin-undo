@@ -45,11 +45,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Repository;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.transport.RemoteSession;
+import org.jboss.forge.jgit.transport.SshSessionFactory;
+import org.jboss.forge.jgit.transport.TcpTransport;
+import org.jboss.forge.jgit.transport.URIish;
 
 /**
  * The base class for transports that use SSH protocol. This class allows

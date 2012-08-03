@@ -43,25 +43,36 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.EntryExistsException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.ObjectWritingException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.EntryExistsException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.ObjectWritingException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.FileMode;
+import org.jboss.forge.jgit.lib.FileTreeEntry;
+import org.jboss.forge.jgit.lib.GitlinkTreeEntry;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.SymlinkTreeEntry;
+import org.jboss.forge.jgit.lib.Tree;
+import org.jboss.forge.jgit.lib.TreeEntry;
+import org.jboss.forge.jgit.lib.TreeFormatter;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /**
  * A representation of a Git tree entry. A Tree is a directory in Git.
  *
  * @deprecated To look up information about a single path, use
- * {@link org.eclipse.jgit.treewalk.TreeWalk#forPath(Repository, String, org.eclipse.jgit.revwalk.RevTree)}.
+ * {@link org.jboss.forge.jgit.treewalk.TreeWalk#forPath(Repository, String, org.jboss.forge.jgit.revwalk.RevTree)}.
  * To lookup information about multiple paths at once, use a
- * {@link org.eclipse.jgit.treewalk.TreeWalk} and obtain the current entry's
+ * {@link org.jboss.forge.jgit.treewalk.TreeWalk} and obtain the current entry's
  * information from its getter methods.
  */
 @Deprecated

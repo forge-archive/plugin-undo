@@ -42,17 +42,19 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.util.zip.CRC32;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.util.NB;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.storage.pack.ObjectToPack;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.util.NB;
 
 /** Custom output stream to support {@link PackWriter}. */
 public final class PackOutputStream extends OutputStream {

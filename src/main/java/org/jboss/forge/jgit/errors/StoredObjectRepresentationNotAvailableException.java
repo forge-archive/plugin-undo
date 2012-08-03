@@ -41,9 +41,9 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.errors;
+package org.jboss.forge.jgit.errors;
 
-import org.eclipse.jgit.storage.pack.ObjectToPack;
+import org.jboss.forge.jgit.storage.pack.ObjectToPack;
 
 /** A previously selected representation is no longer available. */
 public class StoredObjectRepresentationNotAvailableException extends Exception {

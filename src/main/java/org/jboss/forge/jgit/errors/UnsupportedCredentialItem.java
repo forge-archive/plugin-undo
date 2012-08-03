@@ -41,11 +41,11 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.errors;
+package org.jboss.forge.jgit.errors;
 
-import org.eclipse.jgit.transport.CredentialItem;
-import org.eclipse.jgit.transport.CredentialsProvider;
-import org.eclipse.jgit.transport.URIish;
+import org.jboss.forge.jgit.transport.CredentialItem;
+import org.jboss.forge.jgit.transport.CredentialsProvider;
+import org.jboss.forge.jgit.transport.URIish;
 
 /**
  * An exception thrown when a {@link CredentialItem} is requested from a

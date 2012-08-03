@@ -41,12 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.lib.AsyncOperation;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.AsyncOperation;
+import org.jboss.forge.jgit.revwalk.RevObject;
 
 /**
  * Queue to lookup and parse objects asynchronously.

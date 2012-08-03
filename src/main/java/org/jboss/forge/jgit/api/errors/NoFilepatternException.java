@@ -37,7 +37,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.api.errors;
+package org.jboss.forge.jgit.api.errors;
+
+import org.jboss.forge.jgit.api.errors.GitAPIException;
 
 /**
  * Exception thrown when the options given to a command don't include a

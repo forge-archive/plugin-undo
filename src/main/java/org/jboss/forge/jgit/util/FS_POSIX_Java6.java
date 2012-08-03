@@ -43,11 +43,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util;
+package org.jboss.forge.jgit.util;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.FS_POSIX;
+import org.jboss.forge.jgit.util.FS_POSIX_Java6;
 
 class FS_POSIX_Java6 extends FS_POSIX {
 	private static final Method canExecute;

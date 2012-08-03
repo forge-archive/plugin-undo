@@ -41,7 +41,9 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
+
+import org.jboss.forge.jgit.storage.file.ReflogEntry;
 
 /**
  * Parsed information about a checkout.

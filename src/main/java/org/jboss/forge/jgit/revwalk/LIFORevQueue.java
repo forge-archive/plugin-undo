@@ -42,12 +42,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.revwalk;
+package org.jboss.forge.jgit.revwalk;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
 
 /** A queue of commits in LIFO order. */
 public class LIFORevQueue extends BlockRevQueue {
@@ -63,7 +63,8 @@ public class LIFORevQueue extends BlockRevQueue {
 		super(s);
 	}
 
-	public void add(final RevCommit c) {
+	@Override
+   public void add(final RevCommit c) {
 		Block b = head;
 		if (b == null || !b.canUnpop()) {
 			b = free.newBlock();
@@ -74,7 +75,8 @@ public class LIFORevQueue extends BlockRevQueue {
 		b.unpop(c);
 	}
 
-	public RevCommit next() {
+	@Override
+   public RevCommit next() {
 		final Block b = head;
 		if (b == null)
 			return null;
@@ -87,12 +89,14 @@ public class LIFORevQueue extends BlockRevQueue {
 		return c;
 	}
 
-	public void clear() {
+	@Override
+   public void clear() {
 		head = null;
 		free.clear();
 	}
 
-	boolean everbodyHasFlag(final int f) {
+	@Override
+   boolean everbodyHasFlag(final int f) {
 		for (Block b = head; b != null; b = b.next) {
 			for (int i = b.headIndex; i < b.tailIndex; i++)
 				if ((b.commits[i].flags & f) == 0)
@@ -101,7 +105,8 @@ public class LIFORevQueue extends BlockRevQueue {
 		return true;
 	}
 
-	boolean anybodyHasFlag(final int f) {
+	@Override
+   boolean anybodyHasFlag(final int f) {
 		for (Block b = head; b != null; b = b.next) {
 			for (int i = b.headIndex; i < b.tailIndex; i++)
 				if ((b.commits[i].flags & f) != 0)
@@ -110,7 +115,8 @@ public class LIFORevQueue extends BlockRevQueue {
 		return false;
 	}
 
-	public String toString() {
+	@Override
+   public String toString() {
 		final StringBuilder s = new StringBuilder();
 		for (Block q = head; q != null; q = q.next) {
 			for (int i = q.headIndex; i < q.tailIndex; i++)

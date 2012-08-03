@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -58,19 +58,18 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdRef;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.Ref.Storage;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.SymbolicRef;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdRef;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.Ref.Storage;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.SymbolicRef;
 
-import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpATTRS;
@@ -98,29 +97,35 @@ import com.jcraft.jsch.SftpException;
  */
 public class TransportSftp extends SshTransport implements WalkTransport {
 	static final TransportProtocol PROTO_SFTP = new TransportProtocol() {
-		public String getName() {
+		@Override
+      public String getName() {
 			return JGitText.get().transportProtoSFTP;
 		}
 
-		public Set<String> getSchemes() {
+		@Override
+      public Set<String> getSchemes() {
 			return Collections.singleton("sftp"); //$NON-NLS-1$
 		}
 
-		public Set<URIishField> getRequiredFields() {
+		@Override
+      public Set<URIishField> getRequiredFields() {
 			return Collections.unmodifiableSet(EnumSet.of(URIishField.HOST,
 					URIishField.PATH));
 		}
 
-		public Set<URIishField> getOptionalFields() {
+		@Override
+      public Set<URIishField> getOptionalFields() {
 			return Collections.unmodifiableSet(EnumSet.of(URIishField.USER,
 					URIishField.PASS, URIishField.PORT));
 		}
 
-		public int getDefaultPort() {
+		@Override
+      public int getDefaultPort() {
 			return 22;
 		}
 
-		public Transport open(URIish uri, Repository local, String remoteName)
+		@Override
+      public Transport open(URIish uri, Repository local, String remoteName)
 				throws NotSupportedException {
 			return new TransportSftp(local, uri);
 		}
@@ -151,7 +156,7 @@ public class TransportSftp extends SshTransport implements WalkTransport {
 		try {
 			// @TODO: Fix so that this operation is generic and casting to
 			// JschSession is no longer necessary.
-			final Channel channel = ((JschSession) getSession())
+			final com.jcraft.jsch.Channel channel = ((JschSession) getSession())
 					.getSftpChannel();
 			channel.connect(tms);
 			return (ChannelSftp) channel;
@@ -247,7 +252,8 @@ public class TransportSftp extends SshTransport implements WalkTransport {
 				}
 
 				Collections.sort(packs, new Comparator<String>() {
-					public int compare(final String o1, final String o2) {
+					@Override
+               public int compare(final String o1, final String o2) {
 						return mtimes.get(o2).intValue()
 								- mtimes.get(o1).intValue();
 					}

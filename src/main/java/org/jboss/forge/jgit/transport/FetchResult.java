@@ -44,16 +44,20 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.jboss.forge.jgit.transport.FetchHeadRecord;
+import org.jboss.forge.jgit.transport.OperationResult;
+import org.jboss.forge.jgit.transport.Transport;
+
 /**
  * Final status after a successful fetch from a remote repository.
  *
- * @see Transport#fetch(org.eclipse.jgit.lib.ProgressMonitor, Collection)
+ * @see Transport#fetch(org.jboss.forge.jgit.lib.ProgressMonitor, Collection)
  */
 public class FetchResult extends OperationResult {
 	private final List<FetchHeadRecord> forMerge;

@@ -42,7 +42,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.fnmatch;
+package org.jboss.forge.jgit.fnmatch;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -50,8 +50,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.jgit.errors.InvalidPatternException;
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.errors.InvalidPatternException;
+import org.jboss.forge.jgit.internal.JGitText;
 
 final class GroupHead extends AbstractHead {
 	private final List<CharacterPattern> characterClasses;
@@ -159,7 +159,8 @@ final class GroupHead extends AbstractHead {
 			this.end = end;
 		}
 
-		public final boolean matches(char c) {
+		@Override
+      public final boolean matches(char c) {
 			return start <= c && c <= end;
 		}
 	}
@@ -167,7 +168,8 @@ final class GroupHead extends AbstractHead {
 	private static final class DigitPattern implements CharacterPattern {
 		static final GroupHead.DigitPattern INSTANCE = new DigitPattern();
 
-		public final boolean matches(char c) {
+		@Override
+      public final boolean matches(char c) {
 			return Character.isDigit(c);
 		}
 	}
@@ -175,7 +177,8 @@ final class GroupHead extends AbstractHead {
 	private static final class LetterPattern implements CharacterPattern {
 		static final GroupHead.LetterPattern INSTANCE = new LetterPattern();
 
-		public final boolean matches(char c) {
+		@Override
+      public final boolean matches(char c) {
 			return Character.isLetter(c);
 		}
 	}
@@ -183,7 +186,8 @@ final class GroupHead extends AbstractHead {
 	private static final class LowerPattern implements CharacterPattern {
 		static final GroupHead.LowerPattern INSTANCE = new LowerPattern();
 
-		public final boolean matches(char c) {
+		@Override
+      public final boolean matches(char c) {
 			return Character.isLowerCase(c);
 		}
 	}
@@ -191,7 +195,8 @@ final class GroupHead extends AbstractHead {
 	private static final class UpperPattern implements CharacterPattern {
 		static final GroupHead.UpperPattern INSTANCE = new UpperPattern();
 
-		public final boolean matches(char c) {
+		@Override
+      public final boolean matches(char c) {
 			return Character.isUpperCase(c);
 		}
 	}
@@ -199,7 +204,8 @@ final class GroupHead extends AbstractHead {
 	private static final class WhitespacePattern implements CharacterPattern {
 		static final GroupHead.WhitespacePattern INSTANCE = new WhitespacePattern();
 
-		public final boolean matches(char c) {
+		@Override
+      public final boolean matches(char c) {
 			return Character.isWhitespace(c);
 		}
 	}
@@ -211,7 +217,8 @@ final class GroupHead extends AbstractHead {
 			this.expectedCharacter = c;
 		}
 
-		public final boolean matches(char c) {
+		@Override
+      public final boolean matches(char c) {
 			return this.expectedCharacter == c;
 		}
 	}
@@ -221,7 +228,8 @@ final class GroupHead extends AbstractHead {
 
 		private static String punctCharacters = "-!\"#$%&'()*+,./:;<=>?@[\\]_`{|}~";
 
-		public boolean matches(char c) {
+		@Override
+      public boolean matches(char c) {
 			return punctCharacters.indexOf(c) != -1;
 		}
 	}

@@ -44,11 +44,12 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.errors;
+package org.jboss.forge.jgit.errors;
 
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.errors.InvalidPatternException;
+import org.jboss.forge.jgit.internal.JGitText;
 
 /**
  * Thrown when a pattern contains a character group which is open to the right

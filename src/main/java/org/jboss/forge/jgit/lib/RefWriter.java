@@ -44,16 +44,19 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Collection;
 import java.util.Map;
 
-import org.eclipse.jgit.storage.file.RefDirectory;
-import org.eclipse.jgit.util.RefList;
-import org.eclipse.jgit.util.RefMap;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefComparator;
+import org.jboss.forge.jgit.storage.file.RefDirectory;
+import org.jboss.forge.jgit.util.RefList;
+import org.jboss.forge.jgit.util.RefMap;
 
 /**
  * Writes out refs to the {@link Constants#INFO_REFS} and

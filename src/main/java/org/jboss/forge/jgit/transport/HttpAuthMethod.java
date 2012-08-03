@@ -41,10 +41,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
-import static org.eclipse.jgit.util.HttpSupport.HDR_AUTHORIZATION;
-import static org.eclipse.jgit.util.HttpSupport.HDR_WWW_AUTHENTICATE;
+import static org.jboss.forge.jgit.util.HttpSupport.HDR_AUTHORIZATION;
+import static org.jboss.forge.jgit.util.HttpSupport.HDR_WWW_AUTHENTICATE;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -58,7 +58,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Random;
 
-import org.eclipse.jgit.util.Base64;
+import org.jboss.forge.jgit.util.Base64;
 
 /**
  * Support class to populate user authentication data on a connection.

@@ -41,13 +41,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.blame;
+package org.jboss.forge.jgit.blame;
 
 import java.io.IOException;
 
-import org.eclipse.jgit.diff.RawText;
-import org.eclipse.jgit.lib.PersonIdent;
-import org.eclipse.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.blame.BlameGenerator;
+import org.jboss.forge.jgit.blame.BlameResult;
+import org.jboss.forge.jgit.diff.RawText;
+import org.jboss.forge.jgit.lib.PersonIdent;
+import org.jboss.forge.jgit.revwalk.RevCommit;
 
 /**
  * Collects line annotations for inspection by applications.

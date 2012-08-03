@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -51,7 +51,9 @@ import java.util.zip.CRC32;
 import java.util.zip.DataFormatException;
 import java.util.zip.Inflater;
 
-import org.eclipse.jgit.storage.pack.PackOutputStream;
+import org.jboss.forge.jgit.storage.dfs.DfsPackFile;
+import org.jboss.forge.jgit.storage.dfs.DfsPackKey;
+import org.jboss.forge.jgit.storage.pack.PackOutputStream;
 
 /** A cached slice of a {@link DfsPackFile}. */
 final class DfsBlock {

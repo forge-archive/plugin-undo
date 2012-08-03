@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.lib;
+package org.jboss.forge.jgit.lib;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -52,16 +52,21 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.List;
 
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.PersonIdent;
+
 /**
  * Mutable builder to construct a commit recording the state of a project.
  *
  * Applications should use this object when they need to manually construct a
  * commit and want precise control over its fields. For a higher level interface
- * see {@link org.eclipse.jgit.api.CommitCommand}.
+ * see {@link org.jboss.forge.jgit.api.CommitCommand}.
  *
- * To read a commit object, construct a {@link org.eclipse.jgit.revwalk.RevWalk}
- * and obtain a {@link org.eclipse.jgit.revwalk.RevCommit} instance by calling
- * {@link org.eclipse.jgit.revwalk.RevWalk#parseCommit(AnyObjectId)}.
+ * To read a commit object, construct a {@link org.jboss.forge.jgit.revwalk.RevWalk}
+ * and obtain a {@link org.jboss.forge.jgit.revwalk.RevCommit} instance by calling
+ * {@link org.jboss.forge.jgit.revwalk.RevWalk#parseCommit(AnyObjectId)}.
  */
 public class CommitBuilder {
 	private static final ObjectId[] EMPTY_OBJECTID_LIST = new ObjectId[0];

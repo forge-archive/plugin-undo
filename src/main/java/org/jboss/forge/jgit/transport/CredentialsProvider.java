@@ -42,11 +42,15 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.List;
 
-import org.eclipse.jgit.errors.UnsupportedCredentialItem;
+import org.jboss.forge.jgit.errors.UnsupportedCredentialItem;
+import org.jboss.forge.jgit.transport.CredentialItem;
+import org.jboss.forge.jgit.transport.CredentialsProvider;
+import org.jboss.forge.jgit.transport.URIish;
+import org.jboss.forge.jgit.transport.UsernamePasswordCredentialsProvider;
 
 /**
  * Provide credentials for use in connecting to Git repositories.

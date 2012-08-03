@@ -42,10 +42,10 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
 
-import static org.eclipse.jgit.storage.pack.StoredObjectRepresentation.PACK_DELTA;
-import static org.eclipse.jgit.storage.pack.StoredObjectRepresentation.PACK_WHOLE;
+import static org.jboss.forge.jgit.storage.pack.StoredObjectRepresentation.PACK_DELTA;
+import static org.jboss.forge.jgit.storage.pack.StoredObjectRepresentation.PACK_WHOLE;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -75,38 +75,38 @@ import java.util.concurrent.TimeUnit;
 import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
 
-import org.eclipse.jgit.errors.CorruptObjectException;
-import org.eclipse.jgit.errors.IncorrectObjectTypeException;
-import org.eclipse.jgit.errors.LargeObjectException;
-import org.eclipse.jgit.errors.MissingObjectException;
-import org.eclipse.jgit.errors.StoredObjectRepresentationNotAvailableException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.AsyncObjectSizeQueue;
-import org.eclipse.jgit.lib.BatchingProgressMonitor;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdOwnerMap;
-import org.eclipse.jgit.lib.ObjectLoader;
-import org.eclipse.jgit.lib.ObjectReader;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.lib.ThreadSafeProgressMonitor;
-import org.eclipse.jgit.revwalk.AsyncRevObjectQueue;
-import org.eclipse.jgit.revwalk.DepthWalk;
-import org.eclipse.jgit.revwalk.ObjectWalk;
-import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevFlag;
-import org.eclipse.jgit.revwalk.RevFlagSet;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.revwalk.RevSort;
-import org.eclipse.jgit.revwalk.RevTag;
-import org.eclipse.jgit.revwalk.RevTree;
-import org.eclipse.jgit.storage.file.PackIndex;
-import org.eclipse.jgit.storage.file.PackIndexWriter;
-import org.eclipse.jgit.util.BlockList;
-import org.eclipse.jgit.util.TemporaryBuffer;
+import org.jboss.forge.jgit.errors.CorruptObjectException;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.LargeObjectException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.errors.StoredObjectRepresentationNotAvailableException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.AsyncObjectSizeQueue;
+import org.jboss.forge.jgit.lib.BatchingProgressMonitor;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdOwnerMap;
+import org.jboss.forge.jgit.lib.ObjectLoader;
+import org.jboss.forge.jgit.lib.ObjectReader;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.ThreadSafeProgressMonitor;
+import org.jboss.forge.jgit.revwalk.AsyncRevObjectQueue;
+import org.jboss.forge.jgit.revwalk.DepthWalk;
+import org.jboss.forge.jgit.revwalk.ObjectWalk;
+import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevFlag;
+import org.jboss.forge.jgit.revwalk.RevFlagSet;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.revwalk.RevSort;
+import org.jboss.forge.jgit.revwalk.RevTag;
+import org.jboss.forge.jgit.revwalk.RevTree;
+import org.jboss.forge.jgit.storage.file.PackIndex;
+import org.jboss.forge.jgit.storage.file.PackIndexWriter;
+import org.jboss.forge.jgit.util.BlockList;
+import org.jboss.forge.jgit.util.TemporaryBuffer;
 
 /**
  * <p>

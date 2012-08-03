@@ -47,23 +47,25 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.errors.LockFailedException;
-import org.eclipse.jgit.errors.ConfigInvalidException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.StoredConfig;
-import org.eclipse.jgit.util.FS;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.RawParseUtils;
+import org.jboss.forge.jgit.errors.ConfigInvalidException;
+import org.jboss.forge.jgit.errors.LockFailedException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.StoredConfig;
+import org.jboss.forge.jgit.storage.file.FileSnapshot;
+import org.jboss.forge.jgit.storage.file.LockFile;
+import org.jboss.forge.jgit.util.FS;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.RawParseUtils;
 
 /**
  * The configuration file that is stored in the file of the file system.

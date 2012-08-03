@@ -41,11 +41,14 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.storage.pack.ObjectToPack;
-import org.eclipse.jgit.storage.pack.StoredObjectRepresentation;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.storage.file.LocalObjectRepresentation;
+import org.jboss.forge.jgit.storage.file.ObjectDirectory;
+import org.jboss.forge.jgit.storage.file.PackFile;
+import org.jboss.forge.jgit.storage.pack.ObjectToPack;
+import org.jboss.forge.jgit.storage.pack.StoredObjectRepresentation;
 
 /** {@link ObjectToPack} for {@link ObjectDirectory}. */
 class LocalObjectToPack extends ObjectToPack {

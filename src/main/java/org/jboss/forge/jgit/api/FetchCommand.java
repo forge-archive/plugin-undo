@@ -40,28 +40,30 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api;
+package org.jboss.forge.jgit.api;
 
 import java.net.URISyntaxException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRemoteException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.errors.NoRemoteRepositoryException;
-import org.eclipse.jgit.errors.NotSupportedException;
-import org.eclipse.jgit.errors.TransportException;
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.NullProgressMonitor;
-import org.eclipse.jgit.lib.ProgressMonitor;
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.transport.FetchResult;
-import org.eclipse.jgit.transport.RefSpec;
-import org.eclipse.jgit.transport.TagOpt;
-import org.eclipse.jgit.transport.Transport;
+import org.jboss.forge.jgit.api.FetchCommand;
+import org.jboss.forge.jgit.api.TransportCommand;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.InvalidRemoteException;
+import org.jboss.forge.jgit.api.errors.JGitInternalException;
+import org.jboss.forge.jgit.errors.NoRemoteRepositoryException;
+import org.jboss.forge.jgit.errors.NotSupportedException;
+import org.jboss.forge.jgit.errors.TransportException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.NullProgressMonitor;
+import org.jboss.forge.jgit.lib.ProgressMonitor;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.transport.FetchResult;
+import org.jboss.forge.jgit.transport.RefSpec;
+import org.jboss.forge.jgit.transport.TagOpt;
+import org.jboss.forge.jgit.transport.Transport;
 
 /**
  * A class used to execute a {@code Fetch} command. It has setters for all
@@ -107,11 +109,11 @@ public class FetchCommand extends TransportCommand<FetchCommand, FetchResult> {
 	 *         result
 	 * @throws InvalidRemoteException
 	 *             when called with an invalid remote uri
-	 * @throws org.eclipse.jgit.api.errors.TransportException
+	 * @throws org.jboss.forge.jgit.api.errors.TransportException
 	 *             when an error occurs during transport
 	 */
 	public FetchResult call() throws GitAPIException, InvalidRemoteException,
-			org.eclipse.jgit.api.errors.TransportException {
+			org.jboss.forge.jgit.api.errors.TransportException {
 		checkCallable();
 
 		try {
@@ -134,7 +136,7 @@ public class FetchCommand extends TransportCommand<FetchCommand, FetchResult> {
 			throw new InvalidRemoteException(MessageFormat.format(
 					JGitText.get().invalidRemote, remote), e);
 		} catch (TransportException e) {
-			throw new org.eclipse.jgit.api.errors.TransportException(
+			throw new org.jboss.forge.jgit.api.errors.TransportException(
 					e.getMessage(), e);
 		} catch (URISyntaxException e) {
 			throw new InvalidRemoteException(MessageFormat.format(

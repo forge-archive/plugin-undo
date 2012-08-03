@@ -41,11 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport;
+package org.jboss.forge.jgit.transport;
 
 import java.util.List;
 
-import org.eclipse.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.transport.UploadPackLogger;
+import org.jboss.forge.jgit.transport.UploadPackLoggerChain;
 
 /**
  * {@link UploadPackLogger} that delegates to a list of other loggers.

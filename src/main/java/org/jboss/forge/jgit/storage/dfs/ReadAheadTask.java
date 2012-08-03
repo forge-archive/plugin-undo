@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -53,7 +53,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import org.eclipse.jgit.util.IO;
+import org.jboss.forge.jgit.util.IO;
 
 final class ReadAheadTask implements Callable<Void> {
 	private final DfsBlockCache cache;
@@ -71,7 +71,8 @@ final class ReadAheadTask implements Callable<Void> {
 		this.futures = futures;
 	}
 
-	public Void call() {
+	@Override
+   public Void call() {
 		int idx = 0;
 		try {
 			synchronized (this) {
@@ -199,7 +200,8 @@ final class ReadAheadTask implements Callable<Void> {
 			}
 		}
 
-		public boolean cancel(boolean mayInterruptIfRunning) {
+		@Override
+      public boolean cancel(boolean mayInterruptIfRunning) {
 			Future<?> t = task;
 			if (t == null)
 				return false;
@@ -209,12 +211,14 @@ final class ReadAheadTask implements Callable<Void> {
 			return r;
 		}
 
-		public Void get() throws InterruptedException, ExecutionException {
+		@Override
+      public Void get() throws InterruptedException, ExecutionException {
 			latch.await();
 			return null;
 		}
 
-		public Void get(long timeout, TimeUnit unit)
+		@Override
+      public Void get(long timeout, TimeUnit unit)
 				throws InterruptedException, ExecutionException,
 				TimeoutException {
 			if (latch.await(timeout, unit))
@@ -223,7 +227,8 @@ final class ReadAheadTask implements Callable<Void> {
 				throw new TimeoutException();
 		}
 
-		public boolean isCancelled() {
+		@Override
+      public boolean isCancelled() {
 			State s = state;
 			if (s == State.DONE)
 				return false;
@@ -234,7 +239,8 @@ final class ReadAheadTask implements Callable<Void> {
 			return t != null ? t.isCancelled() : true;
 		}
 
-		public boolean isDone() {
+		@Override
+      public boolean isDone() {
 			return state == State.DONE;
 		}
 	}

@@ -41,12 +41,19 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.events;
+package org.jboss.forge.jgit.events;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.jboss.forge.jgit.events.ConfigChangedListener;
+import org.jboss.forge.jgit.events.IndexChangedListener;
+import org.jboss.forge.jgit.events.ListenerHandle;
+import org.jboss.forge.jgit.events.RefsChangedListener;
+import org.jboss.forge.jgit.events.RepositoryEvent;
+import org.jboss.forge.jgit.events.RepositoryListener;
 
 /** Manages a thread-safe list of {@link RepositoryListener}s. */
 public class ListenerList {

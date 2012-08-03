@@ -42,13 +42,17 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.pack;
+package org.jboss.forge.jgit.storage.pack;
 
-import org.eclipse.jgit.lib.AnyObjectId;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.revwalk.RevObject;
-import org.eclipse.jgit.transport.PackedObjectInfo;
+import org.jboss.forge.jgit.lib.AnyObjectId;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.revwalk.RevObject;
+import org.jboss.forge.jgit.storage.pack.DeltaCache;
+import org.jboss.forge.jgit.storage.pack.ObjectToPack;
+import org.jboss.forge.jgit.storage.pack.PackWriter;
+import org.jboss.forge.jgit.storage.pack.StoredObjectRepresentation;
+import org.jboss.forge.jgit.transport.PackedObjectInfo;
 
 /**
  * Per-object state used by {@link PackWriter}.

@@ -40,9 +40,10 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.submodule;
+package org.jboss.forge.jgit.submodule;
 
-import org.eclipse.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.submodule.SubmoduleStatusType;
 
 /**
  * Status class containing the type, path, and commit id of the submodule.

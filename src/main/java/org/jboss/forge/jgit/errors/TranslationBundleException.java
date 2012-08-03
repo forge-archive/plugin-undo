@@ -40,10 +40,12 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.errors;
+package org.jboss.forge.jgit.errors;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import org.jboss.forge.jgit.errors.TranslationBundleException;
 
 /**
  * Common base class for all translation bundle related exceptions.

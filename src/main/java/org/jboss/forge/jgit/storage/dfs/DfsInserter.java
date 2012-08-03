@@ -41,7 +41,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.dfs;
+package org.jboss.forge.jgit.storage.dfs;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -54,18 +54,18 @@ import java.util.zip.CRC32;
 import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
 
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectIdOwnerMap;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.storage.file.PackIndex;
-import org.eclipse.jgit.storage.file.PackIndexWriter;
-import org.eclipse.jgit.transport.PackedObjectInfo;
-import org.eclipse.jgit.util.BlockList;
-import org.eclipse.jgit.util.IO;
-import org.eclipse.jgit.util.NB;
-import org.eclipse.jgit.util.TemporaryBuffer;
-import org.eclipse.jgit.util.io.CountingOutputStream;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectIdOwnerMap;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.storage.file.PackIndex;
+import org.jboss.forge.jgit.storage.file.PackIndexWriter;
+import org.jboss.forge.jgit.transport.PackedObjectInfo;
+import org.jboss.forge.jgit.util.BlockList;
+import org.jboss.forge.jgit.util.IO;
+import org.jboss.forge.jgit.util.NB;
+import org.jboss.forge.jgit.util.TemporaryBuffer;
+import org.jboss.forge.jgit.util.io.CountingOutputStream;
 
 /** Inserts objects into the DFS. */
 public class DfsInserter extends ObjectInserter {

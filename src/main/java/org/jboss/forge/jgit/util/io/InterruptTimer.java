@@ -41,11 +41,11 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.util.io;
+package org.jboss.forge.jgit.util.io;
 
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
+import org.jboss.forge.jgit.internal.JGitText;
 
 /**
  * Triggers an interrupt on the calling thread if it doesn't complete a block.
@@ -176,7 +176,8 @@ public final class InterruptTimer {
 			callingThread = Thread.currentThread();
 		}
 
-		public synchronized void run() {
+		@Override
+      public synchronized void run() {
 			while (!terminated && callingThread.isAlive()) {
 				try {
 					if (0 < deadline) {

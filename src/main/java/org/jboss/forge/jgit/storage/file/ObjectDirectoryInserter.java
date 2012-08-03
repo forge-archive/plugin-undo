@@ -43,7 +43,7 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.storage.file;
+package org.jboss.forge.jgit.storage.file;
 
 import java.io.EOFException;
 import java.io.File;
@@ -58,14 +58,18 @@ import java.security.MessageDigest;
 import java.util.zip.Deflater;
 import java.util.zip.DeflaterOutputStream;
 
-import org.eclipse.jgit.errors.ObjectWritingException;
-import org.eclipse.jgit.lib.Config;
-import org.eclipse.jgit.lib.Constants;
-import org.eclipse.jgit.lib.ObjectId;
-import org.eclipse.jgit.lib.ObjectInserter;
-import org.eclipse.jgit.transport.PackParser;
-import org.eclipse.jgit.util.FileUtils;
-import org.eclipse.jgit.util.IO;
+import org.jboss.forge.jgit.errors.ObjectWritingException;
+import org.jboss.forge.jgit.lib.Config;
+import org.jboss.forge.jgit.lib.Constants;
+import org.jboss.forge.jgit.lib.ObjectId;
+import org.jboss.forge.jgit.lib.ObjectInserter;
+import org.jboss.forge.jgit.storage.file.FileObjectDatabase;
+import org.jboss.forge.jgit.storage.file.ObjectDirectory;
+import org.jboss.forge.jgit.storage.file.ObjectDirectoryPackParser;
+import org.jboss.forge.jgit.storage.file.WriteConfig;
+import org.jboss.forge.jgit.transport.PackParser;
+import org.jboss.forge.jgit.util.FileUtils;
+import org.jboss.forge.jgit.util.IO;
 
 /** Creates loose objects in a {@link ObjectDirectory}. */
 class ObjectDirectoryInserter extends ObjectInserter {

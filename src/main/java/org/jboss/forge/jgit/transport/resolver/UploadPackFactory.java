@@ -41,10 +41,13 @@
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.eclipse.jgit.transport.resolver;
+package org.jboss.forge.jgit.transport.resolver;
 
-import org.eclipse.jgit.lib.Repository;
-import org.eclipse.jgit.transport.UploadPack;
+import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.transport.UploadPack;
+import org.jboss.forge.jgit.transport.resolver.ServiceNotAuthorizedException;
+import org.jboss.forge.jgit.transport.resolver.ServiceNotEnabledException;
+import org.jboss.forge.jgit.transport.resolver.UploadPackFactory;
 
 /**
  * Create and configure {@link UploadPack} service instance.

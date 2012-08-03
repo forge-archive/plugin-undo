@@ -35,19 +35,20 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
-package org.eclipse.jgit.api.errors;
+package org.jboss.forge.jgit.api.errors;
 
 import java.text.MessageFormat;
 
-import org.eclipse.jgit.internal.JGitText;
-import org.eclipse.jgit.lib.Ref;
-import org.eclipse.jgit.lib.RefUpdate;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.internal.JGitText;
+import org.jboss.forge.jgit.lib.Ref;
+import org.jboss.forge.jgit.lib.RefUpdate;
 
 /**
  * Exception thrown when a command wants to update a ref but failed because
  * another process is accessing (or even also updating) the ref.
  *
- * @see org.eclipse.jgit.lib.RefUpdate.Result#LOCK_FAILURE
+ * @see org.jboss.forge.jgit.lib.RefUpdate.Result#LOCK_FAILURE
  */
 public class ConcurrentRefUpdateException extends GitAPIException {
 	private static final long serialVersionUID = 1L;
