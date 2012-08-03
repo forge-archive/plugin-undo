@@ -24,7 +24,7 @@ public class HistoryBranchUpdater
 
    public void updateHistoryBranch(@Observes final CommandExecuted command)
    {
-      if(command.getStatus() != CommandExecuted.Status.SUCCESS)
+      if (command.getStatus() != CommandExecuted.Status.SUCCESS)
          return;
 
       if (!UndoFacet.isReady)
@@ -52,6 +52,7 @@ public class HistoryBranchUpdater
             repo.checkout().setName(previousBranch).call();
             repo.stashApply().call();
             repo.stashDrop().call();
+
             project.getFacet(UndoFacet.class).historyBranchSize++;
          }
       }
