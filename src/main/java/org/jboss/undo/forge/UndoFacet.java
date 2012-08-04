@@ -23,13 +23,13 @@
 package org.jboss.undo.forge;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import org.jboss.forge.env.Configuration;
 import org.jboss.forge.git.GitFacet;
-import org.jboss.forge.git.GitUtils;
 import org.jboss.forge.jgit.api.Git;
 import org.jboss.forge.jgit.api.ResetCommand.ResetType;
 import org.jboss.forge.jgit.api.errors.CheckoutConflictException;
@@ -40,6 +40,7 @@ import org.jboss.forge.jgit.api.errors.RefAlreadyExistsException;
 import org.jboss.forge.jgit.api.errors.RefNotFoundException;
 import org.jboss.forge.jgit.lib.Ref;
 import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.RepositoryBuilder;
 import org.jboss.forge.jgit.revwalk.RevCommit;
 import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.facets.BaseFacet;
@@ -94,7 +95,7 @@ public class UndoFacet extends BaseFacet
       try
       {
          Git git = getGitObject();
-         for (Ref branch : GitUtils.getLocalBranches(git))
+         for (Ref branch : git.branchList().call())
             if (Strings.areEqual(Repository.shortenRefName(branch.getName()), getUndoBranchName()))
                return true;
 
@@ -110,7 +111,7 @@ public class UndoFacet extends BaseFacet
    {
       try
       {
-         return GitUtils.getLogForBranch(getGitObject(), getUndoBranchName(), historyBranchSize);
+         return getLogForBranch(getGitObject(), getUndoBranchName(), historyBranchSize);
       }
       catch (Exception e)
       {
@@ -128,7 +129,7 @@ public class UndoFacet extends BaseFacet
          if (historyBranchSize > 0)
          {
             repo = getGitObject();
-            previousBranch = GitUtils.getCurrentBranchName(repo);
+            previousBranch = repo.getRepository().getBranch();
 
             repo.add().addFilepattern(".").call();
             repo.commit().setMessage("FORGE PLUGIN-UNDO: preparing to undo a change").call();
@@ -174,26 +175,26 @@ public class UndoFacet extends BaseFacet
 
    private void ensureGitRepositoryIsInitialized(Git repo) throws GitAPIException
    {
-      List<Ref> branches = GitUtils.getLocalBranches(repo);
+      List<Ref> branches = repo.branchList().call();
       if (branches != null && branches.size() == 0)
       {
          FileResource<?> file = project.getProjectRoot().getChild(".gitignore").reify(FileResource.class);
          file.createNewFile();
-         GitUtils.add(repo, ".gitignore");
-         GitUtils.commit(repo, INITIAL_COMMIT_MSG);
+         repo.add().addFilepattern(".gitignore").call();
+         repo.commit().setMessage(INITIAL_COMMIT_MSG).call();
       }
    }
 
    private void commitAllToHaveCleanTree(Git repo) throws GitAPIException
    {
-      GitUtils.addAll(repo);
-      GitUtils.commit(repo, UNDO_INSTALL_COMMIT_MSG);
+      repo.add().addFilepattern(".").call();
+      repo.commit().setMessage(UNDO_INSTALL_COMMIT_MSG).call();
    }
 
    private void initializeHistoryBranch(Git git) throws IOException, RefAlreadyExistsException, RefNotFoundException,
             InvalidRefNameException, GitAPIException
    {
-      GitUtils.createBranch(git, getUndoBranchName());
+      git.branchCreate().setName(getUndoBranchName()).call();
    }
 
    public String getUndoBranchName()
@@ -212,8 +213,27 @@ public class UndoFacet extends BaseFacet
    {
       if (this.gitObject == null)
       {
-         this.gitObject = GitUtils.git(project.getProjectRoot());
+         RepositoryBuilder db = new RepositoryBuilder().findGitDir(project.getProjectRoot().getUnderlyingResourceObject());
+         this.gitObject = new Git(db.build());
       }
       return gitObject;
+   }
+
+   public static Iterable<RevCommit> getLogForBranch(final Git repo, String branchName, int maxCount)
+            throws GitAPIException,
+            IOException
+   {
+      if(maxCount <= 0)
+      {
+         return new ArrayList<RevCommit>();
+      }
+
+      String oldBranch = repo.getRepository().getBranch();
+      repo.checkout().setName(branchName).call();
+
+      Iterable<RevCommit> commits = repo.log().setMaxCount(maxCount).call();
+
+      repo.checkout().setName(oldBranch).call();
+      return commits;
    }
 }

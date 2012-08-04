@@ -23,15 +23,16 @@
 package org.jboss.undo.forge;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.forge.git.GitUtils;
 import org.jboss.forge.jgit.api.Git;
 import org.jboss.forge.jgit.lib.Ref;
 import org.jboss.forge.jgit.lib.Repository;
+import org.jboss.forge.jgit.lib.RepositoryBuilder;
 import org.jboss.forge.jgit.revwalk.RevCommit;
 import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.Project;
@@ -39,8 +40,6 @@ import org.jboss.forge.resources.DirectoryResource;
 import org.jboss.forge.resources.FileResource;
 import org.jboss.forge.test.AbstractShellTest;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
-import org.jboss.undo.forge.UndoFacet;
-import org.jboss.undo.forge.UndoPlugin;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -66,13 +65,13 @@ public class UndoFacetBasicTest extends AbstractShellTest
 
       getShell().execute("undo setup");
 
-      Git repo = GitUtils.git(project.getProjectRoot());
+      Git repo = getGit(project);
       Assert.assertNotNull("git is not initialized", repo);
 
       String undoBranch = project.getFacet(UndoFacet.class).getUndoBranchName();
 
       boolean containsUndoBranch = false;
-      for (Ref branch : GitUtils.getLocalBranches(repo))
+      for (Ref branch : repo.branchList().call())
          if (Strings.areEqual(Repository.shortenRefName(branch.getName()), undoBranch))
             containsUndoBranch = true;
 
@@ -86,13 +85,13 @@ public class UndoFacetBasicTest extends AbstractShellTest
 
       getShell().execute("undo setup --branchName custom");
 
-      Git repo = GitUtils.git(project.getProjectRoot());
+      Git repo = getGit(project);
       Assert.assertNotNull("git is not initialized", repo);
 
       String undoBranch = project.getFacet(UndoFacet.class).getUndoBranchName();
 
       boolean containsUndoBranch = false;
-      for (Ref branch : GitUtils.getLocalBranches(repo))
+      for (Ref branch : repo.branchList().call())
          if (Strings.areEqual(Repository.shortenRefName(branch.getName()), undoBranch))
             containsUndoBranch = true;
 
@@ -106,11 +105,10 @@ public class UndoFacetBasicTest extends AbstractShellTest
       getShell().execute("undo setup");
 
       String filename = "test1.txt";
-      String contents = "foo bar baz";
 
       String forgeUndoPrefix = "history-branch: changes introduced by the ";
       String commandName = "touch";
-      String command = commandName + " --filename " + filename + " --contents " + Strings.enquote(contents);
+      String command = commandName + " " + filename;
       getShell().execute(command);
 
       DirectoryResource dir = project.getProjectRoot();
@@ -137,14 +135,13 @@ public class UndoFacetBasicTest extends AbstractShellTest
       getShell().execute("undo setup");
 
       String filename = "test1.txt";
-      String contents = "foo bar baz";
       String subdir = "subdir";
 
       Assert.assertFalse("failed because subdir exists already", dir.getChildDirectory(subdir).exists());
 
       String forgeUndoPrefix = "history-branch: changes introduced by the ";
       String commandName = "touch";
-      String command = commandName + " --filename " + filename + " --contents " + Strings.enquote(contents);
+      String command = commandName + " " + filename;
       DirectoryResource subDirResource = dir.getOrCreateChildDirectory(subdir);
 
       getShell().setCurrentResource(subDirResource);
@@ -184,11 +181,10 @@ public class UndoFacetBasicTest extends AbstractShellTest
       getShell().execute("undo setup");
 
       String filename = "test1.txt";
-      String contents = "foo bar baz";
 
       String forgeUndoPrefix = "history-branch: changes introduced by the ";
       String commandName = "touch";
-      String command = commandName + " --filename " + filename + " --contents " + Strings.enquote(contents);
+      String command = commandName + " " + filename;
       getShell().execute(command);
 
       DirectoryResource dir = project.getProjectRoot();
@@ -242,11 +238,10 @@ public class UndoFacetBasicTest extends AbstractShellTest
       getShell().execute("undo setup");
 
       String filename = "test1.txt";
-      String contents = "foo bar baz";
 
       String forgeUndoPrefix = "history-branch: changes introduced by the ";
       String commandName = "touch";
-      String command = commandName + " --filename " + filename + " --contents " + Strings.enquote(contents);
+      String command = commandName + " " + filename;
       getShell().execute(command);
 
       DirectoryResource dir = project.getProjectRoot();
@@ -314,6 +309,13 @@ public class UndoFacetBasicTest extends AbstractShellTest
    private int getHistoryBranchSize(Project project)
    {
       return project.getFacet(UndoFacet.class).historyBranchSize;
+   }
+
+   private Git getGit(Project project) throws IOException
+   {
+      RepositoryBuilder db = new RepositoryBuilder().findGitDir(project.getProjectRoot().getUnderlyingResourceObject());
+      Git repo = new Git(db.build());
+      return repo;
    }
 
 }
