@@ -273,7 +273,18 @@ public class UndoFacetBasicTest extends AbstractShellTest
    }
 
    @Test
-   public void shouldNotCrashWhenCalledUndoRestoreInEmptyHistory() throws Exception
+   public void shouldNotCrashWhenCalledUndoRestoreInEmptyHistory1() throws Exception
+   {
+      Project project = initializeJavaProject();
+
+      getShell().execute("undo setup");
+
+      boolean isRestored = project.getFacet(UndoFacet.class).undoLastChange();
+      Assert.assertFalse("should not be able to undo last commit", isRestored);
+   }
+
+   @Test
+   public void shouldNotCrashWhenCalledUndoRestoreInEmptyHistory2() throws Exception
    {
       // init
       // touch plugin file1

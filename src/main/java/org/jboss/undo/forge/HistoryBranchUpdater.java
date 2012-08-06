@@ -70,7 +70,7 @@ public class HistoryBranchUpdater
       String enquotedCommand = Strings.enquote(
                Strings.areEqual(cmdParentName, cmdName) ? cmdName : cmdParentName + " " + cmdName
                );
-      return "history-branch: changes introduced by the " + enquotedCommand + " command";
+      return UndoFacet.UNDO_STORE_COMMIT_MSG_PREFIX + enquotedCommand + " command";
    }
 
    private boolean validRequirements(Project project, final CommandExecuted command)

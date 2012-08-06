@@ -62,6 +62,7 @@ public class UndoFacet extends BaseFacet
    public static final String HISTORY_BRANCH_CONFIG_KEY = "forge-undo-branch";
    public static final String INITIAL_COMMIT_MSG = "repository initial commit";
    public static final String UNDO_INSTALL_COMMIT_MSG = "FORGE PLUGIN-UNDO: initial commit";
+   public static final String UNDO_STORE_COMMIT_MSG_PREFIX = "history-branch: changes introduced by the ";
    public static boolean isReady = false;
    public int historyBranchSize = 0;
    private Git gitObject = null;

@@ -27,14 +27,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.revwalk.RevCommit;
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.forge.jgit.revwalk.RevCommit;
 import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.Project;
 import org.jboss.forge.resources.DirectoryResource;
 import org.jboss.forge.resources.FileResource;
-import org.jboss.forge.resources.Resource;
 import org.jboss.forge.test.AbstractShellTest;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.After;
@@ -55,7 +53,6 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
                UndoFacet.class.getPackage());
    }
 
-   private static final String FORGE_UNDO_PREFIX = "history-branch: changes introduced by the ";
    private static final String COMMAND_NAME = "touch";
 
    private static Project myProject = null;
@@ -86,37 +83,55 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
    public void shouldAddTwoChangesIntoUndoBranch() throws Exception
    {
       String[] filenames = { "test1.txt", "test2.txt" };
-      String[] contents = { "contents1", "contents2" };
 
-      executeForgeCommand(filenames[0], contents[0]);
-      executeForgeCommand(filenames[1], contents[1]);
-      Git git = myProject.getFacet(UndoFacet.class).getGitObject();
-      git.add().addFilepattern(".").call();
+      executeForgeCommand(filenames[0]);
+      executeForgeCommand(filenames[1]);
+      // TODO:
+      // verify test1.txt exists
+      // verify test2.txt exists
 
-//      for(Resource<?> each : dir.listResources())
-//         System.err.println(each.getFullyQualifiedName());
-//
-//      File fileOne = new File(dir.getFullyQualifiedName() + filenames[0]);
-//      Assert.assertTrue("first file should also exist", fileOne.exists());
+      // for (Resource<?> each : dir.listResources())
+      // System.err.println(each.getFullyQualifiedName());
+
+      // File fileOne = new File(dir.getFullyQualifiedName() + filenames[0]);
+      // Assert.assertTrue("first file should also exist", fileOne.exists());
+
    }
 
-//   @Test
+   @Test
    public void shouldUndoTwoLastChanges() throws Exception
    {
       String[] filenames = { "test1.txt", "test2.txt" };
-      String[] contents = { "contents1", "contents2" };
 
-      executeForgeCommand(filenames[0], contents[0]);
-      executeForgeCommand(filenames[1], contents[1]);
+      executeForgeCommand(filenames[0]);
+      executeForgeCommand(filenames[1]);
 
       undoRestore(filenames[1]);
+      // TODO:
+      // verify test1.txt exists
+      // verify test2.txt doesn't exist
+
       undoRestore(filenames[0]);
+      // TODO:
+      // verify test1.txt doesn't exist
+      // verify test2.txt doesn't exist
    }
 
    @Test
    public void shouldBeAbleToAddAddRevertAdd() throws Exception
    {
+      String[] filenames = { "test1.txt", "test2.txt", "test3.txt" };
 
+      executeForgeCommand(filenames[0]);
+      executeForgeCommand(filenames[1]);
+
+      undoRestore(filenames[1]);
+
+      executeForgeCommand(filenames[2]);
+      // TODO:
+      // verify test1.txt exists
+      // verify test2.txt doesn't exist
+      // verify test3.txt exists
    }
 
    // helper methods
@@ -134,7 +149,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       return commitMsgs;
    }
 
-   private void executeForgeCommand(String filename, String contents)
+   private void executeForgeCommand(String filename)
             throws Exception
    {
       file = dir.getChild(filename).reify(FileResource.class);
@@ -155,8 +170,9 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
 
       if (!commitMsgs.isEmpty())
       {
-         Assert.assertEquals("commit messages do not match", FORGE_UNDO_PREFIX + Strings.enquote(COMMAND_NAME) +
-                  " command",
+         Assert.assertEquals("commit messages do not match",
+                  UndoFacet.UNDO_STORE_COMMIT_MSG_PREFIX + Strings.enquote(COMMAND_NAME) +
+                           " command",
                   commitMsgs.get(0));
       }
    }
@@ -179,7 +195,9 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
 
       if (!commitMsgs.isEmpty())
       {
-         Assert.assertEquals(UndoFacet.UNDO_INSTALL_COMMIT_MSG, commitMsgs.get(0));
+         Assert.assertEquals("commit messages do not match",
+                  UndoFacet.UNDO_STORE_COMMIT_MSG_PREFIX + Strings.enquote(COMMAND_NAME) + " command",
+                  commitMsgs.get(0));
       }
    }
 
@@ -193,6 +211,4 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
    {
       return myProject.getFacet(UndoFacet.class).historyBranchSize;
    }
-
-
 }
