@@ -25,8 +25,8 @@ package org.jboss.undo.forge;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
-import org.eclipse.jgit.revwalk.RevCommit;
 import org.jboss.forge.env.Configuration;
+import org.jboss.forge.jgit.revwalk.RevCommit;
 import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.Project;
 import org.jboss.forge.project.facets.events.InstallFacets;
