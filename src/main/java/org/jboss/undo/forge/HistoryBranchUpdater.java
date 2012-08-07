@@ -1,5 +1,8 @@
 package org.jboss.undo.forge;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.BeanManager;
 import javax.inject.Inject;
@@ -16,6 +19,8 @@ import org.jboss.forge.shell.events.CommandExecuted;
 @Singleton
 public class HistoryBranchUpdater
 {
+   private static final List<String> IGNORED_COMMANDS = Arrays.asList("new-project", "cd", "clear", "wait");
+
    @Inject
    private BeanManager beanManager;
 
@@ -78,16 +83,7 @@ public class HistoryBranchUpdater
       if (project == null)
          return false;
 
-      if (Strings.areEqual(command.getCommand().getName(), "new-project"))
-         return false;
-
-      if (Strings.areEqual(command.getCommand().getName(), "cd"))
-         return false;
-
-      if (Strings.areEqual(command.getCommand().getName(), "clear"))
-         return false;
-
-      if (Strings.areEqual(command.getCommand().getName(), "wait"))
+      if (IGNORED_COMMANDS.contains(command.getCommand().getName()))
          return false;
 
       if (Strings.areEqual(command.getCommand().getParent().getName(), "undo"))
