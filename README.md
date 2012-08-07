@@ -55,7 +55,9 @@ Support for undoing changes separately coming from different branches is planned
 
 ## Working with git
 
-Git repository is managed using JGit. plugin-undo has a dependency on forge-git-tools which provide JGit transitively. This way the plugin uses the same version of the JGit as forge.
+~~Git repository is managed using JGit. plugin-undo has a dependency on forge-git-tools which provide JGit transitively. This way the plugin uses the same version of the JGit as forge.~~
+
+Due to the bug in the jgit-2.0, which breaks the plugin-undo functionality, a custom version of jgit-2.1-snapshot with the bugfix is provided with this plugin. This way, plugin-undo does not use jgit version provided by forge. Also, all references to the GitUtils class from forge-git-tools are currently removed. This is a temprorary measure until jgit-2.1 is released. (planned release date: 28 September 2012)
 
 
 # Changelog
