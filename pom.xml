@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.jboss.undo.forge</groupId>
   <artifactId>plugin-undo</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2-SNAPSHOT</version>
 
   <properties>
     <forge.api.version>1.0.6-SNAPSHOT</forge.api.version>
@@ -120,7 +120,7 @@
     <connection>scm:git:git://github.com/forge/plugin-undo.git</connection>
     <developerConnection>scm:git:git@github.com:forge/plugin-undo.git</developerConnection>
     <url>http://github.com/forge/plugin-undo</url>
-    <tag>plugin-undo-1.0.1</tag>
+    <tag>HEAD</tag>
   </scm>
 
 </project>
