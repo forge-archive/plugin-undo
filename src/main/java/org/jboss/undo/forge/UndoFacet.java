@@ -66,6 +66,7 @@ public class UndoFacet extends BaseFacet
    public static final String UNDO_INSTALL_COMMIT_MSG = "FORGE PLUGIN-UNDO: initial commit";
    public static final String UNDO_STORE_COMMIT_MSG_PREFIX = "history-branch: changes introduced by the ";
    public static final String DEFAULT_NOTE = "*WT";
+   public static final String DELETED_COMMIT_NOTE = "*DELETED";
    public static boolean isReady = false;
    public int historyBranchSize = 0;
    private Git gitObject = null;
@@ -197,7 +198,7 @@ public class UndoFacet extends BaseFacet
          repo.reset().setMode(ResetType.HARD).setRef("HEAD~1").call();
          repo.checkout().setName(previousBranch).call();
 
-         // TODO: figure out how to delete 'commitToRevert' in the middle of the history branch in jgit
+         markDeleted(commitToRevert);
 
          historyBranchSize--;
       }
@@ -219,6 +220,30 @@ public class UndoFacet extends BaseFacet
       return true;
    }
 
+   private void markDeleted(RevCommit commitToRevert) throws IOException, GitAPIException
+   {
+      Git repo = getGitObject();
+      repo.notesAdd().setObjectId(commitToRevert).setMessage(DELETED_COMMIT_NOTE).call();
+   }
+
+   private boolean isMarkDeleted(RevCommit commitToCheck) throws IOException, GitAPIException
+   {
+      Git repo = getGitObject();
+
+      Note note = repo.notesShow().setObjectId(commitToCheck).call();
+      if(note == null)
+         return false;
+
+      ObjectLoader noteBlob = repo.getRepository().open(note.getData());
+      BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
+      String noteMsg = reader.readLine();
+
+      if (Strings.areEqual(DELETED_COMMIT_NOTE, noteMsg))
+         return true;
+
+      return false;
+   }
+
    private RevCommit findLatestCommitWithGivenNote(String msg) throws MissingObjectException,
             IncorrectObjectTypeException,
             IOException, RefAlreadyExistsException, RefNotFoundException, InvalidRefNameException,
@@ -236,6 +261,9 @@ public class UndoFacet extends BaseFacet
       for (RevCommit commit = undoBranchHEAD; commit != null && size > 0; commit = revWalk.next(), size--)
       {
          Note note = repo.notesShow().setObjectId(commit).call();
+         if(note == null)
+            continue;
+
          ObjectLoader noteBlob = repo.getRepository().open(note.getData());
          BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
          String noteMsg = reader.readLine();
