@@ -21,7 +21,7 @@ import org.jboss.forge.jgit.revwalk.RevWalk;
 public class RepositoryCommitsMonitor
 {
    private Map<String, Integer> commitCounts = new HashMap<String, Integer>();
-   private RepositoryCommitState currentStatus = RepositoryCommitState.NO_CHANGES;
+   private RepositoryCommitState currentState = RepositoryCommitState.NO_CHANGES;
    private String branchWithOneNewCommit = "";
 
    public enum RepositoryCommitState{
@@ -48,8 +48,8 @@ public class RepositoryCommitsMonitor
       if(commitCounts.isEmpty()) // first check
       {
          commitCounts = newCommitCounts;
-         currentStatus = RepositoryCommitState.MULTIPLE_CHANGED_COMMITS;
-         return currentStatus;
+         currentState = RepositoryCommitState.MULTIPLE_CHANGED_COMMITS;
+         return currentState;
       }
 
       if(localBranches.size() == commitCounts.size() + 1)
@@ -58,15 +58,15 @@ public class RepositoryCommitsMonitor
          // TODO: add support for this in the future
 
          commitCounts = newCommitCounts;
-         currentStatus = RepositoryCommitState.MULTIPLE_CHANGED_COMMITS;
-         return currentStatus;
+         currentState = RepositoryCommitState.MULTIPLE_CHANGED_COMMITS;
+         return currentState;
       }
 
       if(newCommitCounts.size() != commitCounts.size()) // compare number of branches
       {
          commitCounts = newCommitCounts;
-         currentStatus = RepositoryCommitState.MULTIPLE_CHANGED_COMMITS;
-         return currentStatus;
+         currentState = RepositoryCommitState.MULTIPLE_CHANGED_COMMITS;
+         return currentState;
       }
       else // same number of branches. Check the number of commits on each branch
       {
@@ -83,28 +83,28 @@ public class RepositoryCommitsMonitor
             else if(diff < 0 || diff > 1)
             {
                commitCounts = newCommitCounts;
-               currentStatus = RepositoryCommitState.MULTIPLE_CHANGED_COMMITS;
-               return currentStatus;
+               currentState = RepositoryCommitState.MULTIPLE_CHANGED_COMMITS;
+               return currentState;
             }
          }
 
          switch (branchesWithOneNewCommit.size())
          {
          case 0:
-            currentStatus = RepositoryCommitState.NO_CHANGES;
+            currentState = RepositoryCommitState.NO_CHANGES;
             break;
          case 1:
             this.branchWithOneNewCommit = branchesWithOneNewCommit.iterator().next();
-            currentStatus = RepositoryCommitState.ONE_NEW_COMMIT;
+            currentState = RepositoryCommitState.ONE_NEW_COMMIT;
             break;
          default:
-            currentStatus = RepositoryCommitState.MULTIPLE_CHANGED_COMMITS;
+            currentState = RepositoryCommitState.MULTIPLE_CHANGED_COMMITS;
             break;
          }
 
          // replace commitCounts
          commitCounts = newCommitCounts;
-         return currentStatus;
+         return currentState;
       }
    }
 
@@ -119,9 +119,9 @@ public class RepositoryCommitsMonitor
       return ret;
    }
 
-   public RepositoryCommitState getCurrentStatus()
+   public RepositoryCommitState getCurrentState()
    {
-      return currentStatus;
+      return currentState;
    }
 
    public String getBranchWithOneNewCommit()

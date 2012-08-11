@@ -16,7 +16,9 @@
 
 package org.jboss.undo.forge;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,16 +34,20 @@ import org.jboss.forge.jgit.api.errors.InvalidRefNameException;
 import org.jboss.forge.jgit.api.errors.MultipleParentsNotAllowedException;
 import org.jboss.forge.jgit.api.errors.RefAlreadyExistsException;
 import org.jboss.forge.jgit.api.errors.RefNotFoundException;
+import org.jboss.forge.jgit.lib.ObjectLoader;
 import org.jboss.forge.jgit.lib.Ref;
 import org.jboss.forge.jgit.lib.Repository;
 import org.jboss.forge.jgit.lib.RepositoryBuilder;
+import org.jboss.forge.jgit.notes.Note;
 import org.jboss.forge.jgit.revwalk.RevCommit;
+import org.jboss.forge.jgit.revwalk.RevWalk;
 import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.facets.BaseFacet;
 import org.jboss.forge.resources.FileResource;
 import org.jboss.forge.shell.plugins.Alias;
 import org.jboss.forge.shell.plugins.Help;
 import org.jboss.forge.shell.plugins.RequiresFacet;
+import org.jboss.undo.forge.RepositoryCommitsMonitor.RepositoryCommitState;
 
 /**
  * @author <a href="mailto:jevgeni.zelenkov@gmail.com">Jevgeni Zelenkov</a>
@@ -57,9 +63,11 @@ public class UndoFacet extends BaseFacet
    public static final String INITIAL_COMMIT_MSG = "repository initial commit";
    public static final String UNDO_INSTALL_COMMIT_MSG = "FORGE PLUGIN-UNDO: initial commit";
    public static final String UNDO_STORE_COMMIT_MSG_PREFIX = "history-branch: changes introduced by the ";
+   public static final String DEFAULT_NOTE = "*WT";
    public static boolean isReady = false;
    public int historyBranchSize = 0;
    private Git gitObject = null;
+   private final RepositoryCommitsMonitor commitsMonitor = new RepositoryCommitsMonitor();
 
    @Inject
    Configuration config;
@@ -168,6 +176,15 @@ public class UndoFacet extends BaseFacet
       }
    }
 
+   public boolean reset()
+   {
+      // TODO: add history-branch reset functionality
+      // should remove all commits from historyBranch.
+      // reset().head~[number of commits]
+
+      return false;
+   }
+
    private void ensureGitRepositoryIsInitialized(Git repo) throws GitAPIException
    {
       List<Ref> branches = repo.branchList().call();
@@ -190,6 +207,43 @@ public class UndoFacet extends BaseFacet
             InvalidRefNameException, GitAPIException
    {
       git.branchCreate().setName(getUndoBranchName()).call();
+   }
+
+   public RepositoryCommitState updateCommitCounters() throws IOException, GitAPIException
+   {
+      return commitsMonitor.updateCommitCounters(getGitObject());
+   }
+
+   public RepositoryCommitState getCommitMonitorState()
+   {
+      return commitsMonitor.getCurrentState();
+   }
+
+   public String getCommitMonitorBranchWithOneNewCommit()
+   {
+      return commitsMonitor.getBranchWithOneNewCommit();
+   }
+
+   public void changeWorkingTreeNotesTo(String branchWithNewCommit) throws IOException, GitAPIException
+   {
+      Git git = getGitObject();
+      RevWalk revWalk = new RevWalk(git.getRepository());
+      List<Note> notes = git.notesList().call();
+
+      for(Note note : notes)
+      {
+         ObjectLoader noteBlob = git.getRepository().open(note.getData());
+         BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
+         String noteMsg = reader.readLine();
+
+         if(noteMsg == UndoFacet.DEFAULT_NOTE)
+         {
+            RevCommit commitWithDefaultNote = revWalk.parseCommit(note);
+            git.notesRemove().setObjectId(commitWithDefaultNote).call();
+
+            git.notesAdd().setObjectId(commitWithDefaultNote).setMessage(branchWithNewCommit).call();
+         }
+      }
    }
 
    public String getUndoBranchName()

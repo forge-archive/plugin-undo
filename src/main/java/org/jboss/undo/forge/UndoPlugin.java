@@ -91,4 +91,16 @@ public class UndoPlugin implements Plugin
       else
          ShellMessages.info(out, "nothing changed.");
    }
+
+   @Command(value = "reset", help = "remove all stored changesets in the history branch")
+   public void resetCommand(PipeOut out) throws Exception
+   {
+      boolean isReset = project.getFacet(UndoFacet.class).reset();
+
+      if (isReset)
+         ShellMessages.success(out, "history branch was reset successfully.");
+      else
+         ShellMessages.info(out, "nothing changed.");
+   }
+
 }
