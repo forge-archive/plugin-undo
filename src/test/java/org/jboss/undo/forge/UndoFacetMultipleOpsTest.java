@@ -129,6 +129,67 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       verifyCommitMsgs();
    }
 
+   @Test
+   public void shouldUndoLastChangeOnMasterBranchAfterCommit() throws Exception
+   {
+      // forge command
+      // git-commit
+      // restore (from [note]master)
+   }
+
+   @Test
+   public void shouldUndoTwoChangesOnMasterBranchAfterCommit() throws Exception
+   {
+      // forge command
+      // forge command
+      // git-commit
+      // restore (from [note]master)
+      // restore (from [note]master)
+   }
+
+   @Test
+   public void shouldUndoOneChangeOnWTAndOneOnMasterBranch() throws Exception
+   {
+      // forge command
+      // git-commit
+      // forge command
+      // restore (from [note]*WT)
+      // restore (from [note]master)
+   }
+
+   @Test
+   public void shouldUndoChangeFrom() throws Exception
+   {
+      // forge command
+      // git-commit
+      // forge command
+      // restore (from [note]*WT)
+      // restore (from [note]master)
+   }
+
+   @Test
+   public void shouldNotRestoreAnythingFromNewBranch() throws Exception
+   {
+      // forge command
+      // git-commit
+      // git-branch new-branch
+      // switch to new-branch
+      // restore should return false
+   }
+
+   @Test
+   public void shouldRestoreOneChangeAndFalse() throws Exception
+   {
+      // forge command
+      // git-commit
+      // git-branch new-branch
+      // switch to new-branch
+      // forge command
+      // git commit
+      // restore (from [note]new-branch)
+      // restore should return false
+   }
+
    // helper methods
    private void executeForgeCommand(String filename)
             throws Exception

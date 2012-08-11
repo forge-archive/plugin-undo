@@ -34,6 +34,8 @@ import org.jboss.forge.jgit.api.errors.InvalidRefNameException;
 import org.jboss.forge.jgit.api.errors.MultipleParentsNotAllowedException;
 import org.jboss.forge.jgit.api.errors.RefAlreadyExistsException;
 import org.jboss.forge.jgit.api.errors.RefNotFoundException;
+import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
+import org.jboss.forge.jgit.errors.MissingObjectException;
 import org.jboss.forge.jgit.lib.ObjectLoader;
 import org.jboss.forge.jgit.lib.Ref;
 import org.jboss.forge.jgit.lib.Repository;
@@ -125,34 +127,79 @@ public class UndoFacet extends BaseFacet
    public boolean undoLastChange()
    {
       Git repo = null;
+
+      try
+      {
+         checkAndUpdateRepositoryForNewCommits();
+
+         if (historyBranchSize > 0)
+         {
+            repo = getGitObject();
+
+            RevCommit commitWithDefaultNote = findLatestCommitWithGivenNote(DEFAULT_NOTE);
+
+            if (commitWithDefaultNote != null) // commit with default note is found!
+            {
+               boolean result = undoGivenCommit(commitWithDefaultNote);
+               if (!result)
+                  return result;
+
+               return true;
+            }
+            else
+            // no commits with default note are found
+            {
+               // try to look for commits with the current branch name
+               RevCommit commitWithCurrentBranchNote = findLatestCommitWithGivenNote(repo.getRepository().getBranch());
+
+               if (commitWithCurrentBranchNote != null) // commit with the current branch name is found!
+               {
+                  boolean result = undoGivenCommit(commitWithCurrentBranchNote);
+                  if (!result)
+                     return result;
+
+                  return true;
+               }
+               else
+               // no commits are found for restoring
+               {
+                  return false;
+               }
+            }
+         }
+         return false;
+      }
+      catch (Exception e)
+      {
+         throw new RuntimeException("Failed to undo last change [" + e.getMessage() + "]", e.getCause());
+      }
+   }
+
+   private boolean undoGivenCommit(RevCommit commitToRevert) throws IOException, GitAPIException
+   {
+      Git repo = getGitObject();
       String previousBranch = "";
 
       try
       {
-         if (historyBranchSize > 0)
-         {
-            repo = getGitObject();
-            previousBranch = repo.getRepository().getBranch();
+         previousBranch = repo.getRepository().getBranch();
+         repo.add().addFilepattern(".").call();
+         repo.commit().setMessage("FORGE PLUGIN-UNDO: preparing to undo a change").call();
+         repo.checkout().setName(getUndoBranchName()).call();
+         RevCommit reverted = repo.revert().include(commitToRevert).call();
+         if (reverted == null)
+            throw new RuntimeException("failed to revert a commit on a history branch");
 
-            repo.add().addFilepattern(".").call();
-            repo.commit().setMessage("FORGE PLUGIN-UNDO: preparing to undo a change").call();
-            Ref historyBranchRef = repo.checkout().setName(getUndoBranchName()).call();
-            RevCommit reverted = repo.revert().include(historyBranchRef).call();
-            if (reverted == null)
-               throw new RuntimeException("failed to revert a commit on a history branch");
+         repo.checkout().setName(previousBranch).call();
+         repo.cherryPick().include(reverted).call();
 
-            repo.checkout().setName(previousBranch).call();
-            repo.cherryPick().include(reverted).call();
+         repo.checkout().setName(getUndoBranchName()).call();
+         repo.reset().setMode(ResetType.HARD).setRef("HEAD~1").call();
+         repo.checkout().setName(previousBranch).call();
 
-            repo.checkout().setName(getUndoBranchName()).call();
-            repo.reset().setMode(ResetType.HARD).setRef("HEAD~2").call();
-            repo.checkout().setName(previousBranch).call();
+         // TODO: figure out how to delete 'commitToRevert' in the middle of the history branch in jgit
 
-            historyBranchSize--;
-            return true;
-         }
-
-         return false;
+         historyBranchSize--;
       }
       catch (MultipleParentsNotAllowedException e)
       {
@@ -167,13 +214,40 @@ public class UndoFacet extends BaseFacet
                      "Failed during revert command (MultipleParentsNotAllowed). Then failed trying to rollback changes ["
                               + e.getMessage() + "]", e2.getCause());
          }
-
          return false;
       }
-      catch (Exception e)
+      return true;
+   }
+
+   private RevCommit findLatestCommitWithGivenNote(String msg) throws MissingObjectException,
+            IncorrectObjectTypeException,
+            IOException, RefAlreadyExistsException, RefNotFoundException, InvalidRefNameException,
+            CheckoutConflictException, GitAPIException
+   {
+      Git repo = getGitObject();
+      int size = historyBranchSize;
+      RevCommit commitWithGivenNote = null;
+
+      RevWalk revWalk = new RevWalk(repo.getRepository());
+
+      RevCommit undoBranchHEAD = revWalk.parseCommit(getUndoBranchRef().getObjectId());
+      revWalk.markStart(undoBranchHEAD);
+
+      for (RevCommit commit = undoBranchHEAD; commit != null && size > 0; commit = revWalk.next(), size--)
       {
-         throw new RuntimeException("Failed to undo last change [" + e.getMessage() + "]", e.getCause());
+         Note note = repo.notesShow().setObjectId(commit).call();
+         ObjectLoader noteBlob = repo.getRepository().open(note.getData());
+         BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
+         String noteMsg = reader.readLine();
+
+         if (Strings.areEqual(msg, noteMsg))
+         {
+            commitWithGivenNote = commit;
+            break;
+         }
       }
+
+      return commitWithGivenNote;
    }
 
    public boolean reset()
@@ -209,9 +283,26 @@ public class UndoFacet extends BaseFacet
       git.branchCreate().setName(getUndoBranchName()).call();
    }
 
-   public RepositoryCommitState updateCommitCounters() throws IOException, GitAPIException
+   public RepositoryCommitState checkAndUpdateRepositoryForNewCommits() throws IOException, GitAPIException
    {
-      return commitsMonitor.updateCommitCounters(getGitObject());
+      RepositoryCommitState state = commitsMonitor.updateCommitCounters(getGitObject());
+
+      switch (state)
+      {
+      case NO_CHANGES:
+         break;
+      case ONE_NEW_COMMIT:
+         String branchWithNewCommit = getCommitMonitorBranchWithOneNewCommit();
+         changeWorkingTreeNotesTo(branchWithNewCommit);
+         break;
+      case MULTIPLE_CHANGED_COMMITS:
+         reset();
+         break;
+      default:
+         throw new RuntimeException("Unknown RepositoryCommitState: " + state.toString());
+      }
+
+      return state;
    }
 
    public RepositoryCommitState getCommitMonitorState()
@@ -230,13 +321,13 @@ public class UndoFacet extends BaseFacet
       RevWalk revWalk = new RevWalk(git.getRepository());
       List<Note> notes = git.notesList().call();
 
-      for(Note note : notes)
+      for (Note note : notes)
       {
          ObjectLoader noteBlob = git.getRepository().open(note.getData());
          BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
          String noteMsg = reader.readLine();
 
-         if(noteMsg == UndoFacet.DEFAULT_NOTE)
+         if (Strings.areEqual(noteMsg, UndoFacet.DEFAULT_NOTE))
          {
             RevCommit commitWithDefaultNote = revWalk.parseCommit(note);
             git.notesRemove().setObjectId(commitWithDefaultNote).call();
@@ -262,7 +353,8 @@ public class UndoFacet extends BaseFacet
    {
       if (this.gitObject == null)
       {
-         RepositoryBuilder db = new RepositoryBuilder().findGitDir(project.getProjectRoot().getUnderlyingResourceObject());
+         RepositoryBuilder db = new RepositoryBuilder().findGitDir(project.getProjectRoot()
+                  .getUnderlyingResourceObject());
          this.gitObject = new Git(db.build());
       }
       return gitObject;
@@ -272,7 +364,7 @@ public class UndoFacet extends BaseFacet
             throws GitAPIException,
             IOException
    {
-      if(maxCount <= 0)
+      if (maxCount <= 0)
       {
          return new ArrayList<RevCommit>();
       }
