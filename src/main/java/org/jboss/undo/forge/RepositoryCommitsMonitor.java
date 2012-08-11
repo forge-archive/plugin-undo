@@ -17,12 +17,14 @@ import org.jboss.forge.jgit.lib.Ref;
 import org.jboss.forge.jgit.lib.Repository;
 import org.jboss.forge.jgit.revwalk.RevCommit;
 import org.jboss.forge.jgit.revwalk.RevWalk;
+import org.jboss.forge.parser.java.util.Strings;
 
 public class RepositoryCommitsMonitor
 {
    private Map<String, Integer> commitCounts = new HashMap<String, Integer>();
    private RepositoryCommitState currentState = RepositoryCommitState.NO_CHANGES;
    private String branchWithOneNewCommit = "";
+   private String undoBranchName = "";
 
    public enum RepositoryCommitState{
       NO_CHANGES, ONE_NEW_COMMIT, MULTIPLE_CHANGED_COMMITS
@@ -39,6 +41,9 @@ public class RepositoryCommitsMonitor
       Map<String, Integer> newCommitCounts = new HashMap<String, Integer>();
       for(Ref branch : localBranches)
       {
+         if(Strings.areEqual(Repository.shortenRefName(branch.getName()), undoBranchName))
+            continue;
+
          RevWalk revWalk = new RevWalk(repo.getRepository());
          revWalk.markStart(revWalk.parseCommit(branch.getObjectId()));
          int commits = countCommits(revWalk.iterator());
@@ -52,7 +57,7 @@ public class RepositoryCommitsMonitor
          return currentState;
       }
 
-      if(localBranches.size() == commitCounts.size() + 1)
+      if(newCommitCounts.size() == commitCounts.size() + 1)
       {
          // special case. New branch was created. Could still be that only 1 commit was added
          // TODO: add support for this in the future
@@ -94,7 +99,7 @@ public class RepositoryCommitsMonitor
             currentState = RepositoryCommitState.NO_CHANGES;
             break;
          case 1:
-            this.branchWithOneNewCommit = branchesWithOneNewCommit.iterator().next();
+            branchWithOneNewCommit = branchesWithOneNewCommit.iterator().next();
             currentState = RepositoryCommitState.ONE_NEW_COMMIT;
             break;
          default:
@@ -127,6 +132,16 @@ public class RepositoryCommitsMonitor
    public String getBranchWithOneNewCommit()
    {
       return branchWithOneNewCommit;
+   }
+
+   public String getUndoBranchName()
+   {
+      return undoBranchName;
+   }
+
+   public void setUndoBranchName(String undoBranchName)
+   {
+      this.undoBranchName = undoBranchName;
    }
 
 }

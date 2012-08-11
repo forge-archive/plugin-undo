@@ -85,6 +85,7 @@ public class UndoFacet extends BaseFacet
          ensureGitRepositoryIsInitialized(git);
          commitAllToHaveCleanTree(git);
          initializeHistoryBranch(git);
+         commitsMonitor.setUndoBranchName(getUndoBranchName());
 
          UndoFacet.isReady = true;
          return true;
@@ -117,7 +118,16 @@ public class UndoFacet extends BaseFacet
    {
       try
       {
-         return getLogForBranch(getGitObject(), getUndoBranchName(), historyBranchSize);
+         List<RevCommit> storedCommits = new ArrayList<RevCommit>();
+         Iterable<RevCommit> commits = getLogForBranch(getGitObject(), getUndoBranchName(), historyBranchSize);
+
+         for(RevCommit commit : commits)
+         {
+            if(!isMarkDeleted(commit))
+               storedCommits.add(commit);
+         }
+
+         return storedCommits;
       }
       catch (Exception e)
       {
@@ -136,7 +146,6 @@ public class UndoFacet extends BaseFacet
          if (historyBranchSize > 0)
          {
             repo = getGitObject();
-
             RevCommit commitWithDefaultNote = findLatestCommitWithGivenNote(DEFAULT_NOTE);
 
             if (commitWithDefaultNote != null) // commit with default note is found!
@@ -223,6 +232,7 @@ public class UndoFacet extends BaseFacet
    private void markDeleted(RevCommit commitToRevert) throws IOException, GitAPIException
    {
       Git repo = getGitObject();
+      repo.notesRemove().setObjectId(commitToRevert).call();
       repo.notesAdd().setObjectId(commitToRevert).setMessage(DELETED_COMMIT_NOTE).call();
    }
 
@@ -267,6 +277,9 @@ public class UndoFacet extends BaseFacet
          ObjectLoader noteBlob = repo.getRepository().open(note.getData());
          BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
          String noteMsg = reader.readLine();
+
+         if(Strings.areEqual(DELETED_COMMIT_NOTE, noteMsg))
+            continue;
 
          if (Strings.areEqual(msg, noteMsg))
          {
@@ -355,7 +368,10 @@ public class UndoFacet extends BaseFacet
          BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
          String noteMsg = reader.readLine();
 
-         if (Strings.areEqual(noteMsg, UndoFacet.DEFAULT_NOTE))
+         if(Strings.areEqual(noteMsg, DELETED_COMMIT_NOTE))
+            continue;
+
+         if (Strings.areEqual(noteMsg, DEFAULT_NOTE))
          {
             RevCommit commitWithDefaultNote = revWalk.parseCommit(note);
             git.notesRemove().setObjectId(commitWithDefaultNote).call();
