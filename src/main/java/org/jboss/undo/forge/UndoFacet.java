@@ -20,7 +20,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -114,7 +116,7 @@ public class UndoFacet extends BaseFacet
       }
    }
 
-   public Iterable<RevCommit> getStoredCommitsOnHistoryBranch()
+   public List<RevCommit> getStoredCommitsOnHistoryBranch()
    {
       try
       {
@@ -140,6 +142,44 @@ public class UndoFacet extends BaseFacet
          }
 
          return storedCommits;
+      }
+      catch (Exception e)
+      {
+         throw new RuntimeException("Failed to get a list of stored commits in the history branch", e.getCause());
+      }
+   }
+
+   public Map<RevCommit, String> getStoredCommitsWithNotesOnHistoryBranch()
+   {
+      try
+      {
+         Map<RevCommit, String> commitsWithNotes = new LinkedHashMap<RevCommit, String>();
+
+         Git repo = getGitObject();
+         RevWalk revWalk = new RevWalk(repo.getRepository());
+
+         RevCommit undoBranchHEAD = revWalk.parseCommit(getUndoBranchRef().getObjectId());
+         revWalk.markStart(undoBranchHEAD);
+         int size = historyBranchSize;
+         for (RevCommit commit = revWalk.next(); commit != null && size > 0; commit = revWalk.next(), size--)
+         {
+            Note note = repo.notesShow().setObjectId(commit).call();
+
+            if (note == null)
+            {
+               commitsWithNotes.put(commit, "");
+            }
+            else
+            {
+               String noteMsg = readNoteMessage(note);
+               if (Strings.areEqual(DELETED_COMMIT_NOTE, noteMsg))
+                  continue;
+
+               commitsWithNotes.put(commit, noteMsg);
+            }
+         }
+
+         return commitsWithNotes;
       }
       catch (Exception e)
       {
@@ -203,8 +243,13 @@ public class UndoFacet extends BaseFacet
       try
       {
          previousBranch = repo.getRepository().getBranch();
-         repo.add().addFilepattern(".").call();
-         repo.commit().setMessage("FORGE PLUGIN-UNDO: preparing to undo a change").call();
+
+         if (!repo.status().call().isClean())
+         {
+            repo.add().addFilepattern(".").call();
+            repo.commit().setMessage("FORGE PLUGIN-UNDO: preparing to undo a change").call();
+         }
+
          repo.checkout().setName(getUndoBranchName()).call();
          RevCommit reverted = repo.revert().include(commitToRevert).call();
          if (reverted == null)
