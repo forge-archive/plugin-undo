@@ -89,10 +89,10 @@ public class UndoPlugin implements Plugin
       if (isReverted)
          ShellMessages.success(out, "latest forge command is reverted.");
       else
-         ShellMessages.info(out, "nothing changed.");
+         ShellMessages.info(out, "nothing happened.");
    }
 
-   @Command(value = "reset", help = "remove all stored changesets in the history branch")
+   @Command(value = "reset", help = "remove all stored changesets in the history branch. It's only possible to reset undo branch from the clean state.")
    public void resetCommand(PipeOut out) throws Exception
    {
       boolean isReset = project.getFacet(UndoFacet.class).reset();
@@ -100,7 +100,7 @@ public class UndoPlugin implements Plugin
       if (isReset)
          ShellMessages.success(out, "history branch was reset successfully.");
       else
-         ShellMessages.info(out, "nothing changed.");
+         ShellMessages.info(out, "Nothing happened. History branch is either empty already or your git repository is not in clean state.");
    }
 
 }

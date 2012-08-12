@@ -147,4 +147,11 @@ public class RepositoryCommitsMonitor
       this.undoBranchName = undoBranchName;
    }
 
+   public void reset()
+   {
+      this.commitCounts = new HashMap<String, Integer>();
+      currentState = RepositoryCommitState.NO_CHANGES;
+      this.branchWithOneNewCommit = "";
+   }
+
 }

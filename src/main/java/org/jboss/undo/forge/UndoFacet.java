@@ -38,6 +38,7 @@ import org.jboss.forge.jgit.api.errors.RefAlreadyExistsException;
 import org.jboss.forge.jgit.api.errors.RefNotFoundException;
 import org.jboss.forge.jgit.errors.IncorrectObjectTypeException;
 import org.jboss.forge.jgit.errors.MissingObjectException;
+import org.jboss.forge.jgit.lib.ObjectId;
 import org.jboss.forge.jgit.lib.ObjectLoader;
 import org.jboss.forge.jgit.lib.Ref;
 import org.jboss.forge.jgit.lib.Repository;
@@ -326,11 +327,34 @@ public class UndoFacet extends BaseFacet
 
    public boolean reset()
    {
-      // TODO: add history-branch reset functionality
-      // should remove all commits from historyBranch.
-      // reset().head~[number of commits]
+      boolean result = false;
 
-      return false;
+      if (historyBranchSize == 0)
+         return false;
+
+      try
+      {
+         Git repo = getGitObject();
+
+         if (!repo.status().call().isClean())
+            return false;
+
+         String previousBranch = repo.getRepository().getBranch();
+         repo.checkout().setName(getUndoBranchName()).call();
+         ObjectId startOfHistoryBranch = repo.getRepository().resolve("HEAD~" + historyBranchSize);
+         repo.reset().setMode(ResetType.HARD).setRef(startOfHistoryBranch.getName()).call();
+         repo.checkout().setName(previousBranch).call();
+
+         commitsMonitor.reset();
+         historyBranchSize = 0;
+         result = true;
+      }
+      catch (Exception e)
+      {
+         throw new RuntimeException("Failed to reset history branch", e.getCause());
+      }
+
+      return result;
    }
 
    public RepositoryCommitState checkAndUpdateRepositoryForNewCommits() throws IOException, GitAPIException

@@ -41,6 +41,7 @@ import org.jboss.forge.resources.DirectoryResource;
 import org.jboss.forge.resources.FileResource;
 import org.jboss.forge.test.AbstractShellTest;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.jboss.undo.forge.RepositoryCommitsMonitor.RepositoryCommitState;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -300,6 +301,108 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       verifyNotes(new String[0]);
    }
 
+   @Test
+   public void shouldNotResetInEmptyHistory() throws Exception
+   {
+      undoReset(false);
+   }
+
+   @Test
+   public void shouldNotSeeUncheckedForgeCommand() throws Exception
+   {
+      executeForgeCommand(FILENAMES[0]);
+      undoReset(false);
+   }
+
+   @Test
+   public void shouldNotResetIfDirtyWT() throws Exception
+   {
+      executeForgeCommand(FILENAMES[0]);
+      gitCommitAll();
+      executeForgeCommand(FILENAMES[1]); // dirty WT
+
+      undoReset(false);
+   }
+
+   @Test
+   public void shouldResetOneChangeOnMasterBranch() throws Exception
+   {
+      executeForgeCommand(FILENAMES[0]);
+      gitCommitAll();
+      executeForgeCommand(FILENAMES[1]);
+      undoRestore(true); // clean WT
+
+      undoReset(true);
+   }
+
+   @Test
+   public void shouldResetChangesOnDifferentBranches() throws Exception
+   {
+      executeForgeCommand(FILENAMES[0]);
+      gitCommitAll();
+      executeForgeCommand(FILENAMES[1]);
+      undoRestore(true);
+
+      gitCreateNewBranch(BRANCHES[1]);
+      gitCheckout(BRANCHES[1]);
+
+      executeForgeCommand(FILENAMES[2]);
+      gitCommitAll();
+      executeForgeCommand(FILENAMES[3]);
+      undoRestore(true);
+
+      verifyNotes(BRANCHES[1], BRANCHES[0]);
+      undoReset(true);
+   }
+
+   @Test
+   public void shouldNotLetResetTwoTimes() throws Exception
+   {
+      executeForgeCommand(FILENAMES[0]);
+      gitCommitAll();
+      executeForgeCommand(FILENAMES[1]);
+      undoRestore(true);
+
+      undoReset(true);
+      undoReset(false);
+   }
+
+   @Test
+   public void shouldStoreChangesAfterReset() throws Exception
+   {
+      executeForgeCommand(FILENAMES[0]);
+      gitCommitAll();
+      executeForgeCommand(FILENAMES[1]);
+      undoRestore(true);
+
+      undoReset(true);
+
+      executeForgeCommand(FILENAMES[2]);
+      verifyFilesExistance(true, false, true);
+      verifyNotes(UndoFacet.DEFAULT_NOTE);
+   }
+
+   @Test
+   public void shouldStoreChangesAndRestoreAfterReset() throws Exception
+   {
+      executeForgeCommand(FILENAMES[0]);
+      gitCommitAll();
+      executeForgeCommand(FILENAMES[1]);
+      undoRestore(true);
+
+      undoReset(true);
+
+      executeForgeCommand(FILENAMES[2]);
+      verifyFilesExistance(true, false, true);
+      verifyNotes(UndoFacet.DEFAULT_NOTE);
+
+      undoRestore(true);
+      verifyFilesExistance(true, false, false);
+      verifyNotes(new String[0]);
+
+      undoRestore(false);
+   }
+
    // helper methods
    private void executeForgeCommand(String filename)
             throws Exception
@@ -337,6 +440,26 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       Assert.assertEquals("restore values don't match", expected, isRestored);
 
       verifyForgeProjectFileExists();
+   }
+
+   private void undoReset(boolean expected)
+   {
+      boolean isReset = myProject.getFacet(UndoFacet.class).reset();
+      Assert.assertEquals("reset values don't match", expected, isReset);
+
+      if (expected)
+         verifyReset();
+   }
+
+   private void verifyReset()
+   {
+      int historySize = myProject.getFacet(UndoFacet.class).historyBranchSize;
+      RepositoryCommitState state = myProject.getFacet(UndoFacet.class).getCommitMonitorState();
+      String branchWithOneCommit = myProject.getFacet(UndoFacet.class).getCommitMonitorBranchWithOneNewCommit();
+
+      Assert.assertEquals("reset history size should be 0", 0, historySize);
+      Assert.assertEquals("state doesn't match", RepositoryCommitState.NO_CHANGES, state);
+      Assert.assertEquals("branch with one commit should be empty", "", branchWithOneCommit);
    }
 
    private void verifyForgeProjectFileExists()
