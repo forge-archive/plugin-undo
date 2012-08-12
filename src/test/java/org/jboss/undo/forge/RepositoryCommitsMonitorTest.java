@@ -268,7 +268,6 @@ public class RepositoryCommitsMonitorTest extends AbstractShellTest
       verifyMultipleChanges();
    }
 
-
    private Git getGit(Project project) throws IOException
    {
       RepositoryBuilder db = new RepositoryBuilder().findGitDir(project.getProjectRoot().getUnderlyingResourceObject());

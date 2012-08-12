@@ -72,6 +72,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       myProject = null;
       dir = null;
       dirPath = null;
+
       commits = null;
       commitMsgs = null;
       file = null;
@@ -84,7 +85,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       verifyFilesExistance(true, false);
       executeForgeCommand(FILENAMES[1]);
       verifyFilesExistance(true, true);
-      verifyCommitMsgs();
+      verifyCommitNumber(2);
    }
 
    @Test
@@ -95,11 +96,11 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
 
       undoRestore(FILENAMES[1]);
       verifyFilesExistance(true, false);
-      verifyCommitMsgs();
+      verifyCommitNumber(1);
 
       undoRestore(FILENAMES[0]);
       verifyFilesExistance(false, false);
-      verifyCommitMsgs();
+      verifyCommitNumber(0);
    }
 
    @Test
@@ -111,7 +112,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
 
       executeForgeCommand(FILENAMES[2]);
       verifyFilesExistance(true, false, true);
-      verifyCommitMsgs();
+      verifyCommitNumber(2);
    }
 
    @Test
@@ -122,11 +123,11 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       undoRestore(FILENAMES[1]);
       undoRestore(FILENAMES[0]);
       verifyFilesExistance(false, false);
-      verifyCommitMsgs();
+      verifyCommitNumber(0);
 
       executeForgeCommand(FILENAMES[2]);
       verifyFilesExistance(false, false, true);
-      verifyCommitMsgs();
+      verifyCommitNumber(1);
    }
 
    @Test
@@ -264,13 +265,10 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       }
    }
 
-   private void verifyCommitMsgs()
+   private void verifyCommitNumber(int expected)
    {
       commits = myProject.getFacet(UndoFacet.class).getStoredCommits();
       commitMsgs = extractCommitMsgs(commits);
-
-      Assert.assertEquals("wrong number of commits in the history branch",
-               getHistoryBranchSize(), commitMsgs.size());
 
       if (!commitMsgs.isEmpty())
       {
@@ -278,6 +276,8 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
                   UndoFacet.UNDO_STORE_COMMIT_MSG_PREFIX + Strings.enquote(COMMAND_NAME) + " command",
                   commitMsgs.get(0));
       }
+
+      Assert.assertEquals("number of commit don't match", expected, commitMsgs.size());
    }
 
    private static List<String> extractCommitMsgs(final Iterable<RevCommit> collection)
@@ -292,10 +292,5 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       }
 
       return commitMsgs;
-   }
-
-   private int getHistoryBranchSize()
-   {
-      return myProject.getFacet(UndoFacet.class).historyBranchSize;
    }
 }

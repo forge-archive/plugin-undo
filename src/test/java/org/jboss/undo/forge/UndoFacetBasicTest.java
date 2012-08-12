@@ -113,9 +113,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
       List<String> commitMsgs = extractCommitMsgs(commits);
 
-      Assert.assertEquals(1, getHistoryBranchSize(project));
-      Assert.assertEquals("wrong number of commits in the history branch", getHistoryBranchSize(project),
-               commitMsgs.size());
+      Assert.assertEquals("wrong number of commits in the history branch", 1, commitMsgs.size());
       Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName) +
                " command",
                commitMsgs.get(0));
@@ -144,8 +142,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
       List<String> commitMsgs = extractCommitMsgs(commits);
 
-      Assert.assertEquals(1, getHistoryBranchSize(project));
-      Assert.assertEquals("wrong number of commits in the history branch", getHistoryBranchSize(project),
+      Assert.assertEquals("wrong number of commits in the history branch", 1,
                commitMsgs.size());
       Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName) +
                " command",
@@ -162,8 +159,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       Iterable<RevCommit> commits2 = project.getFacet(UndoFacet.class).getStoredCommits();
       List<String> commitMsgs2 = extractCommitMsgs(commits2);
 
-      Assert.assertEquals(2, getHistoryBranchSize(project));
-      Assert.assertEquals("wrong number of commits in the history branch", getHistoryBranchSize(project),
+      Assert.assertEquals("wrong number of commits in the history branch", 2,
                commitMsgs2.size());
       Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName) +
                " command",
@@ -205,8 +201,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
       List<String> commitMsgs = extractCommitMsgs(commits);
 
-      Assert.assertEquals(1, getHistoryBranchSize(project));
-      Assert.assertEquals("wrong number of commits in the history branch", getHistoryBranchSize(project),
+      Assert.assertEquals("wrong number of commits in the history branch", 1,
                commitMsgs.size());
       Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName) +
                " command",
@@ -241,8 +236,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
       List<String> commitMsgs = extractCommitMsgs(commits);
 
-      Assert.assertEquals(1, getHistoryBranchSize(project));
-      Assert.assertEquals("wrong number of commits in the history branch", getHistoryBranchSize(project),
+      Assert.assertEquals("wrong number of commits in the history branch", 1,
                commitMsgs.size());
       Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName) +
                " command",
@@ -261,8 +255,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       File forgeXml = new File(dir.getFullyQualifiedName() + "/src/main/resources/META-INF/forge.xml");
       Assert.assertTrue("forge project file doesn't exist anymore", forgeXml.exists());
 
-      Assert.assertEquals(0, getHistoryBranchSize(project));
-      Assert.assertEquals("wrong number of commits in the history branch", getHistoryBranchSize(project),
+      Assert.assertEquals("wrong number of commits in the history branch", 0,
                commitMsgs.size());
    }
 
@@ -309,8 +302,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
       List<String> commitMsgs = extractCommitMsgs(commits);
 
-      Assert.assertEquals(1, getHistoryBranchSize(project));
-      Assert.assertEquals("wrong number of commits in the history branch", getHistoryBranchSize(project),
+      Assert.assertEquals("wrong number of commits in the history branch", 1,
                commitMsgs.size());
       Assert.assertEquals("commit messages do not match", forgeUndoPrefix + Strings.enquote(commandName) + " command",
                commitMsgs.get(0));
@@ -325,8 +317,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       commits = project.getFacet(UndoFacet.class).getStoredCommits();
       commitMsgs = extractCommitMsgs(commits);
 
-      Assert.assertEquals(0, getHistoryBranchSize(project));
-      Assert.assertEquals("wrong number of commits in the history branch", getHistoryBranchSize(project),
+      Assert.assertEquals("wrong number of commits in the history branch", 0,
                commitMsgs.size());
 
       isRestored = project.getFacet(UndoFacet.class).undoLastChange();
@@ -339,14 +330,10 @@ public class UndoFacetBasicTest extends AbstractShellTest
       Project project = initializeJavaProject();
       getShell().execute("undo setup");
 
-      Assert.assertEquals(0, getHistoryBranchSize(project));
-      verifyHistoryBranchSize(project);
-   }
+      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
+      List<String> commitMsgs = extractCommitMsgs(commits);
 
-   private void verifyHistoryBranchSize(Project project)
-   {
-      int storedCommits = extractCommitMsgs(project.getFacet(UndoFacet.class).getStoredCommits()).size();
-      Assert.assertEquals(getHistoryBranchSize(project), storedCommits);
+      Assert.assertEquals(0, commitMsgs.size());
    }
 
    // helper methods
@@ -362,11 +349,6 @@ public class UndoFacetBasicTest extends AbstractShellTest
       }
 
       return commitMsgs;
-   }
-
-   private int getHistoryBranchSize(Project project)
-   {
-      return project.getFacet(UndoFacet.class).historyBranchSize;
    }
 
    private Git getGit(Project project) throws IOException

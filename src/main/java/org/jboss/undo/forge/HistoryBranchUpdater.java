@@ -36,7 +36,7 @@ import org.jboss.forge.shell.events.CommandExecuted;
 @Singleton
 public class HistoryBranchUpdater
 {
-   private static final List<String> IGNORED_COMMANDS = Arrays.asList("new-project", "cd", "clear", "wait");
+   private static final List<String> IGNORED_COMMANDS = Arrays.asList("new-project", "cd", "clear", "wait", "undo");
 
    @Inject
    private BeanManager beanManager;

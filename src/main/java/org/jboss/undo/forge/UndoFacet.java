@@ -121,9 +121,9 @@ public class UndoFacet extends BaseFacet
          List<RevCommit> storedCommits = new ArrayList<RevCommit>();
          Iterable<RevCommit> commits = getLogForBranch(getGitObject(), getUndoBranchName(), historyBranchSize);
 
-         for(RevCommit commit : commits)
+         for (RevCommit commit : commits)
          {
-            if(!isMarkDeleted(commit))
+            if (!isMarkDeleted(commit))
                storedCommits.add(commit);
          }
 
@@ -141,8 +141,6 @@ public class UndoFacet extends BaseFacet
 
       try
       {
-         checkAndUpdateRepositoryForNewCommits();
-
          if (historyBranchSize > 0)
          {
             repo = getGitObject();
@@ -208,8 +206,6 @@ public class UndoFacet extends BaseFacet
          repo.checkout().setName(previousBranch).call();
 
          markDeleted(commitToRevert);
-
-         historyBranchSize--;
       }
       catch (MultipleParentsNotAllowedException e)
       {
@@ -241,7 +237,7 @@ public class UndoFacet extends BaseFacet
       Git repo = getGitObject();
 
       Note note = repo.notesShow().setObjectId(commitToCheck).call();
-      if(note == null)
+      if (note == null)
          return false;
 
       ObjectLoader noteBlob = repo.getRepository().open(note.getData());
@@ -268,17 +264,17 @@ public class UndoFacet extends BaseFacet
       RevCommit undoBranchHEAD = revWalk.parseCommit(getUndoBranchRef().getObjectId());
       revWalk.markStart(undoBranchHEAD);
 
-      for (RevCommit commit = undoBranchHEAD; commit != null && size > 0; commit = revWalk.next(), size--)
+      for (RevCommit commit = revWalk.next(); commit != null && size > 0; commit = revWalk.next(), size--)
       {
          Note note = repo.notesShow().setObjectId(commit).call();
-         if(note == null)
+         if (note == null)
             continue;
 
          ObjectLoader noteBlob = repo.getRepository().open(note.getData());
          BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
          String noteMsg = reader.readLine();
 
-         if(Strings.areEqual(DELETED_COMMIT_NOTE, noteMsg))
+         if (Strings.areEqual(DELETED_COMMIT_NOTE, noteMsg))
             continue;
 
          if (Strings.areEqual(msg, noteMsg))
@@ -368,7 +364,7 @@ public class UndoFacet extends BaseFacet
          BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
          String noteMsg = reader.readLine();
 
-         if(Strings.areEqual(noteMsg, DELETED_COMMIT_NOTE))
+         if (Strings.areEqual(noteMsg, DELETED_COMMIT_NOTE))
             continue;
 
          if (Strings.areEqual(noteMsg, DEFAULT_NOTE))

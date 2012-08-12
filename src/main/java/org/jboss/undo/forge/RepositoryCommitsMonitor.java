@@ -26,11 +26,13 @@ public class RepositoryCommitsMonitor
    private String branchWithOneNewCommit = "";
    private String undoBranchName = "";
 
-   public enum RepositoryCommitState{
+   public enum RepositoryCommitState
+   {
       NO_CHANGES, ONE_NEW_COMMIT, MULTIPLE_CHANGED_COMMITS
    }
 
-   public RepositoryCommitState updateCommitCounters(Git repo) throws GitAPIException, MissingObjectException, IncorrectObjectTypeException, IOException
+   public RepositoryCommitState updateCommitCounters(Git repo) throws GitAPIException, MissingObjectException,
+            IncorrectObjectTypeException, IOException
    {
       this.branchWithOneNewCommit = "";
 
@@ -39,9 +41,9 @@ public class RepositoryCommitsMonitor
 
       // get the number of commits for each branch
       Map<String, Integer> newCommitCounts = new HashMap<String, Integer>();
-      for(Ref branch : localBranches)
+      for (Ref branch : localBranches)
       {
-         if(Strings.areEqual(Repository.shortenRefName(branch.getName()), undoBranchName))
+         if (Strings.areEqual(Repository.shortenRefName(branch.getName()), undoBranchName))
             continue;
 
          RevWalk revWalk = new RevWalk(repo.getRepository());
@@ -50,14 +52,14 @@ public class RepositoryCommitsMonitor
          newCommitCounts.put(Repository.shortenRefName(branch.getName()), commits);
       }
 
-      if(commitCounts.isEmpty()) // first check
+      if (commitCounts.isEmpty()) // first check
       {
          commitCounts = newCommitCounts;
          currentState = RepositoryCommitState.MULTIPLE_CHANGED_COMMITS;
          return currentState;
       }
 
-      if(newCommitCounts.size() == commitCounts.size() + 1)
+      if (newCommitCounts.size() == commitCounts.size() + 1)
       {
          // special case. New branch was created. Could still be that only 1 commit was added
          // TODO: add support for this in the future
@@ -67,25 +69,26 @@ public class RepositoryCommitsMonitor
          return currentState;
       }
 
-      if(newCommitCounts.size() != commitCounts.size()) // compare number of branches
+      if (newCommitCounts.size() != commitCounts.size()) // compare number of branches
       {
          commitCounts = newCommitCounts;
          currentState = RepositoryCommitState.MULTIPLE_CHANGED_COMMITS;
          return currentState;
       }
-      else // same number of branches. Check the number of commits on each branch
+      else
+      // same number of branches. Check the number of commits on each branch
       {
          Set<String> branchesWithOneNewCommit = new HashSet<String>();
-         for(Entry<String, Integer> oldCommitCount : commitCounts.entrySet())
+         for (Entry<String, Integer> oldCommitCount : commitCounts.entrySet())
          {
             String branchName = oldCommitCount.getKey();
             int diff = newCommitCounts.get(branchName) - oldCommitCount.getValue();
 
-            if(diff == 1)
+            if (diff == 1)
             {
                branchesWithOneNewCommit.add(branchName);
             }
-            else if(diff < 0 || diff > 1)
+            else if (diff < 0 || diff > 1)
             {
                commitCounts = newCommitCounts;
                currentState = RepositoryCommitState.MULTIPLE_CHANGED_COMMITS;
@@ -116,7 +119,7 @@ public class RepositoryCommitsMonitor
    private int countCommits(Iterator<RevCommit> iterator)
    {
       int ret = 0;
-      while(iterator.hasNext())
+      while (iterator.hasNext())
       {
          ret++;
          iterator.next();
