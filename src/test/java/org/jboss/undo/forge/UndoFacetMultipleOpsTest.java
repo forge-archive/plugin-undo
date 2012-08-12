@@ -91,7 +91,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       file = null;
    }
 
-   // @Test
+   @Test
    public void shouldAddTwoChangesIntoUndoBranch() throws Exception
    {
       executeForgeCommand(FILENAMES[0]);
@@ -101,7 +101,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       verifyCommitNumber(2);
    }
 
-   // @Test
+   @Test
    public void shouldUndoTwoLastChanges() throws Exception
    {
       executeForgeCommand(FILENAMES[0]);
@@ -116,7 +116,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       verifyCommitNumber(0);
    }
 
-   // @Test
+   @Test
    public void shouldBeAbleToAddAddRevertAdd() throws Exception
    {
       executeForgeCommand(FILENAMES[0]);
@@ -128,7 +128,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       verifyCommitNumber(2);
    }
 
-   // @Test
+   @Test
    public void shouldBeAbleToAddAddRevertRevertAdd() throws Exception
    {
       executeForgeCommand(FILENAMES[0]);
@@ -143,7 +143,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       verifyCommitNumber(1);
    }
 
-   // @Test
+   @Test
    public void shouldUndoLastChangeOnMasterBranchAfterCommit() throws Exception
    {
       // forge command
@@ -157,7 +157,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       verifyFilesExistance(true, false);
    }
 
-   // @Test
+   @Test
    public void shouldUndoLastChangeOnMasterBranchAfterCommitAndForgeCommand() throws Exception
    {
       // forge command
@@ -183,7 +183,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       verifyNotes(BRANCHES[0]);
    }
 
-   // @Test
+   @Test
    public void shouldUndoTwoChangesOnMasterBranchAfterCommit() throws Exception
    {
       executeForgeCommand(FILENAMES[0]);
@@ -198,7 +198,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       verifyNotes(new String[0]);
    }
 
-   // @Test
+   @Test
    public void shouldUndoTwoChangesOnWTAndOneOnMasterBranch() throws Exception
    {
       // forge command
@@ -225,7 +225,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       verifyNotes(new String[0]);
    }
 
-   // @Test
+   @Test
    public void shouldNotRestoreAnythingFromNewBranch() throws Exception
    {
       // forge command
