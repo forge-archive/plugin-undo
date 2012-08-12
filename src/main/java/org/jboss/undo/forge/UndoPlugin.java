@@ -75,7 +75,7 @@ public class UndoPlugin implements Plugin
    @Command(value = "list", help = "list changes stored in the undo branch")
    public void listCommand(PipeOut out) throws Exception
    {
-      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
+      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommitsOnHistoryBranch();
 
       for (RevCommit commit : commits)
          out.println(commit.getId().abbreviate(GIT_HASH_ABBREV_SIZE).name() + " " + commit.getShortMessage());
@@ -91,4 +91,16 @@ public class UndoPlugin implements Plugin
       else
          ShellMessages.info(out, "nothing changed.");
    }
+
+   @Command(value = "reset", help = "remove all stored changesets in the history branch")
+   public void resetCommand(PipeOut out) throws Exception
+   {
+      boolean isReset = project.getFacet(UndoFacet.class).reset();
+
+      if (isReset)
+         ShellMessages.success(out, "history branch was reset successfully.");
+      else
+         ShellMessages.info(out, "nothing changed.");
+   }
+
 }

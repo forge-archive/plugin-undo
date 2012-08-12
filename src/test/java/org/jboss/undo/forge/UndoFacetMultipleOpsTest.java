@@ -17,11 +17,23 @@
 package org.jboss.undo.forge;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.forge.jgit.api.Git;
+import org.jboss.forge.jgit.api.errors.ConcurrentRefUpdateException;
+import org.jboss.forge.jgit.api.errors.GitAPIException;
+import org.jboss.forge.jgit.api.errors.NoFilepatternException;
+import org.jboss.forge.jgit.api.errors.NoHeadException;
+import org.jboss.forge.jgit.api.errors.NoMessageException;
+import org.jboss.forge.jgit.api.errors.UnmergedPathsException;
+import org.jboss.forge.jgit.api.errors.WrongRepositoryStateException;
+import org.jboss.forge.jgit.lib.RepositoryBuilder;
 import org.jboss.forge.jgit.revwalk.RevCommit;
 import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.Project;
@@ -48,7 +60,8 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
    }
 
    private static final String COMMAND_NAME = "touch";
-   private static final String[] FILENAMES = { "test1.txt", "test2.txt", "test3.txt" };
+   private static final String[] FILENAMES = { "test1.txt", "test2.txt", "test3.txt", "test4.txt" };
+   private static final String[] BRANCHES = { "master", "other" };
 
    private static Project myProject = null;
    private static DirectoryResource dir = null;
@@ -72,61 +85,219 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       myProject = null;
       dir = null;
       dirPath = null;
+
       commits = null;
       commitMsgs = null;
       file = null;
    }
 
-   @Test
+   // @Test
    public void shouldAddTwoChangesIntoUndoBranch() throws Exception
    {
       executeForgeCommand(FILENAMES[0]);
       verifyFilesExistance(true, false);
       executeForgeCommand(FILENAMES[1]);
       verifyFilesExistance(true, true);
-      verifyCommitMsgs();
+      verifyCommitNumber(2);
    }
 
-   @Test
+   // @Test
    public void shouldUndoTwoLastChanges() throws Exception
    {
       executeForgeCommand(FILENAMES[0]);
       executeForgeCommand(FILENAMES[1]);
 
-      undoRestore(FILENAMES[1]);
+      undoRestore(true);
       verifyFilesExistance(true, false);
-      verifyCommitMsgs();
+      verifyCommitNumber(1);
 
-      undoRestore(FILENAMES[0]);
+      undoRestore(true);
       verifyFilesExistance(false, false);
-      verifyCommitMsgs();
+      verifyCommitNumber(0);
    }
 
-   @Test
+   // @Test
    public void shouldBeAbleToAddAddRevertAdd() throws Exception
    {
       executeForgeCommand(FILENAMES[0]);
       executeForgeCommand(FILENAMES[1]);
-      undoRestore(FILENAMES[1]);
+      undoRestore(true);
 
       executeForgeCommand(FILENAMES[2]);
       verifyFilesExistance(true, false, true);
-      verifyCommitMsgs();
+      verifyCommitNumber(2);
    }
 
-   @Test
+   // @Test
    public void shouldBeAbleToAddAddRevertRevertAdd() throws Exception
    {
       executeForgeCommand(FILENAMES[0]);
       executeForgeCommand(FILENAMES[1]);
-      undoRestore(FILENAMES[1]);
-      undoRestore(FILENAMES[0]);
+      undoRestore(true);
+      undoRestore(true);
       verifyFilesExistance(false, false);
-      verifyCommitMsgs();
+      verifyCommitNumber(0);
 
       executeForgeCommand(FILENAMES[2]);
       verifyFilesExistance(false, false, true);
-      verifyCommitMsgs();
+      verifyCommitNumber(1);
+   }
+
+   // @Test
+   public void shouldUndoLastChangeOnMasterBranchAfterCommit() throws Exception
+   {
+      // forge command
+      // git-commit
+      // restore (from [note]wt) // since no forge command was executed to update the note
+
+      executeForgeCommand(FILENAMES[0]);
+      executeForgeCommand(FILENAMES[1]);
+      gitCommitAll();
+      undoRestore(true);
+      verifyFilesExistance(true, false);
+   }
+
+   // @Test
+   public void shouldUndoLastChangeOnMasterBranchAfterCommitAndForgeCommand() throws Exception
+   {
+      // forge command
+      // git-commit
+      // restore (from [note]master)
+
+      executeForgeCommand(FILENAMES[0]);
+      executeForgeCommand(FILENAMES[1]);
+      verifyNotes(UndoFacet.DEFAULT_NOTE, UndoFacet.DEFAULT_NOTE);
+      gitCommitAll();
+      verifyNotes(UndoFacet.DEFAULT_NOTE, UndoFacet.DEFAULT_NOTE);
+
+      executeForgeCommand(FILENAMES[2]); // old notes are updated
+      verifyFilesExistance(true, true, true);
+      verifyNotes(UndoFacet.DEFAULT_NOTE, BRANCHES[0], BRANCHES[0]);
+
+      undoRestore(true); // from WT
+      verifyFilesExistance(true, true, false);
+      verifyNotes(BRANCHES[0], BRANCHES[0]);
+
+      undoRestore(true); // from master
+      verifyFilesExistance(true, false, false);
+      verifyNotes(BRANCHES[0]);
+   }
+
+   // @Test
+   public void shouldUndoTwoChangesOnMasterBranchAfterCommit() throws Exception
+   {
+      executeForgeCommand(FILENAMES[0]);
+      executeForgeCommand(FILENAMES[1]);
+      gitCommitAll();
+
+      executeForgeCommand(FILENAMES[2]);
+      undoRestore(true); // from WT
+      undoRestore(true); // from master
+      undoRestore(true); // from master
+      verifyFilesExistance(false, false, false);
+      verifyNotes(new String[0]);
+   }
+
+   // @Test
+   public void shouldUndoTwoChangesOnWTAndOneOnMasterBranch() throws Exception
+   {
+      // forge command
+      // git-commit
+      // forge command
+      // restore (from [note]*WT)
+      // restore (from [note]*WT)
+      // restore (from [note]master)
+
+      executeForgeCommand(FILENAMES[0]);
+      gitCommitAll();
+      executeForgeCommand(FILENAMES[1]);
+      executeForgeCommand(FILENAMES[2]);
+      verifyFilesExistance(true, true, true);
+      verifyNotes(UndoFacet.DEFAULT_NOTE, UndoFacet.DEFAULT_NOTE, BRANCHES[0]);
+      undoRestore(true);
+      verifyFilesExistance(true, true, false);
+      verifyNotes(UndoFacet.DEFAULT_NOTE, BRANCHES[0]);
+      undoRestore(true);
+      verifyFilesExistance(true, false, false);
+      verifyNotes(BRANCHES[0]);
+      undoRestore(true);
+      verifyFilesExistance(false, false, false);
+      verifyNotes(new String[0]);
+   }
+
+   // @Test
+   public void shouldNotRestoreAnythingFromNewBranch() throws Exception
+   {
+      // forge command
+      // git-commit
+      // git-branch new-branch
+      // switch to new-branch
+      // restore should return false
+
+      executeForgeCommand(FILENAMES[0]);
+      gitCommitAll();
+      executeForgeCommand(FILENAMES[1]);
+      undoRestore(true);
+      verifyFilesExistance(true, false);
+      gitCreateNewBranch(BRANCHES[1]);
+      gitCheckout(BRANCHES[1]);
+      verifyFilesExistance(true, false);
+      verifyNotes(BRANCHES[0]);
+
+      undoRestore(false); // no commits to restore on this branch
+      verifyFilesExistance(true, false);
+      verifyNotes(BRANCHES[0]);
+   }
+
+   @Test
+   public void shouldRestoreChangesFromDifferentBranches() throws Exception
+   {
+      // on master:
+      // forge command
+      // git-commit
+
+      // checkout -b new-branch:
+      // forge command
+      // git-commit
+
+      // forge command // on WT
+
+      // restore (from [note]*WT)
+      // checkout master
+      // restore (from [note]master)
+
+      // checkout other
+      // restore (from [note]other)
+
+      executeForgeCommand(FILENAMES[0]);
+      gitCommitAll();
+      executeForgeCommand(FILENAMES[1]); // forge command to update notes
+      undoRestore(true);
+      gitCommitAll();
+      verifyFilesExistance(true, false);
+
+      gitCreateNewBranch(BRANCHES[1]);
+      gitCheckout(BRANCHES[1]);
+
+      executeForgeCommand(FILENAMES[2]);
+      gitCommitAll(); // commit to update notes
+      executeForgeCommand(FILENAMES[3]);
+      verifyFilesExistance(true, false, true, true);
+      verifyNotes(UndoFacet.DEFAULT_NOTE, BRANCHES[1], BRANCHES[0]);
+
+      undoRestore(true);
+      verifyFilesExistance(true, false, true, false);
+      verifyNotes(BRANCHES[1], BRANCHES[0]);
+
+      gitCheckout(BRANCHES[0]);
+      undoRestore(true);
+      verifyFilesExistance(false, false); // third file is not visible on the master branch
+      verifyNotes(BRANCHES[1]);
+
+      gitCheckout(BRANCHES[1]);
+      undoRestore(true);
+      verifyFilesExistance(true, false, false); // first file is not restored on the other branch
+      verifyNotes(new String[0]);
    }
 
    // helper methods
@@ -140,10 +311,30 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       getShell().execute(command);
    }
 
-   private void undoRestore(String revertedFile)
+   private void gitCommitAll() throws IOException, GitAPIException, NoFilepatternException, NoHeadException,
+            NoMessageException, UnmergedPathsException, ConcurrentRefUpdateException, WrongRepositoryStateException
+   {
+      Git repo = getGit(myProject);
+      repo.add().addFilepattern(".").call();
+      repo.commit().setMessage("test commit").call();
+   }
+
+   private void gitCreateNewBranch(String branchName) throws IOException, GitAPIException
+   {
+      Git repo = getGit(myProject);
+      repo.branchCreate().setName(branchName).call();
+   }
+
+   private void gitCheckout(String branchName) throws IOException, GitAPIException
+   {
+      Git repo = getGit(myProject);
+      repo.checkout().setName(branchName).call();
+   }
+
+   private void undoRestore(boolean expected)
    {
       boolean isRestored = myProject.getFacet(UndoFacet.class).undoLastChange();
-      Assert.assertTrue("undo failed", isRestored);
+      Assert.assertEquals("restore values don't match", expected, isRestored);
 
       verifyForgeProjectFileExists();
    }
@@ -203,19 +394,53 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       }
    }
 
-   private void verifyCommitMsgs()
+   private void verifyFilesExistance(boolean fileOneShouldExist, boolean fileTwoShouldExist,
+            boolean fileThreeShouldExist, boolean fileFourShouldExist)
    {
-      commits = myProject.getFacet(UndoFacet.class).getStoredCommits();
-      commitMsgs = extractCommitMsgs(commits);
+      File tmpFile = null;
 
-      Assert.assertEquals("wrong number of commits in the history branch",
-               getHistoryBranchSize(), commitMsgs.size());
+      verifyFilesExistance(fileOneShouldExist, fileTwoShouldExist, fileThreeShouldExist);
+
+      if (fileFourShouldExist)
+      {
+         tmpFile = new File(dirPath, FILENAMES[3]);
+         Assert.assertTrue("fourth file should exist", tmpFile.exists());
+      }
+      else
+      {
+         tmpFile = new File(dirPath, FILENAMES[3]);
+         Assert.assertFalse("fourth file should not exist", tmpFile.exists());
+      }
+
+   }
+
+   private void verifyCommitNumber(int expected)
+   {
+      commits = myProject.getFacet(UndoFacet.class).getStoredCommitsOnHistoryBranch();
+      commitMsgs = extractCommitMsgs(commits);
 
       if (!commitMsgs.isEmpty())
       {
          Assert.assertEquals("commit messages do not match",
                   UndoFacet.UNDO_STORE_COMMIT_MSG_PREFIX + Strings.enquote(COMMAND_NAME) + " command",
                   commitMsgs.get(0));
+      }
+
+      Assert.assertEquals("number of commit don't match", expected, commitMsgs.size());
+   }
+
+   private void verifyNotes(String... notes)
+   {
+      Map<RevCommit, String> commitsWithNotes = myProject.getFacet(UndoFacet.class)
+               .getStoredCommitsWithNotesOnHistoryBranch();
+
+      Assert.assertEquals("number of notes don't match", notes.length, commitsWithNotes.size());
+
+      int index = 0;
+      for (Entry<RevCommit, String> each : commitsWithNotes.entrySet())
+      {
+         Assert.assertEquals("notes don't match", notes[index], each.getValue());
+         index++;
       }
    }
 
@@ -233,8 +458,10 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       return commitMsgs;
    }
 
-   private int getHistoryBranchSize()
+   private Git getGit(Project project) throws IOException
    {
-      return myProject.getFacet(UndoFacet.class).historyBranchSize;
+      RepositoryBuilder db = new RepositoryBuilder().findGitDir(project.getProjectRoot().getUnderlyingResourceObject());
+      Git repo = new Git(db.build());
+      return repo;
    }
 }

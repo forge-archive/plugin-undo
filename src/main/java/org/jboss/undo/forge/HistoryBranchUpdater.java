@@ -27,6 +27,7 @@ import javax.inject.Singleton;
 import org.jboss.forge.jgit.api.Git;
 import org.jboss.forge.jgit.api.errors.GitAPIException;
 import org.jboss.forge.jgit.errors.NoWorkTreeException;
+import org.jboss.forge.jgit.revwalk.RevCommit;
 import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.Project;
 import org.jboss.forge.shell.Shell;
@@ -35,7 +36,7 @@ import org.jboss.forge.shell.events.CommandExecuted;
 @Singleton
 public class HistoryBranchUpdater
 {
-   private static final List<String> IGNORED_COMMANDS = Arrays.asList("new-project", "cd", "clear", "wait");
+   private static final List<String> IGNORED_COMMANDS = Arrays.asList("new-project", "cd", "clear", "wait", "undo");
 
    @Inject
    private BeanManager beanManager;
@@ -63,13 +64,16 @@ public class HistoryBranchUpdater
 
          if (anythingChanged(repo))
          {
+            project.getFacet(UndoFacet.class).checkAndUpdateRepositoryForNewCommits();
+
             String previousBranch = repo.getRepository().getBranch();
 
             repo.add().addFilepattern(".").call();
             repo.stashCreate().call();
             repo.checkout().setName(undoBranch).call();
             repo.stashApply().call();
-            repo.commit().setMessage(prepareHistoryBranchCommitMsg(command)).call();
+            RevCommit commitWithChangeset = repo.commit().setMessage(prepareHistoryBranchCommitMsg(command)).call();
+            repo.notesAdd().setObjectId(commitWithChangeset).setMessage(UndoFacet.DEFAULT_NOTE).call();
             repo.checkout().setName(previousBranch).call();
             repo.stashApply().call();
             repo.stashDrop().call();
