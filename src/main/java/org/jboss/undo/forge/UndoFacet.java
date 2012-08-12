@@ -114,7 +114,7 @@ public class UndoFacet extends BaseFacet
       }
    }
 
-   public Iterable<RevCommit> getStoredCommits()
+   public Iterable<RevCommit> getStoredCommitsOnHistoryBranch()
    {
       try
       {
@@ -131,9 +131,7 @@ public class UndoFacet extends BaseFacet
             Note note = repo.notesShow().setObjectId(commit).call();
             if (note != null)
             {
-               ObjectLoader noteBlob = repo.getRepository().open(note.getData());
-               BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
-               String noteMsg = reader.readLine();
+               String noteMsg = readNoteMessage(note);
 
                if (Strings.areEqual(DELETED_COMMIT_NOTE, noteMsg))
                   continue;
@@ -246,24 +244,6 @@ public class UndoFacet extends BaseFacet
       repo.notesAdd().setObjectId(commitToRevert).setMessage(DELETED_COMMIT_NOTE).call();
    }
 
-   private boolean isMarkDeleted(RevCommit commitToCheck) throws IOException, GitAPIException
-   {
-      Git repo = getGitObject();
-
-      Note note = repo.notesShow().setObjectId(commitToCheck).call();
-      if (note == null)
-         return false;
-
-      ObjectLoader noteBlob = repo.getRepository().open(note.getData());
-      BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
-      String noteMsg = reader.readLine();
-
-      if (Strings.areEqual(DELETED_COMMIT_NOTE, noteMsg))
-         return true;
-
-      return false;
-   }
-
    private RevCommit findLatestCommitWithGivenNote(String msg) throws MissingObjectException,
             IncorrectObjectTypeException,
             IOException, RefAlreadyExistsException, RefNotFoundException, InvalidRefNameException,
@@ -284,9 +264,7 @@ public class UndoFacet extends BaseFacet
          if (note == null)
             continue;
 
-         ObjectLoader noteBlob = repo.getRepository().open(note.getData());
-         BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
-         String noteMsg = reader.readLine();
+         String noteMsg = readNoteMessage(note);
 
          if (Strings.areEqual(DELETED_COMMIT_NOTE, noteMsg))
             continue;
@@ -308,30 +286,6 @@ public class UndoFacet extends BaseFacet
       // reset().head~[number of commits]
 
       return false;
-   }
-
-   private void ensureGitRepositoryIsInitialized(Git repo) throws GitAPIException
-   {
-      List<Ref> branches = repo.branchList().call();
-      if (branches != null && branches.size() == 0)
-      {
-         FileResource<?> file = project.getProjectRoot().getChild(".gitignore").reify(FileResource.class);
-         file.createNewFile();
-         repo.add().addFilepattern(".gitignore").call();
-         repo.commit().setMessage(INITIAL_COMMIT_MSG).call();
-      }
-   }
-
-   private void commitAllToHaveCleanTree(Git repo) throws GitAPIException
-   {
-      repo.add().addFilepattern(".").call();
-      repo.commit().setMessage(UNDO_INSTALL_COMMIT_MSG).call();
-   }
-
-   private void initializeHistoryBranch(Git git) throws IOException, RefAlreadyExistsException, RefNotFoundException,
-            InvalidRefNameException, GitAPIException
-   {
-      git.branchCreate().setName(getUndoBranchName()).call();
    }
 
    public RepositoryCommitState checkAndUpdateRepositoryForNewCommits() throws IOException, GitAPIException
@@ -374,9 +328,7 @@ public class UndoFacet extends BaseFacet
 
       for (Note note : notes)
       {
-         ObjectLoader noteBlob = git.getRepository().open(note.getData());
-         BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
-         String noteMsg = reader.readLine();
+         String noteMsg = readNoteMessage(note);
 
          if (Strings.areEqual(noteMsg, DELETED_COMMIT_NOTE))
             continue;
@@ -413,4 +365,38 @@ public class UndoFacet extends BaseFacet
       }
       return gitObject;
    }
+
+   private void commitAllToHaveCleanTree(Git repo) throws GitAPIException
+   {
+      repo.add().addFilepattern(".").call();
+      repo.commit().setMessage(UNDO_INSTALL_COMMIT_MSG).call();
+   }
+
+   private void initializeHistoryBranch(Git git) throws IOException, RefAlreadyExistsException, RefNotFoundException,
+            InvalidRefNameException, GitAPIException
+   {
+      git.branchCreate().setName(getUndoBranchName()).call();
+   }
+
+   private void ensureGitRepositoryIsInitialized(Git repo) throws GitAPIException
+   {
+      List<Ref> branches = repo.branchList().call();
+      if (branches != null && branches.size() == 0)
+      {
+         FileResource<?> file = project.getProjectRoot().getChild(".gitignore").reify(FileResource.class);
+         file.createNewFile();
+         repo.add().addFilepattern(".gitignore").call();
+         repo.commit().setMessage(INITIAL_COMMIT_MSG).call();
+      }
+   }
+
+   private String readNoteMessage(Note note) throws IOException
+   {
+      Git repo = getGitObject();
+      ObjectLoader noteBlob = repo.getRepository().open(note.getData());
+      BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
+      String noteMsg = reader.readLine();
+      return noteMsg;
+   }
+
 }

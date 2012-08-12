@@ -267,7 +267,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
 
    private void verifyCommitNumber(int expected)
    {
-      commits = myProject.getFacet(UndoFacet.class).getStoredCommits();
+      commits = myProject.getFacet(UndoFacet.class).getStoredCommitsOnHistoryBranch();
       commitMsgs = extractCommitMsgs(commits);
 
       if (!commitMsgs.isEmpty())

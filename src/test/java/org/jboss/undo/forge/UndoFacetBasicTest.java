@@ -110,7 +110,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       Assert.assertTrue("file doesn't exist", file.exists());
 
       // assert the results of the previous command
-      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
+      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommitsOnHistoryBranch();
       List<String> commitMsgs = extractCommitMsgs(commits);
 
       Assert.assertEquals("wrong number of commits in the history branch", 1, commitMsgs.size());
@@ -139,7 +139,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       Assert.assertTrue("file doesn't exist", file.exists());
 
       // assert the results of the previous command
-      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
+      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommitsOnHistoryBranch();
       List<String> commitMsgs = extractCommitMsgs(commits);
 
       Assert.assertEquals("wrong number of commits in the history branch", 1,
@@ -156,7 +156,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       Assert.assertTrue("file doesn't exist", file2.exists());
 
       // assert the results of the previous command
-      Iterable<RevCommit> commits2 = project.getFacet(UndoFacet.class).getStoredCommits();
+      Iterable<RevCommit> commits2 = project.getFacet(UndoFacet.class).getStoredCommitsOnHistoryBranch();
       List<String> commitMsgs2 = extractCommitMsgs(commits2);
 
       Assert.assertEquals("wrong number of commits in the history branch", 2,
@@ -198,7 +198,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       Assert.assertTrue("file doesn't exist", file.exists());
 
       // assert the results of the previous command
-      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
+      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommitsOnHistoryBranch();
       List<String> commitMsgs = extractCommitMsgs(commits);
 
       Assert.assertEquals("wrong number of commits in the history branch", 1,
@@ -233,7 +233,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       FileResource<?> file = dir.getChild(filename).reify(FileResource.class);
       Assert.assertTrue("file doesn't exist", file.exists());
 
-      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
+      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommitsOnHistoryBranch();
       List<String> commitMsgs = extractCommitMsgs(commits);
 
       Assert.assertEquals("wrong number of commits in the history branch", 1,
@@ -249,7 +249,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       file = dir.getChild(filename).reify(FileResource.class);
 
       Assert.assertFalse("file should not exist", file.exists());
-      commits = project.getFacet(UndoFacet.class).getStoredCommits();
+      commits = project.getFacet(UndoFacet.class).getStoredCommitsOnHistoryBranch();
       commitMsgs = extractCommitMsgs(commits);
 
       File forgeXml = new File(dir.getFullyQualifiedName() + "/src/main/resources/META-INF/forge.xml");
@@ -299,7 +299,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       FileResource<?> file = dir.getChild(filename).reify(FileResource.class);
       Assert.assertTrue("file doesn't exist", file.exists());
 
-      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
+      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommitsOnHistoryBranch();
       List<String> commitMsgs = extractCommitMsgs(commits);
 
       Assert.assertEquals("wrong number of commits in the history branch", 1,
@@ -314,7 +314,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       file = dir.getChild(filename).reify(FileResource.class);
 
       Assert.assertFalse("file should not exist", file.exists());
-      commits = project.getFacet(UndoFacet.class).getStoredCommits();
+      commits = project.getFacet(UndoFacet.class).getStoredCommitsOnHistoryBranch();
       commitMsgs = extractCommitMsgs(commits);
 
       Assert.assertEquals("wrong number of commits in the history branch", 0,
@@ -330,7 +330,7 @@ public class UndoFacetBasicTest extends AbstractShellTest
       Project project = initializeJavaProject();
       getShell().execute("undo setup");
 
-      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommits();
+      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommitsOnHistoryBranch();
       List<String> commitMsgs = extractCommitMsgs(commits);
 
       Assert.assertEquals(0, commitMsgs.size());
