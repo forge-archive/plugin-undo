@@ -78,6 +78,8 @@ Notice, that untracked files are also added. You should either use `git clean -f
 
 This project uses [Apache Maven](http://maven.apache.org/) for release numbering.
 
+version 1.0.2: store and revert multiple commands from different branches and working tree (feature complete version)
+
 version 1.0.1: store and revert unlimited commits from the working tree
 
 version 1.0.0: store and revert one commit at a time
