@@ -327,14 +327,6 @@ public class UndoFacet extends BaseFacet
 
    public boolean reset()
    {
-      // TODO: add history-branch reset functionality
-      // should remove all commits from historyBranch.
-      // reset().head~[number of commits]
-
-      // History branch is empty
-      // Commits count in facet is reset to 0
-      // CommitsMonitor is reset
-
       boolean result = false;
 
       if (historyBranchSize == 0)
