@@ -119,12 +119,26 @@ public class UndoFacet extends BaseFacet
       try
       {
          List<RevCommit> storedCommits = new ArrayList<RevCommit>();
-         Iterable<RevCommit> commits = getLogForBranch(getGitObject(), getUndoBranchName(), historyBranchSize);
 
-         for (RevCommit commit : commits)
+         Git repo = getGitObject();
+         RevWalk revWalk = new RevWalk(repo.getRepository());
+
+         RevCommit undoBranchHEAD = revWalk.parseCommit(getUndoBranchRef().getObjectId());
+         revWalk.markStart(undoBranchHEAD);
+         int size = historyBranchSize;
+         for (RevCommit commit = revWalk.next(); commit != null && size > 0; commit = revWalk.next(), size--)
          {
-            if (!isMarkDeleted(commit))
-               storedCommits.add(commit);
+            Note note = repo.notesShow().setObjectId(commit).call();
+            if (note != null)
+            {
+               ObjectLoader noteBlob = repo.getRepository().open(note.getData());
+               BufferedReader reader = new BufferedReader(new InputStreamReader(noteBlob.openStream()));
+               String noteMsg = reader.readLine();
+
+               if (Strings.areEqual(DELETED_COMMIT_NOTE, noteMsg))
+                  continue;
+            }
+            storedCommits.add(commit);
          }
 
          return storedCommits;
@@ -398,23 +412,5 @@ public class UndoFacet extends BaseFacet
          this.gitObject = new Git(db.build());
       }
       return gitObject;
-   }
-
-   public static Iterable<RevCommit> getLogForBranch(final Git repo, String branchName, int maxCount)
-            throws GitAPIException,
-            IOException
-   {
-      if (maxCount <= 0)
-      {
-         return new ArrayList<RevCommit>();
-      }
-
-      String oldBranch = repo.getRepository().getBranch();
-      repo.checkout().setName(branchName).call();
-
-      Iterable<RevCommit> commits = repo.log().setMaxCount(maxCount).call();
-
-      repo.checkout().setName(oldBranch).call();
-      return commits;
    }
 }
