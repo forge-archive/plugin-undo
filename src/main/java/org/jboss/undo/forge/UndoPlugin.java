@@ -16,6 +16,9 @@
 
 package org.jboss.undo.forge;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
 
@@ -75,10 +78,18 @@ public class UndoPlugin implements Plugin
    @Command(value = "list", help = "list changes stored in the undo branch")
    public void listCommand(PipeOut out) throws Exception
    {
-      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommitsOnHistoryBranch();
+      Map<RevCommit, String> commitsWithNotes = project.getFacet(UndoFacet.class).getStoredCommitsWithNotesOnHistoryBranch();
 
-      for (RevCommit commit : commits)
-         out.println(commit.getId().abbreviate(GIT_HASH_ABBREV_SIZE).name() + " " + commit.getShortMessage());
+      for (Entry<RevCommit, String > each : commitsWithNotes.entrySet())
+      {
+         RevCommit commit = each.getKey();
+         String note = (each.getValue() != null) ? each.getValue() : "*NULL*";
+         if(Strings.areEqual(note, UndoFacet.DEFAULT_NOTE))
+            note = "*uncommitted*";
+
+         String line = commit.getId().abbreviate(GIT_HASH_ABBREV_SIZE).name() + " [" + note + "] " + commit.getShortMessage();
+         out.println(line);
+      }
    }
 
    @Command(value = "restore", help = "reverts the changes introduced by the last forge command")
