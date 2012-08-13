@@ -308,20 +308,15 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
    }
 
    @Test
-   public void shouldNotSeeUncheckedForgeCommand() throws Exception
-   {
-      executeForgeCommand(FILENAMES[0]);
-      undoReset(false);
-   }
-
-   @Test
-   public void shouldNotResetIfDirtyWT() throws Exception
+   public void shouldResetDirtyWTKeepingFiles() throws Exception
    {
       executeForgeCommand(FILENAMES[0]);
       gitCommitAll();
-      executeForgeCommand(FILENAMES[1]); // dirty WT
+      executeForgeCommand(FILENAMES[1]);
 
-      undoReset(false);
+      undoReset(true);
+      verifyFilesExistance(true, true);
+      verifyNotes(new String[0]);
    }
 
    @Test
@@ -368,17 +363,31 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
    }
 
    @Test
-   public void shouldStoreChangesAfterReset() throws Exception
+   public void shouldResetInDirtyState() throws Exception
    {
       executeForgeCommand(FILENAMES[0]);
       gitCommitAll();
       executeForgeCommand(FILENAMES[1]);
       undoRestore(true);
+      verifyFilesExistance(true, false);
+      gitCommitAll();
+      undoReset(true);
+
+      verifyFilesExistance(true, false); // WHY???
+      verifyNotes(new String[0]);
+   }
+
+   @Test
+   public void shouldStoreChangesAfterReset() throws Exception
+   {
+      executeForgeCommand(FILENAMES[0]);
+      gitCommitAll();
+      executeForgeCommand(FILENAMES[1]);
 
       undoReset(true);
 
       executeForgeCommand(FILENAMES[2]);
-      verifyFilesExistance(true, false, true);
+      verifyFilesExistance(true, true, true);
       verifyNotes(UndoFacet.DEFAULT_NOTE);
    }
 
@@ -389,11 +398,12 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
       gitCommitAll();
       executeForgeCommand(FILENAMES[1]);
       undoRestore(true);
+      verifyFilesExistance(true, false);
 
       undoReset(true);
 
       executeForgeCommand(FILENAMES[2]);
-      verifyFilesExistance(true, false, true);
+      verifyFilesExistance(true, false, true); // WHY???
       verifyNotes(UndoFacet.DEFAULT_NOTE);
 
       undoRestore(true);

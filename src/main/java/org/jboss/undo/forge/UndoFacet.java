@@ -336,13 +336,14 @@ public class UndoFacet extends BaseFacet
       {
          Git repo = getGitObject();
 
-         if (!repo.status().call().isClean())
-            return false;
+//         if (!repo.status().call().isClean())
+//            return false;
 
          String previousBranch = repo.getRepository().getBranch();
+
          repo.checkout().setName(getUndoBranchName()).call();
          ObjectId startOfHistoryBranch = repo.getRepository().resolve("HEAD~" + historyBranchSize);
-         repo.reset().setMode(ResetType.HARD).setRef(startOfHistoryBranch.getName()).call();
+         repo.reset().setMode(ResetType.SOFT).setRef(startOfHistoryBranch.getName()).call();
          repo.checkout().setName(previousBranch).call();
 
          commitsMonitor.reset();
@@ -351,7 +352,7 @@ public class UndoFacet extends BaseFacet
       }
       catch (Exception e)
       {
-         throw new RuntimeException("Failed to reset history branch", e.getCause());
+         throw new RuntimeException("Failed to reset history branch [" + e.getMessage() + "]", e.getCause());
       }
 
       return result;
@@ -370,7 +371,7 @@ public class UndoFacet extends BaseFacet
          changeWorkingTreeNotesTo(branchWithNewCommit);
          break;
       case MULTIPLE_CHANGED_COMMITS:
-         reset();
+//         reset();
          break;
       default:
          throw new RuntimeException("Unknown RepositoryCommitState: " + state.toString());
