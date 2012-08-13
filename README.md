@@ -43,6 +43,14 @@ $ undo restore
 $ undo list
 ```
 
+## undo reset
+
+### resets plugin's history (only works in clean state)
+
+```
+$ undo reset
+```
+
 
 # How it works
 
@@ -74,11 +82,18 @@ To limit the number of merging conflicts and other potential problems, plugin-un
 Notice, that untracked files are also added. You should either use `git clean -f` before, or be absolutely OK with those files being kept in your repository after the commit is reverted. Use `.gitignore` to keep important files (e.g. IDE `.project` files, etc) untracked.
 
 
+## undo reset works only when git working tree is clean (contains no uncommitted changes)
+
+Reset runs `git-reset --hard` internally which removes all uncommitted files. To make sure your files will not be lost, reset only works in clean state.
+
+
 # Changelog
 
 This project uses [Apache Maven](http://maven.apache.org/) for release numbering.
 
-version 1.0.2: store and revert multiple commands from different branches and working tree (feature complete version)
+version 1.0.3: reset command, _in development_
+
+version 1.0.2: store and revert multiple commands from different branches and working tree
 
 version 1.0.1: store and revert unlimited commits from the working tree
 
