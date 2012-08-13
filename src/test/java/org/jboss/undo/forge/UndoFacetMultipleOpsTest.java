@@ -453,7 +453,7 @@ public class UndoFacetMultipleOpsTest extends AbstractShellTest
 
    private void verifyReset()
    {
-      int historySize = myProject.getFacet(UndoFacet.class).historyBranchSize;
+      int historySize = myProject.getFacet(UndoFacet.class).getHistoryBranchSize();
       RepositoryCommitState state = myProject.getFacet(UndoFacet.class).getCommitMonitorState();
       String branchWithOneCommit = myProject.getFacet(UndoFacet.class).getCommitMonitorBranchWithOneNewCommit();
 

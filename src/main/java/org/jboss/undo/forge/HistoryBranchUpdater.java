@@ -79,7 +79,7 @@ public class HistoryBranchUpdater
             repo.stashDrop().call();
             repo.add().addFilepattern(".").call();
 
-            project.getFacet(UndoFacet.class).historyBranchSize++;
+            project.getFacet(UndoFacet.class).increaseHistoryBranchSizeByOne();
          }
       }
       catch (Exception e)

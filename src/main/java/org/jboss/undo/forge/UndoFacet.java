@@ -71,7 +71,7 @@ public class UndoFacet extends BaseFacet
    public static final String DEFAULT_NOTE = "*WT";
    public static final String DELETED_COMMIT_NOTE = "*DELETED";
    public static boolean isReady = false;
-   public int historyBranchSize = 0;
+   private int historyBranchSize = 0;
    private Git gitObject = null;
    private final RepositoryCommitsMonitor commitsMonitor = new RepositoryCommitsMonitor();
 
@@ -422,6 +422,16 @@ public class UndoFacet extends BaseFacet
    {
       Git repo = getGitObject();
       return repo.getRepository().getRef(getUndoBranchName());
+   }
+
+   public int getHistoryBranchSize()
+   {
+      return historyBranchSize;
+   }
+
+   public void increaseHistoryBranchSizeByOne()
+   {
+      historyBranchSize++;
    }
 
    public Git getGitObject() throws IOException
