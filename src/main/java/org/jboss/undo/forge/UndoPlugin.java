@@ -27,7 +27,6 @@ import org.jboss.forge.jgit.revwalk.RevCommit;
 import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.Project;
 import org.jboss.forge.project.facets.events.InstallFacets;
-import org.jboss.forge.shell.Shell;
 import org.jboss.forge.shell.ShellMessages;
 import org.jboss.forge.shell.plugins.Alias;
 import org.jboss.forge.shell.plugins.Command;
@@ -57,7 +56,7 @@ public class UndoPlugin implements Plugin
    @Inject
    private Project project;
 
-    @Inject
+   @Inject
    private Event<InstallFacets> install;
 
    @SetupCommand()
@@ -79,16 +78,18 @@ public class UndoPlugin implements Plugin
    @Command(value = "list", help = "list changes stored in the undo branch")
    public void listCommand(PipeOut out) throws Exception
    {
-      Map<RevCommit, String> commitsWithNotes = project.getFacet(UndoFacet.class).getStoredCommitsWithNotesOnHistoryBranch();
+      Map<RevCommit, String> commitsWithNotes = project.getFacet(UndoFacet.class)
+               .getStoredCommitsWithNotesOnHistoryBranch();
 
-      for (Entry<RevCommit, String > each : commitsWithNotes.entrySet())
+      for (Entry<RevCommit, String> each : commitsWithNotes.entrySet())
       {
          RevCommit commit = each.getKey();
          String note = (each.getValue() != null) ? each.getValue() : "*NULL*";
-         if(Strings.areEqual(note, UndoFacet.DEFAULT_NOTE))
+         if (Strings.areEqual(note, UndoFacet.DEFAULT_NOTE))
             note = "*uncommitted*";
 
-         String line = commit.getId().abbreviate(GIT_HASH_ABBREV_SIZE).name() + " [" + note + "] " + commit.getShortMessage();
+         String line = commit.getId().abbreviate(GIT_HASH_ABBREV_SIZE).name() + " [" + note + "] "
+                  + commit.getShortMessage();
          out.println(line);
       }
    }
@@ -112,6 +113,8 @@ public class UndoPlugin implements Plugin
       if (isReset)
          ShellMessages.success(out, "history branch was reset successfully.");
       else
-         ShellMessages.info(out, "Nothing happened. History branch is either empty already or your git repository is not in clean state.");
+         ShellMessages
+                  .info(out,
+                           "Nothing happened. History branch is either empty already or your git repository is not in clean state.");
    }
 }

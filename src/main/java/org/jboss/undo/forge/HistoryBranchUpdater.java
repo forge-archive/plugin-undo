@@ -15,12 +15,15 @@ import org.jboss.forge.resources.events.ResourceEvent;
 import org.jboss.forge.resources.events.TempResourceCreated;
 import org.jboss.forge.shell.Shell;
 
-public class HistoryBranchGroomer implements EventBusGroomer
+public class HistoryBranchUpdater implements EventBusGroomer
 {
 
    @Override
    public List<Object> groom(List<Object> events)
    {
+      if (!UndoFacet.isReady)
+         return events;
+
       boolean isExecuted = false;
 
       for (Object event : events)
@@ -36,7 +39,6 @@ public class HistoryBranchGroomer implements EventBusGroomer
 
    private void updateHistoryBranch()
    {
-
       Shell shell = HistoryBranchChecker.getShell();
       Project project = shell.getCurrentProject();
 

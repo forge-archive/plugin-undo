@@ -20,8 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.enterprise.event.Observes;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import org.jboss.forge.jgit.api.Git;
 import org.jboss.forge.jgit.api.Status;
@@ -32,7 +30,6 @@ import org.jboss.forge.shell.events.CommandExecuted;
 
 public class HistoryBranchChecker
 {
-   @Inject
    private static Shell shell = null;
 
    private static Status beforeCommandExecution = null;
@@ -41,8 +38,11 @@ public class HistoryBranchChecker
 
    private static final List<String> IGNORED_COMMANDS = Arrays.asList("new-project", "undo");
 
-   public void getGitStatusBefore(@Observes final CommandExecuted command)
+   public void getGitStatusBefore(@Observes final CommandExecuted command, Shell shell)
    {
+      if (HistoryBranchChecker.shell == null)
+         HistoryBranchChecker.shell = shell;
+
       if (command.getStatus() != CommandExecuted.Status.SUCCESS)
          return;
 
