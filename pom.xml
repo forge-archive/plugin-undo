@@ -6,8 +6,7 @@
   <version>1.0.3-SNAPSHOT</version>
 
   <properties>
-    <forge.api.version>1.0.6-SNAPSHOT</forge.api.version>
-    <weld.version>1.1.2.Final</weld.version>
+    <forge.api.version>1.0.7-SNAPSHOT</forge.api.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
@@ -71,7 +70,7 @@
     <dependency>
       <groupId>com.jcraft</groupId>
       <artifactId>jsch</artifactId>
-      <version>0.1.44-1</version>        
+      <version>0.1.44-1</version>
     </dependency>
   </dependencies>
 

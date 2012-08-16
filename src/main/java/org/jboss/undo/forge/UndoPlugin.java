@@ -27,6 +27,7 @@ import org.jboss.forge.jgit.revwalk.RevCommit;
 import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.Project;
 import org.jboss.forge.project.facets.events.InstallFacets;
+import org.jboss.forge.shell.Shell;
 import org.jboss.forge.shell.ShellMessages;
 import org.jboss.forge.shell.plugins.Alias;
 import org.jboss.forge.shell.plugins.Command;
@@ -56,7 +57,7 @@ public class UndoPlugin implements Plugin
    @Inject
    private Project project;
 
-   @Inject
+    @Inject
    private Event<InstallFacets> install;
 
    @SetupCommand()
@@ -113,5 +114,4 @@ public class UndoPlugin implements Plugin
       else
          ShellMessages.info(out, "Nothing happened. History branch is either empty already or your git repository is not in clean state.");
    }
-
 }
