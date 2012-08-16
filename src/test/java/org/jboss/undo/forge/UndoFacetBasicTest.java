@@ -91,6 +91,22 @@ public class UndoFacetBasicTest extends AbstractShellTest
 
       Assert.assertTrue("should contain undo-branch", containsUndoBranch);
    }
+   
+   @Test
+   public void shouldIgnoreCommandWhichDoesntChangeResources() throws Exception
+   {
+      Project project = initializeJavaProject();
+      getShell().execute("undo setup");
+
+      String commandName = "ls";
+      getShell().execute(commandName);
+
+      // assert the no commits created
+      Iterable<RevCommit> commits = project.getFacet(UndoFacet.class).getStoredCommitsOnHistoryBranch();
+      List<String> commitMsgs = extractCommitMsgs(commits);
+
+      Assert.assertEquals("wrong number of commits in the history branch", 0, commitMsgs.size());
+   }
 
    @Test
    public void shouldAddChangesIntoUndoBranch() throws Exception

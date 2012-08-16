@@ -21,30 +21,31 @@ import java.util.List;
 
 import javax.enterprise.event.Observes;
 import javax.enterprise.inject.spi.BeanManager;
-import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.jboss.forge.bus.spi.EventBusGroomer;
 import org.jboss.forge.jgit.api.Git;
+import org.jboss.forge.jgit.api.Status;
 import org.jboss.forge.jgit.api.errors.GitAPIException;
 import org.jboss.forge.jgit.errors.NoWorkTreeException;
 import org.jboss.forge.jgit.revwalk.RevCommit;
 import org.jboss.forge.parser.java.util.Strings;
 import org.jboss.forge.project.Project;
+import org.jboss.forge.resources.events.ResourceEvent;
+import org.jboss.forge.resources.events.TempResourceCreated;
 import org.jboss.forge.shell.Shell;
 import org.jboss.forge.shell.events.CommandExecuted;
 
 @Singleton
-public class HistoryBranchUpdater
+public class HistoryBranchUpdater implements EventBusGroomer
 {
-   private static final List<String> IGNORED_COMMANDS = Arrays.asList("new-project", "cd", "clear", "wait", "undo");
+   private static final List<String> IGNORED_COMMANDS = Arrays.asList("new-project", "undo");
 
-   @Inject
-   private BeanManager beanManager;
+   private Status beforeCommandExecution = null;
+   private String[] commandDetails = new String[] { "", "" };
 
-   @Inject
-   private Shell shell;
-
-   public void updateHistoryBranch(@Observes final CommandExecuted command)
+   public void getGitStatusBefore(@Observes final CommandExecuted command)
    {
       if (command.getStatus() != CommandExecuted.Status.SUCCESS)
          return;
@@ -52,10 +53,52 @@ public class HistoryBranchUpdater
       if (!UndoFacet.isReady)
          return;
 
+      BeanManager manager = BeanManagerExtension.getBeanManager();
+      Shell shell = (Shell) manager.resolve(manager.getBeans(Shell.class));
       Project project = shell.getCurrentProject();
 
       if (!validRequirements(project, command))
          return;
+
+      try
+      {
+         Git repo = project.getFacet(UndoFacet.class).getGitObject();
+         beforeCommandExecution = repo.status().call();
+
+         commandDetails[0] = command.getCommand().getParent() != null ? command.getCommand().getParent().getName() : "";
+         commandDetails[1] = command.getCommand().getName();
+      }
+      catch (Exception e)
+      {
+         throw new RuntimeException("Failed to check if repository changed: [" + e.getMessage() + "]", e.getCause());
+      }
+   }
+
+   @Override
+   public List<Object> groom(List<Object> events)
+   {
+      boolean isExecuted = false;
+
+      for (Object event : events)
+      {
+         if (!isExecuted && event instanceof ResourceEvent && !(event instanceof TempResourceCreated))
+         {
+            updateHistoryBranch();
+            isExecuted = true;
+         }
+      }
+
+      beforeCommandExecution = null;
+      commandDetails = new String[] { "", "" };
+
+      return events;
+   }
+
+   private void updateHistoryBranch()
+   {
+      BeanManager manager = BeanManagerExtension.getBeanManager();
+      Shell shell = (Shell) manager.resolve(manager.getBeans(Shell.class));
+      Project project = shell.getCurrentProject();
 
       try
       {
@@ -72,7 +115,7 @@ public class HistoryBranchUpdater
             repo.stashCreate().call();
             repo.checkout().setName(undoBranch).call();
             repo.stashApply().call();
-            RevCommit commitWithChangeset = repo.commit().setMessage(prepareHistoryBranchCommitMsg(command)).call();
+            RevCommit commitWithChangeset = repo.commit().setMessage(prepareHistoryBranchCommitMsg()).call();
             repo.notesAdd().setObjectId(commitWithChangeset).setMessage(UndoFacet.DEFAULT_NOTE).call();
             repo.checkout().setName(previousBranch).call();
             repo.stashApply().call();
@@ -88,10 +131,10 @@ public class HistoryBranchUpdater
       }
    }
 
-   private String prepareHistoryBranchCommitMsg(final CommandExecuted command)
+   private String prepareHistoryBranchCommitMsg()
    {
-      String cmdParentName = command.getCommand().getParent() != null ? command.getCommand().getParent().getName() : "";
-      String cmdName = command.getCommand().getName();
+      String cmdParentName = commandDetails[0];
+      String cmdName = commandDetails[1];
       String enquotedCommand = Strings.enquote(
                Strings.areEqual(cmdParentName, cmdName) ? cmdName : cmdParentName + " " + cmdName
                );
@@ -121,6 +164,49 @@ public class HistoryBranchUpdater
 
    private boolean anythingChanged(Git repo) throws NoWorkTreeException, GitAPIException
    {
-      return !repo.status().call().isClean();
+      if (beforeCommandExecution == null)
+         return false;
+
+      Status afterCommandExecution = repo.status().call();
+      return !haveEqualStatus(beforeCommandExecution, afterCommandExecution);
+   }
+
+   private boolean haveEqualStatus(Status beforeCommandExecution, Status afterCommandExecution)
+   {
+      if (beforeCommandExecution.isClean() != afterCommandExecution.isClean())
+         return false;
+
+      if (!CollectionUtils.isEqualCollection(beforeCommandExecution.getAdded(), afterCommandExecution.getAdded()))
+      {
+         return false;
+      }
+      if (!CollectionUtils.isEqualCollection(beforeCommandExecution.getChanged(), afterCommandExecution.getChanged()))
+      {
+         return false;
+      }
+      if (!CollectionUtils.isEqualCollection(beforeCommandExecution.getConflicting(),
+               afterCommandExecution.getConflicting()))
+      {
+         return false;
+      }
+      if (!CollectionUtils.isEqualCollection(beforeCommandExecution.getMissing(), afterCommandExecution.getMissing()))
+      {
+         return false;
+      }
+      if (!CollectionUtils.isEqualCollection(beforeCommandExecution.getModified(), afterCommandExecution.getModified()))
+      {
+         return false;
+      }
+      if (!CollectionUtils.isEqualCollection(beforeCommandExecution.getRemoved(), afterCommandExecution.getRemoved()))
+      {
+         return false;
+      }
+      if (!CollectionUtils.isEqualCollection(beforeCommandExecution.getUntracked(),
+               afterCommandExecution.getUntracked()))
+      {
+         return false;
+      }
+
+      return true;
    }
 }
