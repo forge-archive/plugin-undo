@@ -3,9 +3,119 @@
 This plugin provides a possibility to revert a previously executed command in the [JBoss Forge](http://forge.jboss.org/).
 
 ## Usage
+
+### installing the plugin
+
+Undo plugin only works in project scope, so we should create a project first:
+
 ```
-TODO: add some meaningful examples
+[no project] forge-projects $ new-project --named forge-demo --topLevelPackage org.forge.demo
 ```
+
+And simply install the plugin:
+
+```
+[forge-demo] forge-demo $ setup undo
+```
+
+
+### Undoing a forge command
+
+Let's create something to work with:
+
+```
+[forge-demo] forge-demo $ persistence setup --provider HIBERNATE --container JBOSS_AS7
+[forge-demo] forge-demo $ entity --named User
+```
+
+Now let's add an attribute name to user:
+
+```
+[forge-demo] forge-demo $ field string --named name
+```
+
+Here is what we have so far: 
+```
+[forge-demo] User.java $ ls
+
+[fields]
+private::Long::id;                    private::String::name;
+private::int::version;                
+
+[methods]
+public::equals(Object that)::boolean
+public::getId()::Long
+public::getName()::String
+public::getVersion()::int
+public::hashCode()::int
+public::setId(final Long id)::void
+public::setName(final String name)::void
+public::setVersion(final int version)::void
+public::toString()::String
+```
+
+As we are doing this our boss comes and says that the customer requirements changed and they would like to have username split into 2 attributes: first name and last name. No problem we say! And undo the last command!
+
+```
+[forge-demo] User.java $ undo restore
+***SUCCESS*** latest forge command is reverted.
+[forge-demo] User.java $ ls
+
+[fields]
+private::Long::id;                    private::int::version;
+
+[methods]
+public::equals(Object that)::boolean
+public::getId()::Long
+public::getVersion()::int
+public::hashCode()::int
+public::setId(final Long id)::void
+public::setVersion(final int version)::void
+public::toString()::String
+```
+
+Now we add two attributes and get another coffee.
+
+```
+[forge-demo] forge-demo $ field string --named firstName
+[forge-demo] forge-demo $ field string --named lastName
+```
+
+```
+[forge-demo] User.java $ ls
+
+[fields]
+private::Long::id;                    private::String::firstName;
+private::String::lastName;            private::int::version;
+
+[methods]
+public::equals(Object that)::boolean
+public::getFirstName()::String
+public::getId()::Long
+public::getLastName()::String
+public::getVersion()::int
+public::hashCode()::int
+public::setFirstName(final String firstName)::void
+public::setId(final Long id)::void
+public::setLastName(final String lastName)::void
+public::setVersion(final int version)::void
+public::toString()::String
+
+```
+
+
+### Showing stored changes
+
+At any time, `undo list` command could be called to see what is stored in undo buffer:
+
+```
+[forge-demo] forge-demo $ undo list
+a0c8f6c [*uncommitted*] history-branch: changes introduced by the "field string" command
+e96cabb [*uncommitted*] history-branch: changes introduced by the "field string" command
+761b5f4 [*uncommitted*] history-branch: changes introduced by the "entity" command
+978ee78 [*uncommitted*] history-branch: changes introduced by the "persistence setup" command
+```
+
 
 # API
 
@@ -37,7 +147,7 @@ $ undo restore
 
 ## undo list
 
-### shows commands stored in the undo plugin's history
+### shows commands stored in the undo plugin's history 
 
 ```
 $ undo list
