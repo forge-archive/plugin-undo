@@ -27,8 +27,8 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.jboss.forge.env.Configuration;
-import org.jboss.forge.git.GitFacet;
 import org.jboss.forge.jgit.api.Git;
+import org.jboss.forge.jgit.api.InitCommand;
 import org.jboss.forge.jgit.api.ResetCommand.ResetType;
 import org.jboss.forge.jgit.api.errors.CheckoutConflictException;
 import org.jboss.forge.jgit.api.errors.GitAPIException;
@@ -51,7 +51,6 @@ import org.jboss.forge.project.facets.BaseFacet;
 import org.jboss.forge.resources.FileResource;
 import org.jboss.forge.shell.plugins.Alias;
 import org.jboss.forge.shell.plugins.Help;
-import org.jboss.forge.shell.plugins.RequiresFacet;
 import org.jboss.undo.forge.RepositoryCommitsMonitor.RepositoryCommitState;
 
 /**
@@ -60,7 +59,6 @@ import org.jboss.undo.forge.RepositoryCommitsMonitor.RepositoryCommitState;
  */
 @Alias("forge.plugin.undo")
 @Help("Undo plugin facet")
-@RequiresFacet(GitFacet.class)
 public class UndoFacet extends BaseFacet
 {
    public static final String DEFAULT_HISTORY_BRANCH_NAME = "forge-history";
@@ -83,8 +81,14 @@ public class UndoFacet extends BaseFacet
    {
       try
       {
-         Git git = getGitObject();
+         if (!gitDirExists())
+         {
+            InitCommand init = Git.init();
+            init.setDirectory(project.getProjectRoot().getUnderlyingResourceObject());
+            init.call();
+         }
 
+         Git git = getGitObject();
          ensureGitRepositoryIsInitialized(git);
          commitAllToHaveCleanTree(git);
          initializeHistoryBranch(git);
@@ -104,10 +108,13 @@ public class UndoFacet extends BaseFacet
    {
       try
       {
-         Git git = getGitObject();
-         for (Ref branch : git.branchList().call())
-            if (Strings.areEqual(Repository.shortenRefName(branch.getName()), getUndoBranchName()))
-               return true;
+         if (gitDirExists())
+         {
+            Git git = getGitObject();
+            for (Ref branch : git.branchList().call())
+               if (Strings.areEqual(Repository.shortenRefName(branch.getName()), getUndoBranchName()))
+                  return true;
+         }
 
          return false;
       }
@@ -432,6 +439,15 @@ public class UndoFacet extends BaseFacet
    public void increaseHistoryBranchSizeByOne()
    {
       historyBranchSize++;
+   }
+
+   public boolean gitDirExists() throws IOException
+   {
+      RepositoryBuilder db = new RepositoryBuilder().findGitDir(project.getProjectRoot().getUnderlyingResourceObject());
+      if (db.getGitDir() == null)
+         return false;
+
+      return true;
    }
 
    public Git getGitObject() throws IOException
